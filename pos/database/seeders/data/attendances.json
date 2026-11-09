@@ -1,0 +1,37 @@
+[
+ {
+  "employee_id": 1,
+  "in": 415,
+  "out": null
+ },
+ {
+  "employee_id": 2,
+  "in": 358,
+  "out": 873
+ },
+ {
+  "employee_id": 3,
+  "in": 492,
+  "out": null
+ },
+ {
+  "employee_id": 4,
+  "in": 542,
+  "out": null
+ },
+ {
+  "employee_id": 6,
+  "in": 657,
+  "out": null
+ },
+ {
+  "employee_id": 7,
+  "in": 604,
+  "out": null
+ },
+ {
+  "employee_id": 10,
+  "in": 381,
+  "out": 870
+ }
+]

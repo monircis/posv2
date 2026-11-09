@@ -1,0 +1,300 @@
+[
+ {
+  "id": "cash",
+  "name": "Cash drawer",
+  "kind": "cash",
+  "loc": "main",
+  "num": "",
+  "bsb": "",
+  "limit": 0,
+  "bal": 1840.5,
+  "active": true,
+  "defs": [
+   "posCash"
+  ],
+  "tx": [
+   {
+    "date": "29/09",
+    "type": "sale",
+    "desc": "POS takings",
+    "party": "Register 1 · 38 sales",
+    "ref": "Z-0929",
+    "amt": 1612.4
+   },
+   {
+    "date": "28/09",
+    "type": "xout",
+    "desc": "Banked to CBA Business",
+    "party": "Friday takings",
+    "ref": "TF-0088",
+    "amt": -3200
+   },
+   {
+    "date": "28/09",
+    "type": "sale",
+    "desc": "POS takings",
+    "party": "Register 1 · 44 sales",
+    "ref": "Z-0928",
+    "amt": 2104.6
+   },
+   {
+    "date": "27/09",
+    "type": "sale",
+    "desc": "POS takings",
+    "party": "Register 1 · 51 sales",
+    "ref": "Z-0927",
+    "amt": 2388.1
+   },
+   {
+    "date": "26/09",
+    "type": "expense",
+    "desc": "Fuel",
+    "party": "BP Bankstown",
+    "ref": "EX-1084",
+    "amt": -74.8
+   },
+   {
+    "date": "25/09",
+    "type": "refund",
+    "desc": "Customer refund",
+    "party": "Walk in · sale #4981",
+    "ref": "SR-0112",
+    "amt": -38.2
+   }
+  ]
+ },
+ {
+  "id": "cashb",
+  "name": "Cash drawer",
+  "kind": "cash",
+  "loc": "bank",
+  "num": "",
+  "bsb": "",
+  "limit": 0,
+  "bal": 612.3,
+  "active": true,
+  "defs": [],
+  "tx": [
+   {
+    "date": "29/09",
+    "type": "sale",
+    "desc": "POS takings",
+    "party": "Register B1 · 17 sales",
+    "ref": "Z-B0929",
+    "amt": 540.3
+   },
+   {
+    "date": "28/09",
+    "type": "xout",
+    "desc": "Banked to CBA Business",
+    "party": "",
+    "ref": "TF-0087",
+    "amt": -1100
+   },
+   {
+    "date": "27/09",
+    "type": "sale",
+    "desc": "POS takings",
+    "party": "Register B1 · 22 sales",
+    "ref": "Z-B0927",
+    "amt": 812
+   }
+  ]
+ },
+ {
+  "id": "cba",
+  "name": "CBA Business",
+  "kind": "bank",
+  "loc": "",
+  "num": "1044 7781",
+  "bsb": "062-118",
+  "limit": 0,
+  "bal": 28412.35,
+  "active": true,
+  "defs": [
+   "posCard",
+   "expenses",
+   "purchases"
+  ],
+  "tx": [
+   {
+    "date": "29/09",
+    "type": "sale",
+    "desc": "Tyro settlement",
+    "party": "Card sales 28/09",
+    "ref": "TY-0928",
+    "amt": 3884.2
+   },
+   {
+    "date": "28/09",
+    "type": "xin",
+    "desc": "From Cash drawer",
+    "party": "Friday takings",
+    "ref": "TF-0088",
+    "amt": 3200
+   },
+   {
+    "date": "28/09",
+    "type": "xin",
+    "desc": "From Cash drawer · Bankstown",
+    "party": "",
+    "ref": "TF-0087",
+    "amt": 1100
+   },
+   {
+    "date": "27/09",
+    "type": "purchase",
+    "desc": "Supplier payment",
+    "party": "Baraka Meats · PO-2041",
+    "ref": "PY-0410",
+    "amt": -6420
+   },
+   {
+    "date": "26/09",
+    "type": "expense",
+    "desc": "Packaging",
+    "party": "Pack & Wrap Supplies",
+    "ref": "EX-1090",
+    "amt": -412.5
+   },
+   {
+    "date": "25/09",
+    "type": "expense",
+    "desc": "Casual wages",
+    "party": "Weekend casuals",
+    "ref": "EX-1089",
+    "amt": -1560
+   },
+   {
+    "date": "24/09",
+    "type": "xout",
+    "desc": "To Tax saver",
+    "party": "GST set-aside",
+    "ref": "TF-0086",
+    "amt": -2500
+   },
+   {
+    "date": "20/09",
+    "type": "expense",
+    "desc": "Cleaning",
+    "party": "Sparkle Commercial",
+    "ref": "EX-1087",
+    "amt": -220
+   },
+   {
+    "date": "15/09",
+    "type": "fee",
+    "desc": "Merchant fees",
+    "party": "CBA Merchant",
+    "ref": "EX-1085",
+    "amt": -84.12
+   },
+   {
+    "date": "01/09",
+    "type": "expense",
+    "desc": "Rent",
+    "party": "Haldon Properties",
+    "ref": "EX-1083",
+    "amt": -6200
+   }
+  ]
+ },
+ {
+  "id": "tax",
+  "name": "Tax saver",
+  "kind": "bank",
+  "loc": "",
+  "num": "1044 9902",
+  "bsb": "062-118",
+  "limit": 0,
+  "bal": 14250,
+  "active": true,
+  "defs": [],
+  "tx": [
+   {
+    "date": "24/09",
+    "type": "xin",
+    "desc": "From CBA Business",
+    "party": "GST set-aside",
+    "ref": "TF-0086",
+    "amt": 2500
+   },
+   {
+    "date": "10/09",
+    "type": "xin",
+    "desc": "From CBA Business",
+    "party": "PAYG set-aside",
+    "ref": "TF-0081",
+    "amt": 1800
+   }
+  ]
+ },
+ {
+  "id": "amex",
+  "name": "Amex Business",
+  "kind": "card",
+  "loc": "",
+  "num": "1004",
+  "bsb": "",
+  "limit": 15000,
+  "bal": -3120.8,
+  "active": true,
+  "defs": [],
+  "tx": [
+   {
+    "date": "28/09",
+    "type": "expense",
+    "desc": "Fuel",
+    "party": "Ampol Chullora",
+    "ref": "EX-1092",
+    "amt": -96.4
+   },
+   {
+    "date": "18/09",
+    "type": "expense",
+    "desc": "Marketing",
+    "party": "Lakemba Community News",
+    "ref": "EX-1086",
+    "amt": -150
+   },
+   {
+    "date": "12/09",
+    "type": "payment",
+    "desc": "Card repayment",
+    "party": "From CBA Business",
+    "ref": "TF-0080",
+    "amt": 2400
+   },
+   {
+    "date": "08/09",
+    "type": "purchase",
+    "desc": "Supplier payment",
+    "party": "Halal Spice Co",
+    "ref": "PY-0398",
+    "amt": -860
+   }
+  ]
+ },
+ {
+  "id": "paypal",
+  "name": "PayPal",
+  "kind": "wallet",
+  "loc": "",
+  "num": "",
+  "bsb": "",
+  "limit": 0,
+  "bal": 0,
+  "active": false,
+  "defs": [],
+  "tx": [
+   {
+    "date": "02/07",
+    "type": "xout",
+    "desc": "Closed, balance moved to CBA",
+    "party": "",
+    "ref": "TF-0061",
+    "amt": -218.4
+   }
+  ]
+ }
+]

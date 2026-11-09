@@ -1,0 +1,62 @@
+[
+ {
+  "id": "LV-118",
+  "emp": 5,
+  "type": "Annual",
+  "from": "28/09",
+  "to": "02/10",
+  "days": 5,
+  "status": "Approved",
+  "note": "Family trip to Brisbane"
+ },
+ {
+  "id": "LV-119",
+  "emp": 3,
+  "type": "Annual",
+  "from": "12/10",
+  "to": "16/10",
+  "days": 5,
+  "status": "Pending",
+  "note": "School holidays"
+ },
+ {
+  "id": "LV-120",
+  "emp": 6,
+  "type": "Personal",
+  "from": "30/09",
+  "to": "30/09",
+  "days": 1,
+  "status": "Pending",
+  "note": "Medical appointment"
+ },
+ {
+  "id": "LV-121",
+  "emp": 10,
+  "type": "Annual",
+  "from": "19/10",
+  "to": "30/10",
+  "days": 10,
+  "status": "Pending",
+  "note": "Overseas wedding"
+ },
+ {
+  "id": "LV-115",
+  "emp": 2,
+  "type": "Personal",
+  "from": "08/09",
+  "to": "09/09",
+  "days": 2,
+  "status": "Approved",
+  "note": "Sick"
+ },
+ {
+  "id": "LV-116",
+  "emp": 4,
+  "type": "Unpaid",
+  "from": "15/09",
+  "to": "15/09",
+  "days": 1,
+  "status": "Declined",
+  "note": "Short staffed that day"
+ }
+]

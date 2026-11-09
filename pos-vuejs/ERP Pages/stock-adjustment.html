@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en" data-page="adjust">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stock Adjustment · Madinah Butchery ERP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<script src="js/loader.js"></script>
+<script src="js/support.js"></script>
+</head>
+<body>
+<x-dc>
+<div style="min-height:100vh;background:#eef2f6">
+
+  <sc-if value="{{ isAdjust }}" hint-placeholder-val="{{ false }}">
+  <div data-screen-label="Stock Adjustment" style="height:100vh;min-height:720px;position:relative">
+    <div style="height:100%;overflow:auto">
+      <div style="min-width:1280px;height:100%;position:relative;display:flex;flex-direction:column">
+<div data-screen-label="Stock Adjustment" style="height:100%;min-height:820px;min-width:1280px;display:flex;background:#eef2f6;position:relative;overflow:hidden;font-family:'Public Sans',system-ui,sans-serif;color:#0f1c2b">
+
+  <div style="{{ sideStyle }}">
+    <div style="height:56px;display:flex;align-items:center;gap:10px;padding:0 14px;flex:none;border-bottom:1px solid rgba(255,255,255,.09)">
+      <div style="width:26px;height:26px;border-radius:7px;background:#4da3e8;color:#06283a;display:grid;place-items:center;font-weight:700;font-size:13px;flex:none">M</div>
+      <div style="{{ sideText }}">
+        <div style="font-size:13px;font-weight:600;color:#ffffff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Madinah Butchery</div>
+        <div style="font-size:10.5px;color:#89aec6">All locations</div>
+      </div>
+      <div style="{{ sideCaret }}">&#9662;</div>
+    </div>
+    <div style="{{ sideListStyle }}">
+      <sc-for list="{{ sa_nav }}" as="n" hint-placeholder-count="18">
+        <div>
+          <div onClick="{{ n.onClick }}" title="{{ n.name }}" style="{{ n.style }}" style-hover="background:rgba(255,255,255,.07)">
+          <div style="{{ n.iconStyle }}">{{ n.key }}</div>
+          <div style="{{ n.nameStyle }}">{{ n.name }}</div>
+          <div style="{{ n.caretStyle }}">&#8250;</div>
+        </div>
+          <sc-if value="{{ n.open }}" hint-placeholder-val="{{ false }}">
+            <div style="margin:2px 0 6px 26px;border-left:1px solid rgba(255,255,255,.12);padding-left:10px;display:flex;flex-direction:column;gap:1px">
+              <sc-for list="{{ n.children }}" as="c" hint-placeholder-count="2">
+                <div onClick="{{ c.onClick }}" style="{{ c.style }}" style-hover="color:#ffffff">{{ c.name }}</div>
+              </sc-for>
+            </div>
+          </sc-if>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <div style="flex:1;min-width:0;display:flex;flex-direction:column">
+    <div style="height:56px;flex:none;background:#ffffff;border-bottom:1px solid #dfe6ee;display:flex;align-items:center;gap:14px;padding:0 20px">
+      <div onClick="{{ toggleNav }}" title="{{ navTip }}" style="width:30px;height:30px;border-radius:7px;border:1px solid #dfe6ee;display:grid;place-items:center;cursor:pointer;color:#5d6b7d;font-size:13px;flex:none" style-hover="background:#f2f6fa;color:#1668c9">&#9776;</div>
+      <div style="flex:1;max-width:420px;position:relative">
+        <div style="position:absolute;left:11px;top:50%;transform:translateY(-50%);color:#9aa7b6;font-size:12px">&#9906;</div>
+        <input placeholder="Search products, invoices, contacts&hellip;" style="width:100%;height:34px;border:1px solid #dfe6ee;border-radius:8px;background:#f7fafc;padding:0 10px 0 30px;font-family:'Public Sans',sans-serif;font-size:13px;outline:none" style-focus="background:#ffffff;border-color:#1668c9" />
+      </div>
+      <div style="margin-left:auto;display:flex;align-items:center;gap:8px">
+        <div onClick="{{ goPos }}" style="height:32px;padding:0 12px;border-radius:8px;background:#1668c9;color:#ffffff;display:flex;align-items:center;font-size:12.5px;font-weight:600;cursor:pointer" style-hover="background:#1257ab">Open POS</div>
+        <div style="height:32px;padding:0 11px;border-radius:8px;border:1px solid #dfe6ee;display:flex;align-items:center;font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:#4a5866">29/09/2026</div>
+        <div style="width:32px;height:32px;border-radius:8px;border:1px solid #dfe6ee;display:grid;place-items:center;position:relative;color:#5d6b7d">&#9737;<div style="position:absolute;top:6px;right:6px;width:6px;height:6px;border-radius:50%;background:#d93a3a;border:1.5px solid #ffffff"></div></div>
+        <div style="display:flex;align-items:center;gap:8px;padding:3px 9px 3px 3px;border-radius:8px;border:1px solid #dfe6ee">
+          <div style="width:25px;height:25px;border-radius:6px;background:#0a3a52;color:#ffffff;display:grid;place-items:center;font-size:11px;font-weight:600">AM</div>
+          <div style="font-size:12.5px;font-weight:500">Aminul</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="flex:1;overflow-y:auto;min-height:0">
+
+      <sc-if value="{{ sa_isList }}" hint-placeholder-val="{{ true }}">
+      <div>
+        <div style="padding:20px 24px 0;background:#ffffff;border-bottom:1px solid #dfe6ee">
+          <div style="display:flex;align-items:center;gap:7px;font-size:11.5px;color:#7d8b9c;margin-bottom:8px">
+            <span>Stock</span><span style="color:#c2cedb">/</span><span style="color:#0f1c2b;font-weight:500">Stock adjustments</span>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:20px;flex-wrap:wrap">
+            <div>
+              <h2 style="margin:0 0 3px;font-size:22px;font-weight:700;letter-spacing:-0.018em">Stock adjustments</h2>
+              <div style="font-size:12.5px;color:#5d6b7d">{{ sa_listSub }}</div>
+            </div>
+            <div style="margin-left:auto;display:flex;gap:8px;align-items:center">
+              <div onClick="{{ sa_exportList }}" style="height:34px;padding:0 13px;border-radius:8px;border:1px solid #dfe6ee;display:flex;align-items:center;font-size:12.5px;font-weight:500;color:#4a5866;cursor:pointer" style-hover="background:#f2f6fa">Export</div>
+              <div onClick="{{ sa_newCount }}" style="height:34px;padding:0 13px;border-radius:8px;border:1px solid #dfe6ee;display:flex;align-items:center;font-size:12.5px;font-weight:600;color:#14549e;cursor:pointer" style-hover="background:#f2f6fa">Start stock count</div>
+              <div onClick="{{ sa_newAdj }}" style="height:34px;padding:0 15px;border-radius:8px;background:#1668c9;color:#ffffff;display:flex;align-items:center;font-size:12.5px;font-weight:600;cursor:pointer" style-hover="background:#1257ab">+ New adjustment</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:2px;margin-top:16px">
+            <sc-for list="{{ sa_typeTabs }}" as="t" hint-placeholder-count="4">
+              <div onClick="{{ t.onClick }}" style="{{ t.style }}">{{ t.name }}<span style="{{ t.countStyle }}">{{ t.count }}</span></div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="padding:20px 24px 32px">
+          <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:14px">
+            <div style="background:#ffffff;border:1px solid #dfe6ee;border-radius:12px;padding:14px 16px;display:flex;align-items:center;gap:12px">
+              <div style="width:32px;height:32px;border-radius:9px;background:#fdeaea;color:#b02020;display:grid;place-items:center;font-size:17px;font-weight:700;flex:none">&minus;</div>
+              <div>
+                <div style="font-size:11.5px;color:#7d8b9c">Stock decreased this month</div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:18px;font-weight:600;color:#b02020;letter-spacing:-0.02em">&minus;{{ sa_mDec }}</div>
+              </div>
+            </div>
+            <div style="background:#ffffff;border:1px solid #dfe6ee;border-radius:12px;padding:14px 16px;display:flex;align-items:center;gap:12px">
+              <div style="width:32px;height:32px;border-radius:9px;background:#e7f6ee;color:#0f6b43;display:grid;place-items:center;font-size:17px;font-weight:700;flex:none">+</div>
+              <div>
+                <div style="font-size:11.5px;color:#7d8b9c">Stock increased this month</div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:18px;font-weight:600;color:#0f6b43;letter-spacing:-0.02em">+{{ sa_mInc }}</div>
+              </div>
+            </div>
+            <div style="background:#ffffff;border:1px solid #dfe6ee;border-radius:12px;padding:14px 16px">
+              <div style="font-size:11.5px;color:#7d8b9c;margin-bottom:6px">Top decrease reasons</div>
+              <div style="display:flex;gap:6px;flex-wrap:wrap">
+                <sc-for list="{{ sa_topReasons }}" as="r" hint-placeholder-count="3">
+                  <div style="font-size:11.5px;background:#f2f6fa;border-radius:6px;padding:3px 8px;color:#4a5866">{{ r.name }} <span style="font-family:'IBM Plex Mono',monospace;color:#b02020">{{ r.v }}</span></div>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:14px">
+            <div style="position:relative;width:240px">
+              <div style="position:absolute;left:10px;top:50%;transform:translateY(-50%);color:#9aa7b6;font-size:12px">&#9906;</div>
+              <input value="{{ sa_q }}" onChange="{{ sa_onQ }}" placeholder="Reference or product" style="width:100%;height:34px;border:1px solid #dfe6ee;border-radius:8px;background:#ffffff;padding:0 10px 0 29px;font-family:'Public Sans',sans-serif;font-size:12.5px;outline:none" style-focus="border-color:#1668c9" />
+            </div>
+            <select value="{{ sa_locFilter }}" onChange="{{ sa_onLocFilter }}" style="height:34px;border:1px solid #dfe6ee;border-radius:8px;background:#ffffff;padding:0 10px;font-family:'Public Sans',sans-serif;font-size:12.5px;color:#4a5866;outline:none;cursor:pointer">
+              <option value="all">All locations</option>
+              <sc-for list="{{ sa_locOpts }}" as="o" hint-placeholder-count="3"><option value="{{ o.id }}">{{ o.name }}</option></sc-for>
+            </select>
+            <select value="{{ sa_reasonFilter }}" onChange="{{ sa_onReasonFilter }}" style="height:34px;border:1px solid #dfe6ee;border-radius:8px;background:#ffffff;padding:0 10px;font-family:'Public Sans',sans-serif;font-size:12.5px;color:#4a5866;outline:none;cursor:pointer">
+              <option value="all">Any reason</option>
+              <sc-for list="{{ sa_allReasons }}" as="o" hint-placeholder-count="6"><option value="{{ o.name }}">{{ o.name }}</option></sc-for>
+            </select>
+            <div style="height:34px;padding:0 11px;border-radius:8px;border:1px solid #dfe6ee;background:#ffffff;display:flex;align-items:center;gap:9px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:#4a5866">01/09/2026 <span style="color:#c2cedb">&rarr;</span> 29/09/2026</div>
+            <sc-if value="{{ sa_hasFilters }}" hint-placeholder-val="{{ false }}">
+              <div onClick="{{ sa_clearFilters }}" style="font-size:12.5px;font-weight:600;color:#1668c9;cursor:pointer;padding:0 6px">Clear</div>
+            </sc-if>
+          </div>
+
+          <div style="background:#ffffff;border:1px solid #dfe6ee;border-radius:12px;overflow:hidden">
+            <div style="display:grid;grid-template-columns:1fr 1.1fr 1fr 2fr 1fr 0.8fr;gap:12px;padding:10px 16px;background:#f6f9fc;border-bottom:1px solid #dfe6ee;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.07em;text-transform:uppercase;color:#5d6b7d;align-items:center">
+              <div>Reference</div><div>Location</div><div>Type</div><div>Items &amp; reason</div><div style="text-align:right">Value impact</div><div>By</div>
+            </div>
+            <sc-for list="{{ sa_rows }}" as="r" hint-placeholder-count="7">
+              <div onClick="{{ r.open }}" style="display:grid;grid-template-columns:1fr 1.1fr 1fr 2fr 1fr 0.8fr;gap:12px;padding:11px 16px;border-bottom:1px solid #f0f4f8;align-items:center;cursor:pointer" style-hover="background:#f9fbfd">
+                <div>
+                  <div style="font-family:'IBM Plex Mono',monospace;font-size:12.5px;font-weight:500;color:#1668c9">{{ r.ref }}</div>
+                  <div style="font-size:10.5px;color:#9aa7b6;margin-top:1px">{{ r.date }}</div>
+                </div>
+                <div style="font-size:13px;font-weight:500">{{ r.loc }}</div>
+                <div><span style="{{ r.badge }}">{{ r.type }}</span></div>
+                <div style="min-width:0">
+                  <div style="font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ r.items }}</div>
+                  <div style="font-size:11px;color:#8b98a8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ r.reasons }}</div>
+                </div>
+                <div style="{{ r.valueStyle }}">{{ r.value }}</div>
+                <div style="font-size:12.5px;color:#4a5866">{{ r.by }}</div>
+              </div>
+            </sc-for>
+            <sc-if value="{{ sa_noRows }}" hint-placeholder-val="{{ false }}">
+              <div style="padding:40px 20px;text-align:center">
+                <div style="font-size:13.5px;font-weight:600;margin-bottom:4px">No adjustments match</div>
+                <div style="font-size:12.5px;color:#7d8b9c">Try another type or clear the filters.</div>
+              </div>
+            </sc-if>
+            <div style="display:grid;grid-template-columns:1fr 1.1fr 1fr 2fr 1fr 0.8fr;gap:12px;padding:12px 16px;background:#f6f9fc;align-items:center">
+              <div style="font-size:12px;color:#7d8b9c;grid-column:span 4">Showing {{ sa_rowCount }} &middot; net value for current filter</div>
+              <div style="{{ sa_rowTotalStyle }}">{{ sa_rowTotal }}</div>
+              <div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </sc-if>
+
+      <sc-if value="{{ sa_isForm }}" hint-placeholder-val="{{ false }}">
+      <div>
+        <div style="padding:20px 24px 16px;background:#ffffff;border-bottom:1px solid #dfe6ee">
+          <div style="display:flex;align-items:center;gap:7px;font-size:11.5px;color:#7d8b9c;margin-bottom:8px">
+            <span onClick="{{ sa_goList }}" style="cursor:pointer;color:#1668c9">Stock adjustments</span><span style="color:#c2cedb">/</span><span style="color:#0f1c2b;font-weight:500">New adjustment</span>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:20px;flex-wrap:wrap">
+            <div>
+              <h2 style="margin:0 0 3px;font-size:22px;font-weight:700;letter-spacing:-0.018em">New stock adjustment</h2>
+              <div style="font-size:12.5px;color:#5d6b7d">Same line-item form as purchases and transfers. Stock changes the moment you post.</div>
+            </div>
+            <div style="margin-left:auto;display:flex;gap:8px;align-items:center">
+              <div onClick="{{ sa_goList }}" style="height:34px;padding:0 13px;border-radius:8px;border:1px solid #dfe6ee;display:flex;align-items:center;font-size:12.5px;font-weight:500;color:#4a5866;cursor:pointer" style-hover="background:#f2f6fa">Cancel</div>
+              <div onClick="{{ sa_post }}" style="{{ sa_postBtnStyle }}">{{ sa_postLabel }}</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="padding:20px 24px 32px;display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:16px;align-items:start">
+          <div style="display:grid;gap:14px">
+            <div style="background:#ffffff;border:1px solid #dfe6ee;border-radius:12px;padding:17px 19px">
+              <label style="display:block;font-size:12px;font-weight:600;margin-bottom:7px">Adjustment type</label>
+              <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
+                <sc-for list="{{ sa_modes }}" as="m" hint-placeholder-count="3">
+                  <div onClick="{{ m.onClick }}" style="{{ m.style }}">
+                    <div style="{{ m.iconStyle }}">{{ m.icon }}</div>
+                    <div style="min-width:0">
+                      <div style="font-size:13.5px;font-weight:700">{{ m.name }}</div>
+                      <div style="font-size:11.5px;opacity:.8;margin-top:1px;line-height:1.35">{{ m.sub }}</div>
+                    </div>
+                  </div>
+                </sc-for>
+              </div>
+              <div style="display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:14px;margin-top:16px">
+                <div>
+                  <label style="display:block;font-size:12px;font-weight:600;margin-bottom:5px">Location <span style="color:#d93a3a">*</span></label>
+                  <select value="{{ sa_fLoc }}" onChange="{{ sa_onLoc }}" style="width:100%;height:36px;border:1px solid #dfe6ee;border-radius:8px;padding:0 10px;font-family:'Public Sans',sans-serif;font-size:13px;background:#ffffff;outline:none;cursor:pointer">
+                    <sc-for list="{{ sa_locOpts }}" as="o" hint-placeholder-count="3"><option value="{{ o.id }}">{{ o.name }}</option></sc-for>
+                  </select>
+                </div>
+                <div>
+                  <label style="display:block;font-size:12px;font-weight:600;margin-bottom:5px">Reference</label>
+                  <div style="height:36px;border:1px solid #e4eaf1;border-radius:8px;padding:0 11px;display:flex;align-items:center;font-family:'IBM Plex Mono',monospace;font-size:12.5px;background:#f7fafc;color:#4a5866">{{ sa_fRef }}</div>
+                </div>
+                <div>
+                  <label style="display:block;font-size:12px;font-weight:600;margin-bottom:5px">Date</label>
+                  <div style="height:36px;border:1px solid #dfe6ee;border-radius:8px;padding:0 11px;display:flex;align-items:center;font-family:'IBM Plex Mono',monospace;font-size:12.5px">29/09/2026</div>
+                </div>
+              </div>
+            </div>
+
+            <div style="background:#ffffff;border:1px solid #dfe6ee;border-radius:12px;overflow:hidden">
+              <div style="padding:13px 16px;border-bottom:1px solid #eaeff5;position:relative;display:flex;gap:10px;align-items:center">
+                <div style="position:relative;flex:1">
+                  <div style="position:absolute;left:12px;top:50%;transform:translateY(-50%);color:#9aa7b6;font-size:13px">&#9906;</div>
+                  <input value="{{ sa_fq }}" onChange="{{ sa_onFq }}" onKeyDown="{{ sa_onFqKey }}" placeholder="Scan or search a product to add a line" style="width:100%;height:40px;border:1px solid #1668c9;border-radius:9px;background:#f6faff;padding:0 12px 0 34px;font-family:'Public Sans',sans-serif;font-size:13px;outline:none" />
+                </div>
+                <sc-if value="{{ sa_isCount }}" hint-placeholder-val="{{ false }}">
+                  <div onClick="{{ sa_addAll }}" style="height:40px;padding:0 13px;border-radius:9px;border:1px solid #dfe6ee;display:flex;align-items:center;font-size:12.5px;font-weight:500;color:#4a5866;cursor:pointer;flex:none" style-hover="background:#f2f6fa">Add all products</div>
+                </sc-if>
+                <sc-if value="{{ sa_showResults }}" hint-placeholder-val="{{ false }}">
+                  <div style="position:absolute;left:16px;right:16px;top:56px;background:#ffffff;border:1px solid #dfe6ee;border-radius:10px;box-shadow:0 16px 32px -16px rgba(15,28,43,.35);z-index:5;overflow:hidden">
+                    <sc-for list="{{ sa_results }}" as="p" hint-placeholder-count="4">
+                      <div onClick="{{ p.onClick }}" style="display:flex;align-items:center;gap:10px;padding:9px 14px;border-bottom:1px solid #f0f4f8;cursor:pointer" style-hover="background:#f0f6fd">
+                        <div style="flex:1;min-width:0">
+                          <div style="font-size:13px;font-weight:500">{{ p.name }}</div>
+                          <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#8b98a8">SKU {{ p.sku }}</div>
+                        </div>
+                        <div style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:#5d6b7d">{{ p.stock }}</div>
+                      </div>
+                    </sc-for>
+                    <sc-if value="{{ sa_noResults }}" hint-placeholder-val="{{ false }}">
+                      <div style="padding:14px 16px;font-size:12.5px;color:#7d8b9c">No product matches.</div>
+                    </sc-if>
+                  </div>
+                </sc-if>
+              </div>
+              <div style="display:grid;grid-template-columns:24px minmax(0,1.9fr) 0.8fr 1.3fr 0.9fr 1.3fr 0.9fr 28px;gap:10px;padding:9px 16px;background:#f6f9fc;border-bottom:1px solid #dfe6ee;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.07em;text-transform:uppercase;color:#5d6b7d">
+                <div>#</div><div>Product</div><div style="text-align:right">On hand</div><div style="text-align:center">{{ sa_qtyHead }}</div><div style="text-align:right">New stock</div><div>Reason</div><div style="text-align:right">Value</div><div></div>
+              </div>
+              <sc-for list="{{ sa_fLines }}" as="l" hint-placeholder-count="3">
+                <div style="{{ l.rowStyle }}">
+                  <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#9aa7b6">{{ l.n }}</div>
+                  <div style="min-width:0">
+                    <div style="font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ l.name }}</div>
+                    <div style="{{ l.hintStyle }}">{{ l.hint }}</div>
+                  </div>
+                  <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;text-align:right;color:#4a5866">{{ l.onHand }}</div>
+                  <div style="display:flex;align-items:center;justify-content:center;gap:4px">
+                    <sc-if value="{{ l.showDir }}" hint-placeholder-val="{{ false }}">
+                      <div onClick="{{ l.flip }}" title="Switch increase / decrease" style="{{ l.dirStyle }}">{{ l.dirMark }}</div>
+                    </sc-if>
+                    <div style="{{ l.qtyBox }}">
+                      <input value="{{ l.qty }}" onChange="{{ l.onQty }}" placeholder="{{ l.ph }}" style="width:52px;height:100%;border:none;background:transparent;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:12.5px;font-weight:600;outline:none;padding:0 4px 0 0" />
+                      <div style="font-size:11px;color:#8b98a8;padding-right:8px">{{ l.unit }}</div>
+                    </div>
+                  </div>
+                  <div style="{{ l.newStyle }}">{{ l.newStock }}</div>
+                  <select value="{{ l.reason }}" onChange="{{ l.onReason }}" style="{{ l.reasonStyle }}">
+                    <option value="">Pick reason</option>
+                    <sc-for list="{{ l.reasons }}" as="o" hint-placeholder-count="4"><option value="{{ o.name }}">{{ o.name }}</option></sc-for>
+                  </select>
+                  <div style="{{ l.valueStyle }}">{{ l.value }}</div>
+                  <div onClick="{{ l.remove }}" style="width:26px;height:26px;border-radius:6px;display:grid;place-items:center;color:#b3c0cf;cursor:pointer;font-size:14px" style-hover="background:#fdeaea;color:#b02020">&times;</div>
+                </div>
+              </sc-for>
+              <sc-if value="{{ sa_fEmpty }}" hint-placeholder-val="{{ false }}">
+                <div style="padding:30px 20px;text-align:center;font-size:12.5px;color:#7d8b9c">{{ sa_emptyText }}</div>
+              </sc-if>
+            </div>
+
+            <div style="background:#ffffff;border:1px solid #dfe6ee;border-radius:12px;padding:15px 19px">
+              <label style="display:block;font-size:12px;font-weight:600;margin-bottom:5px">Notes</label>
+              <textarea value="{{ sa_fNotes }}" onChange="{{ sa_onNotes }}" placeholder="e.g. Cool room 2 failed overnight, temperature log attached" style="width:100%;min-height:64px;border:1px solid #dfe6ee;border-radius:8px;padding:9px 11px;font-family:'Public Sans',sans-serif;font-size:13px;outline:none;resize:vertical" style-focus="border-color:#1668c9"></textarea>
+            </div>
+          </div>
+
+          <div style="display:grid;gap:14px;position:sticky;top:20px">
+            <div style="background:#ffffff;border:1px solid #dfe6ee;border-radius:12px;padding:17px 19px">
+              <div style="font-size:13px;font-weight:700;margin-bottom:12px">Value impact</div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+                <div style="background:#e7f6ee;border-radius:10px;padding:10px 12px">
+                  <div style="font-size:11px;color:#0f6b43;font-weight:600">Increase</div>
+                  <div style="font-family:'IBM Plex Mono',monospace;font-size:15px;font-weight:600;color:#0f6b43;margin-top:3px">+{{ sa_sInc }}</div>
+                  <div style="font-size:10.5px;color:#4f9a74;margin-top:2px">{{ sa_sIncN }}</div>
+                </div>
+                <div style="background:#fdf4f4;border-radius:10px;padding:10px 12px">
+                  <div style="font-size:11px;color:#b02020;font-weight:600">Decrease</div>
+                  <div style="font-family:'IBM Plex Mono',monospace;font-size:15px;font-weight:600;color:#b02020;margin-top:3px">&minus;{{ sa_sDec }}</div>
+                  <div style="font-size:10.5px;color:#c77a7a;margin-top:2px">{{ sa_sDecN }}</div>
+                </div>
+              </div>
+              <div style="display:flex;align-items:baseline;border-top:1px solid #eaeff5;margin-top:12px;padding-top:12px">
+                <div style="flex:1;font-size:13px;font-weight:600">Net change</div>
+                <div style="{{ sa_sNetStyle }}">{{ sa_sNet }}</div>
+              </div>
+              <div style="font-size:11.5px;color:#7d8b9c;margin-top:6px;line-height:1.5">Valued at average cost. Decreases post to Stock write-off, increases to Stock gain.</div>
+            </div>
+            <sc-if value="{{ sa_needsApproval }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;gap:10px;align-items:flex-start;background:#fdf1dd;border:1px solid #f0d9ac;border-radius:12px;padding:12px 14px;font-size:12px;color:#8a5300;line-height:1.5">
+                <div style="font-weight:700;flex:none">!</div>
+                <div>Write-offs over 500.00 need a manager. Posting will ask Sara Rahman to approve.</div>
+              </div>
+            </sc-if>
+            <sc-if value="{{ sa_hasErrors }}" hint-placeholder-val="{{ false }}">
+              <div style="background:#fdeaea;border:1px solid #f3cfcf;border-radius:12px;padding:12px 15px;display:grid;gap:5px">
+                <sc-for list="{{ sa_errors }}" as="e" hint-placeholder-count="1">
+                  <div style="font-size:12px;color:#b02020;display:flex;gap:7px"><span style="font-weight:700">&times;</span>{{ e.msg }}</div>
+                </sc-for>
+              </div>
+            </sc-if>
+          </div>
+        </div>
+      </div>
+      </sc-if>
+
+      <sc-if value="{{ sa_isDetails }}" hint-placeholder-val="{{ false }}">
+      <div>
+        <div style="padding:20px 24px 16px;background:#ffffff;border-bottom:1px solid #dfe6ee">
+          <div style="display:flex;align-items:center;gap:7px;font-size:11.5px;color:#7d8b9c;margin-bottom:8px">
+            <span onClick="{{ sa_goList }}" style="cursor:pointer;color:#1668c9">Stock adjustments</span><span style="color:#c2cedb">/</span><span style="color:#0f1c2b;font-weight:500;font-family:'IBM Plex Mono',monospace">{{ sa_d.ref }}</span>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:20px;flex-wrap:wrap">
+            <div>
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:3px">
+                <h2 style="margin:0;font-size:22px;font-weight:700;letter-spacing:-0.018em;font-family:'IBM Plex Mono',monospace">{{ sa_d.ref }}</h2>
+                <span style="{{ sa_d.badge }}">{{ sa_d.type }}</span>
+                <sc-if value="{{ sa_d.reversed }}" hint-placeholder-val="{{ false }}">
+                  <span style="background:#eef2f6;color:#5d6b7d;border-radius:5px;padding:3px 8px;font-size:11.5px;font-weight:600">Reversed by {{ sa_d.reversedBy }}</span>
+                </sc-if>
+              </div>
+              <div style="font-size:12.5px;color:#5d6b7d">{{ sa_d.sub }}</div>
+            </div>
+            <div style="margin-left:auto;display:flex;gap:8px;align-items:center">
+              <div onClick="{{ sa_printDoc }}" style="height:34px;padding:0 13px;border-radius:8px;border:1px solid #dfe6ee;display:flex;align-items:center;font-size:12.5px;font-weight:500;color:#4a5866;cursor:pointer" style-hover="background:#f2f6fa">Print</div>
+              <sc-if value="{{ sa_d.canReverse }}" hint-placeholder-val="{{ true }}">
+                <div onClick="{{ sa_askReverse }}" style="height:34px;padding:0 13px;border-radius:8px;border:1px solid #f3cfcf;background:#fdf4f4;display:flex;align-items:center;font-size:12.5px;font-weight:600;color:#b02020;cursor:pointer" style-hover="background:#fdeaea">Reverse adjustment</div>
+              </sc-if>
+            </div>
+          </div>
+        </div>
+
+        <div style="padding:20px 24px 32px;display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:16px;align-items:start">
+          <div style="background:#ffffff;border:1px solid #dfe6ee;border-radius:12px;overflow:hidden">
+            <div style="display:grid;grid-template-columns:24px minmax(0,2fr) 1.2fr 1fr 1.3fr 1fr;gap:10px;padding:10px 16px;background:#f6f9fc;border-bottom:1px solid #dfe6ee;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.07em;text-transform:uppercase;color:#5d6b7d">
+              <div>#</div><div>Product</div><div style="text-align:right">Before &rarr; after</div><div style="text-align:right">Change</div><div>Reason</div><div style="text-align:right">Value</div>
+            </div>
+            <sc-for list="{{ sa_d.lines }}" as="l" hint-placeholder-count="3">
+              <div style="display:grid;grid-template-columns:24px minmax(0,2fr) 1.2fr 1fr 1.3fr 1fr;gap:10px;padding:11px 16px;border-bottom:1px solid #f0f4f8;align-items:center">
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#9aa7b6">{{ l.n }}</div>
+                <div style="min-width:0">
+                  <div style="font-size:13px;font-weight:500">{{ l.name }}</div>
+                  <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#8b98a8">SKU {{ l.sku }} &middot; {{ l.cost }}</div>
+                </div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;text-align:right;color:#4a5866">{{ l.before }} <span style="color:#c2cedb">&rarr;</span> {{ l.after }}</div>
+                <div style="text-align:right"><span style="{{ l.chgStyle }}">{{ l.change }}</span></div>
+                <div style="font-size:12.5px;color:#4a5866">{{ l.reason }}</div>
+                <div style="{{ l.valueStyle }}">{{ l.value }}</div>
+              </div>
+            </sc-for>
+            <div style="display:flex;align-items:center;gap:12px;padding:12px 16px;background:#f6f9fc">
+              <div style="font-size:12px;color:#7d8b9c;flex:1">{{ sa_d.foot }}</div>
+              <div style="{{ sa_d.netStyle }}">{{ sa_d.net }}</div>
+            </div>
+          </div>
+
+          <div style="display:grid;gap:14px">
+            <div style="background:#ffffff;border:1px solid #dfe6ee;border-radius:12px;padding:17px 19px;display:grid;gap:9px;font-size:12.5px">
+              <div style="display:flex"><div style="flex:1;color:#5d6b7d">Location</div><div style="font-weight:600">{{ sa_d.loc }}</div></div>
+              <div style="display:flex"><div style="flex:1;color:#5d6b7d">Date</div><div style="font-family:'IBM Plex Mono',monospace">{{ sa_d.date }}</div></div>
+              <div style="display:flex"><div style="flex:1;color:#5d6b7d">Posted by</div><div>{{ sa_d.by }}</div></div>
+              <div style="display:flex"><div style="flex:1;color:#5d6b7d">Approved by</div><div>{{ sa_d.approved }}</div></div>
+              <div style="border-top:1px solid #eaeff5;padding-top:10px;display:grid;gap:7px">
+                <div style="display:flex"><div style="flex:1;color:#0f6b43">Increase</div><div style="font-family:'IBM Plex Mono',monospace;color:#0f6b43">+{{ sa_d.inc }}</div></div>
+                <div style="display:flex"><div style="flex:1;color:#b02020">Decrease</div><div style="font-family:'IBM Plex Mono',monospace;color:#b02020">&minus;{{ sa_d.dec }}</div></div>
+              </div>
+            </div>
+            <sc-if value="{{ sa_d.hasNotes }}" hint-placeholder-val="{{ false }}">
+              <div style="background:#ffffff;border:1px solid #dfe6ee;border-radius:12px;padding:15px 19px">
+                <div style="font-size:12px;font-weight:600;margin-bottom:5px">Notes</div>
+                <div style="font-size:13px;color:#4a5866;line-height:1.55">{{ sa_d.notes }}</div>
+              </div>
+            </sc-if>
+            <div style="background:#ffffff;border:1px solid #dfe6ee;border-radius:12px;padding:15px 19px">
+              <div style="font-size:12px;font-weight:600;margin-bottom:8px">Posted to accounts</div>
+              <sc-for list="{{ sa_d.journal }}" as="j" hint-placeholder-count="2">
+                <div style="display:flex;font-size:12px;padding:4px 0;color:#4a5866"><div style="flex:1">{{ j.acct }}</div><div style="font-family:'IBM Plex Mono',monospace;width:70px;text-align:right">{{ j.dr }}</div><div style="font-family:'IBM Plex Mono',monospace;width:70px;text-align:right">{{ j.cr }}</div></div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </div>
+      </sc-if>
+
+    </div>
+  </div>
+
+  <sc-if value="{{ sa_confirmOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ sa_closeConfirm }}" style="position:absolute;inset:0;background:rgba(9,22,35,.48);z-index:30"></div>
+    <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:420px;background:#ffffff;border-radius:16px;z-index:31;box-shadow:0 30px 80px -24px rgba(9,22,35,.65);padding:22px">
+      <div style="font-size:17px;font-weight:700;margin-bottom:8px">{{ sa_confirmTitle }}</div>
+      <div style="font-size:13px;line-height:1.6;color:#5d6b7d;margin-bottom:20px;text-wrap:pretty">{{ sa_confirmText }}</div>
+      <div style="display:flex;gap:9px;justify-content:flex-end">
+        <div onClick="{{ sa_closeConfirm }}" style="height:40px;padding:0 16px;border-radius:9px;border:1px solid #dfe6ee;display:flex;align-items:center;font-size:13px;font-weight:600;color:#4a5866;cursor:pointer" style-hover="background:#f2f6fa">Go back</div>
+        <div onClick="{{ sa_confirmGo }}" style="{{ sa_confirmBtnStyle }}">{{ sa_confirmBtn }}</div>
+      </div>
+    </div>
+  </sc-if>
+
+  <div style="position:absolute;left:50%;bottom:20px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:6px;z-index:40;pointer-events:none">
+    <sc-for list="{{ sa_toasts }}" as="t" hint-placeholder-count="0">
+      <div style="background:#0f1c2b;color:#ffffff;border-radius:10px;padding:10px 15px;font-size:13px;display:flex;align-items:center;gap:10px;box-shadow:0 14px 30px -12px rgba(9,22,35,.6);white-space:nowrap">
+        <div style="{{ t.dot }}"></div>{{ t.msg }}
+      </div>
+    </sc-for>
+  </div>
+</div>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1560,&quot;height&quot;:1040}}"></script>
+<script src="js/base.js"></script>
+<script src="js/modules/adjust.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

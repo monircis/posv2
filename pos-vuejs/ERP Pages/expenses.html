@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en" data-page="expenses">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Expenses · Madinah Butchery ERP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<script src="js/loader.js"></script>
+<script src="js/support.js"></script>
+</head>
+<body>
+<x-dc>
+<div style="min-height:100vh;background:#eef2f6">
+
+  <sc-if value="{{ isExpenses }}" hint-placeholder-val="{{ false }}">
+  <div data-screen-label="Expenses" style="height:100vh;min-height:720px;position:relative">
+    <div style="height:100%;overflow:auto">
+      <div style="min-width:1280px;height:100%;position:relative;display:flex;flex-direction:column">
+<div data-screen-label="Expenses" style="height:100%;min-height:820px;min-width:1280px;display:flex;background:#eef2f6;position:relative;overflow:hidden;font-family:'Public Sans',system-ui,sans-serif;color:#0f1c2b">
+
+  <div style="{{ sideStyle }}">
+    <div style="height:56px;display:flex;align-items:center;gap:10px;padding:0 14px;flex:none;border-bottom:1px solid rgba(255,255,255,.09)">
+      <div style="width:26px;height:26px;border-radius:7px;background:#4da3e8;color:#06283a;display:grid;place-items:center;font-weight:700;font-size:13px;flex:none">M</div>
+      <div style="{{ sideText }}">
+        <div style="font-size:13px;font-weight:600;color:#ffffff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Madinah Butchery</div>
+        <div style="font-size:10.5px;color:#89aec6">All locations</div>
+      </div>
+      <div style="{{ sideCaret }}">&#9662;</div>
+    </div>
+    <div style="{{ sideListStyle }}">
+      <sc-for list="{{ ex_nav }}" as="n" hint-placeholder-count="18">
+        <div>
+          <div onClick="{{ n.onClick }}" title="{{ n.name }}" style="{{ n.style }}" style-hover="background:rgba(255,255,255,.07)">
+            <div style="{{ n.iconStyle }}">{{ n.key }}</div>
+            <div style="{{ n.nameStyle }}">{{ n.name }}</div>
+            <div style="{{ n.caretStyle }}">&#8250;</div>
+          </div>
+          <sc-if value="{{ n.open }}" hint-placeholder-val="{{ false }}">
+            <div style="margin:2px 0 6px 26px;border-left:1px solid rgba(255,255,255,.12);padding-left:10px;display:flex;flex-direction:column;gap:1px">
+              <sc-for list="{{ n.children }}" as="c" hint-placeholder-count="2">
+                <div onClick="{{ c.onClick }}" style="{{ c.style }}" style-hover="color:#ffffff">{{ c.name }}</div>
+              </sc-for>
+            </div>
+          </sc-if>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <div style="flex:1;min-width:0;display:flex;flex-direction:column">
+    <div style="height:56px;flex:none;background:#ffffff;border-bottom:1px solid #dfe6ee;display:flex;align-items:center;gap:14px;padding:0 20px">
+      <div onClick="{{ toggleNav }}" title="{{ navTip }}" style="width:30px;height:30px;border-radius:7px;border:1px solid #dfe6ee;display:grid;place-items:center;cursor:pointer;color:#5d6b7d;font-size:13px;flex:none" style-hover="background:#f2f6fa;color:#1668c9">&#9776;</div>
+      <div style="flex:1;max-width:420px;position:relative">
+        <div style="position:absolute;left:11px;top:50%;transform:translateY(-50%);color:#9aa7b6;font-size:12px">&#9906;</div>
+        <input placeholder="Search products, invoices, contacts&hellip;" style="width:100%;height:34px;border:1px solid #dfe6ee;border-radius:8px;background:#f7fafc;padding:0 10px 0 30px;font-family:'Public Sans',sans-serif;font-size:13px;outline:none" style-focus="background:#ffffff;border-color:#1668c9" />
+      </div>
+      <div style="margin-left:auto;display:flex;align-items:center;gap:8px">
+        <div onClick="{{ goPos }}" style="height:32px;padding:0 12px;border-radius:8px;background:#1668c9;color:#ffffff;display:flex;align-items:center;font-size:12.5px;font-weight:600;cursor:pointer" style-hover="background:#1257ab">Open POS</div>
+        <div style="height:32px;padding:0 11px;border-radius:8px;border:1px solid #dfe6ee;display:flex;align-items:center;font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:#4a5866">29/09/2026</div>
+        <div style="width:32px;height:32px;border-radius:8px;border:1px solid #dfe6ee;display:grid;place-items:center;position:relative;color:#5d6b7d">&#9737;<div style="position:absolute;top:6px;right:6px;width:6px;height:6px;border-radius:50%;background:#d93a3a;border:1.5px solid #ffffff"></div></div>
+        <div style="display:flex;align-items:center;gap:8px;padding:3px 9px 3px 3px;border-radius:8px;border:1px solid #dfe6ee">
+          <div style="width:25px;height:25px;border-radius:6px;background:#0a3a52;color:#ffffff;display:grid;place-items:center;font-size:11px;font-weight:600">AM</div>
+          <div style="font-size:12.5px;font-weight:500">Aminul</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="flex:1;overflow-y:auto;min-height:0">
+
+      <sc-if value="{{ ex_isList }}" hint-placeholder-val="{{ true }}">
+      <div>
+        <div style="padding:20px 24px 0;background:#ffffff;border-bottom:1px solid #dfe6ee">
+          <div style="display:flex;align-items:center;gap:7px;font-size:11.5px;color:#7d8b9c;margin-bottom:8px">
+            <span>Expenses</span><span style="color:#c2cedb">/</span><span style="color:#0f1c2b;font-weight:500">All expenses</span>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:20px;flex-wrap:wrap">
+            <div>
+              <h2 style="margin:0 0 3px;font-size:22px;font-weight:700;letter-spacing:-0.018em">Expenses</h2>
+              <div style="font-size:12.5px;color:#5d6b7d">{{ ex_listSub }}</div>
+            </div>
+            <div style="margin-left:auto;display:flex;gap:8px;align-items:center">
+              <div onClick="{{ ex_exportList }}" style="height:34px;padding:0 13px;border-radius:8px;border:1px solid #dfe6ee;display:flex;align-items:center;font-size:12.5px;font-weight:500;color:#4a5866;cursor:pointer" style-hover="background:#f2f6fa">Export</div>
+              <div onClick="{{ ex_newExpense }}" style="height:34px;padding:0 15px;border-radius:8px;background:#1668c9;color:#ffffff;display:flex;align-items:center;font-size:12.5px;font-weight:600;cursor:pointer" style-hover="background:#1257ab">+ Add expense</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:2px;margin-top:16px">
+            <sc-for list="{{ ex_statusTabs }}" as="t" hint-placeholder-count="4">
+              <div onClick="{{ t.onClick }}" style="{{ t.style }}">{{ t.name }}<span style="{{ t.countStyle }}">{{ t.count }}</span></div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="padding:20px 24px 32px;display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:16px;align-items:start">
+          <div>
+            <sc-if value="{{ ex_showOverdue }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;align-items:center;gap:12px;background:#fdf1dd;border:1px solid #f0d9ac;border-radius:11px;padding:11px 15px;margin-bottom:14px">
+                <div style="width:8px;height:8px;border-radius:50%;background:#d98c1a;flex:none"></div>
+                <div style="font-size:12.5px;color:#8a5300;flex:1">{{ ex_overdueText }}</div>
+                <div onClick="{{ ex_showUnpaid }}" style="font-size:12.5px;font-weight:600;color:#8a5300;cursor:pointer;text-decoration:underline">Show unpaid</div>
+              </div>
+            </sc-if>
+            <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:14px">
+              <div style="position:relative;width:230px">
+                <div style="position:absolute;left:10px;top:50%;transform:translateY(-50%);color:#9aa7b6;font-size:12px">&#9906;</div>
+                <input value="{{ ex_q }}" onChange="{{ ex_onQ }}" placeholder="Payee, reference or note" style="width:100%;height:34px;border:1px solid #dfe6ee;border-radius:8px;background:#ffffff;padding:0 10px 0 29px;font-family:'Public Sans',sans-serif;font-size:12.5px;outline:none" style-focus="border-color:#1668c9" />
+              </div>
+              <select value="{{ ex_catFilter }}" onChange="{{ ex_onCatFilter }}" style="height:34px;border:1px solid #dfe6ee;border-radius:8px;background:#ffffff;padding:0 10px;font-family:'Public Sans',sans-serif;font-size:12.5px;color:#4a5866;outline:none;cursor:pointer">
+                <option value="all">All categories</option>
+                <sc-for list="{{ ex_catOpts }}" as="o" hint-placeholder-count="9"><option value="{{ o.id }}">{{ o.name }}</option></sc-for>
+              </select>
+              <select value="{{ ex_acctFilter }}" onChange="{{ ex_onAcctFilter }}" style="height:34px;border:1px solid #dfe6ee;border-radius:8px;background:#ffffff;padding:0 10px;font-family:'Public Sans',sans-serif;font-size:12.5px;color:#4a5866;outline:none;cursor:pointer">
+                <option value="all">All accounts</option>
+                <sc-for list="{{ ex_acctOpts }}" as="o" hint-placeholder-count="3"><option value="{{ o.id }}">{{ o.name }}</option></sc-for>
+              </select>
+              <sc-if value="{{ ex_hasFilters }}" hint-placeholder-val="{{ false }}">
+                <div onClick="{{ ex_clearFilters }}" style="font-size:12.5px;font-weight:600;color:#1668c9;cursor:pointer;padding:0 6px">Clear</div>
+              </sc-if>
+            </div>
+
+            <div style="background:#ffffff;border:1px solid #dfe6ee;border-radius:12px;overflow:hidden">
+              <div style="display:grid;grid-template-columns:0.9fr 1.1fr 1.9fr 1.1fr 0.9fr 0.9fr 34px;gap:12px;padding:10px 16px;background:#f6f9fc;border-bottom:1px solid #dfe6ee;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.07em;text-transform:uppercase;color:#5d6b7d;align-items:center">
+                <div>Date</div><div>Category</div><div>Payee</div><div>Account</div><div style="text-align:right">Amount</div><div>Status</div><div></div>
+              </div>
+              <sc-for list="{{ ex_rows }}" as="r" hint-placeholder-count="9">
+                <div onClick="{{ r.open }}" style="display:grid;grid-template-columns:0.9fr 1.1fr 1.9fr 1.1fr 0.9fr 0.9fr 34px;gap:12px;padding:11px 16px;border-bottom:1px solid #f0f4f8;align-items:center;cursor:pointer" style-hover="background:#f9fbfd">
+                  <div>
+                    <div style="font-family:'IBM Plex Mono',monospace;font-size:12px">{{ r.date }}</div>
+                    <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#1668c9;margin-top:1px">{{ r.ref }}</div>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:7px;min-width:0">
+                    <div style="{{ r.catDot }}"></div>
+                    <div style="font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ r.cat }}</div>
+                  </div>
+                  <div style="min-width:0">
+                    <div style="font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ r.payee }}</div>
+                    <div style="font-size:11px;color:#8b98a8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ r.note }}</div>
+                  </div>
+                  <div style="font-size:12.5px;color:#4a5866;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ r.acct }}</div>
+                  <div style="font-family:'IBM Plex Mono',monospace;font-size:12.5px;text-align:right;font-weight:600">{{ r.amount }}</div>
+                  <div><span style="{{ r.badge }}">{{ r.status }}</span></div>
+                  <div style="{{ r.clipStyle }}" title="Receipt attached">{{ r.fileType }}</div>
+                </div>
+              </sc-for>
+              <sc-if value="{{ ex_noRows }}" hint-placeholder-val="{{ false }}">
+                <div style="padding:40px 20px;text-align:center">
+                  <div style="font-size:13.5px;font-weight:600;margin-bottom:4px">No expenses match</div>
+                  <div style="font-size:12.5px;color:#7d8b9c">Try another status or clear the filters.</div>
+                </div>
+              </sc-if>
+              <div style="display:grid;grid-template-columns:0.9fr 1.1fr 1.9fr 1.1fr 0.9fr 0.9fr 34px;gap:12px;padding:12px 16px;background:#f6f9fc;align-items:center">
+                <div style="font-size:12px;color:#7d8b9c;grid-column:span 4">Showing {{ ex_rowCount }} &middot; GST included {{ ex_rowGst }}</div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;text-align:right;font-weight:700">{{ ex_rowTotal }}</div>
+                <div></div><div></div>
+              </div>
+            </div>
+          </div>
+
+          <div style="background:#ffffff;border:1px solid #dfe6ee;border-radius:12px;padding:17px 19px">
+            <div style="display:flex;align-items:baseline;margin-bottom:3px">
+              <div style="font-size:13px;font-weight:700;flex:1">September by category</div>
+            </div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:22px;font-weight:600;letter-spacing:-0.02em;margin-bottom:14px">{{ ex_monthTotal }}</div>
+            <div style="display:grid;gap:10px">
+              <sc-for list="{{ ex_catBars }}" as="b" hint-placeholder-count="6">
+                <div onClick="{{ b.onClick }}" style="cursor:pointer">
+                  <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:4px">
+                    <div style="{{ b.nameStyle }}">{{ b.name }}</div>
+                    <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#4a5866">{{ b.v }}</div>
+                  </div>
+                  <div style="height:6px;border-radius:99px;background:#eef2f6;overflow:hidden"><div style="{{ b.bar }}"></div></div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </div>
+      </sc-if>
+
+      <sc-if value="{{ ex_isForm }}" hint-placeholder-val="{{ false }}">
+      <div>
+        <div style="padding:20px 24px 16px;background:#ffffff;border-bottom:1px solid #dfe6ee">
+          <div style="display:flex;align-items:center;gap:7px;font-size:11.5px;color:#7d8b9c;margin-bottom:8px">
+            <span onClick="{{ ex_goList }}" style="cursor:pointer;color:#1668c9">Expenses</span><span style="color:#c2cedb">/</span><span style="color:#0f1c2b;font-weight:500">{{ ex_formCrumb }}</span>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:20px;flex-wrap:wrap">
+            <div>
+              <h2 style="margin:0 0 3px;font-size:22px;font-weight:700;letter-spacing:-0.018em">{{ ex_formTitle }}</h2>
+              <div style="font-size:12.5px;color:#5d6b7d">One form for add and edit. Paid expenses come out of the chosen account straight away.</div>
+            </div>
+            <div style="margin-left:auto;display:flex;gap:8px;align-items:center">
+              <div onClick="{{ ex_cancelForm }}" style="height:34px;padding:0 13px;border-radius:8px;border:1px solid #dfe6ee;display:flex;align-items:center;font-size:12.5px;font-weight:500;color:#4a5866;cursor:pointer" style-hover="background:#f2f6fa">Cancel</div>
+              <sc-if value="{{ ex_canAddAnother }}" hint-placeholder-val="{{ true }}">
+                <div onClick="{{ ex_saveAnother }}" style="height:34px;padding:0 13px;border-radius:8px;border:1px solid #dfe6ee;display:flex;align-items:center;font-size:12.5px;font-weight:600;color:#14549e;cursor:pointer" style-hover="background:#f2f6fa">Save &amp; add another</div>
+              </sc-if>
+              <div onClick="{{ ex_save }}" style="{{ ex_saveBtnStyle }}">{{ ex_saveLabel }}</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="padding:20px 24px 32px;display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:16px;align-items:start">
+          <div style="display:grid;gap:14px">
+            <div style="background:#ffffff;border:1px solid #dfe6ee;border-radius:12px;padding:17px 19px">
+              <div style="font-size:13px;font-weight:700;margin-bottom:12px">Category <span style="color:#d93a3a">*</span></div>
+              <div style="display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px">
+                <sc-for list="{{ ex_catChips }}" as="c" hint-placeholder-count="10">
+                  <div onClick="{{ c.onClick }}" style="{{ c.style }}">
+                    <div style="{{ c.dot }}"></div>
+                    <div style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ c.name }}</div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+
+            <div style="background:#ffffff;border:1px solid #dfe6ee;border-radius:12px;padding:17px 19px">
+              <div style="font-size:13px;font-weight:700;margin-bottom:12px">Details</div>
+              <div style="display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:14px">
+                <div>
+                  <label style="display:block;font-size:12px;font-weight:600;margin-bottom:5px">Amount <span style="color:#d93a3a">*</span></label>
+                  <div style="{{ ex_amountBox }}">
+                    <div style="font-size:12px;color:#8b98a8;padding-left:11px">AUD</div>
+                    <input value="{{ ex_fAmount }}" onChange="{{ ex_onAmount }}" placeholder="0.00" style="flex:1;min-width:0;height:100%;border:none;background:transparent;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:15px;font-weight:600;outline:none;padding:0 11px" />
+                  </div>
+                  <div style="display:flex;align-items:center;gap:8px;margin-top:7px">
+                    <div onClick="{{ ex_toggleGst }}" style="{{ ex_gstSwitch }}"><div style="{{ ex_gstKnob }}"></div></div>
+                    <div style="font-size:11.5px;color:#4a5866">{{ ex_gstLabel }}</div>
+                  </div>
+                </div>
+                <div>
+                  <label style="display:block;font-size:12px;font-weight:600;margin-bottom:5px">Date</label>
+                  <input value="{{ ex_fDate }}" onChange="{{ ex_onDate }}" style="width:100%;height:40px;border:1px solid #dfe6ee;border-radius:8px;padding:0 11px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;outline:none" style-focus="border-color:#1668c9" />
+                </div>
+                <div>
+                  <label style="display:block;font-size:12px;font-weight:600;margin-bottom:5px">Location</label>
+                  <select value="{{ ex_fLoc }}" onChange="{{ ex_onLoc }}" style="width:100%;height:40px;border:1px solid #dfe6ee;border-radius:8px;padding:0 10px;font-family:'Public Sans',sans-serif;font-size:13px;background:#ffffff;outline:none;cursor:pointer">
+                    <sc-for list="{{ ex_locOpts }}" as="o" hint-placeholder-count="3"><option value="{{ o.id }}">{{ o.name }}</option></sc-for>
+                  </select>
+                </div>
+              </div>
+              <div style="display:grid;grid-template-columns:1.2fr 1fr;gap:14px;margin-top:14px">
+                <div>
+                  <label style="display:block;font-size:12px;font-weight:600;margin-bottom:5px">Payee</label>
+                  <input value="{{ ex_fPayee }}" onChange="{{ ex_onPayee }}" placeholder="Who you paid, e.g. Ausgrid" style="width:100%;height:36px;border:1px solid #dfe6ee;border-radius:8px;padding:0 11px;font-family:'Public Sans',sans-serif;font-size:13px;outline:none" style-focus="border-color:#1668c9" />
+                </div>
+                <div>
+                  <label style="display:block;font-size:12px;font-weight:600;margin-bottom:5px">Reference / invoice no.</label>
+                  <input value="{{ ex_fRef }}" onChange="{{ ex_onRef }}" placeholder="Optional" style="width:100%;height:36px;border:1px solid #dfe6ee;border-radius:8px;padding:0 11px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;outline:none" style-focus="border-color:#1668c9" />
+                </div>
+              </div>
+              <div style="margin-top:14px">
+                <label style="display:block;font-size:12px;font-weight:600;margin-bottom:5px">Notes</label>
+                <textarea value="{{ ex_fNotes }}" onChange="{{ ex_onNotes }}" placeholder="What this was for" style="width:100%;min-height:58px;border:1px solid #dfe6ee;border-radius:8px;padding:9px 11px;font-family:'Public Sans',sans-serif;font-size:13px;outline:none;resize:vertical" style-focus="border-color:#1668c9"></textarea>
+              </div>
+            </div>
+
+            <div style="background:#ffffff;border:1px solid #dfe6ee;border-radius:12px;padding:17px 19px">
+              <div style="font-size:13px;font-weight:700;margin-bottom:12px">Receipt</div>
+              <sc-if value="{{ ex_noFile }}" hint-placeholder-val="{{ true }}">
+                <div onClick="{{ ex_attach }}" style="border:1.5px dashed #c2cedb;border-radius:11px;padding:22px;text-align:center;cursor:pointer;background:#fbfcfe" style-hover="border-color:#1668c9;background:#f6faff">
+                  <div style="font-size:13px;font-weight:600;color:#1668c9">Drop a photo or PDF, or click to browse</div>
+                  <div style="font-size:11.5px;color:#8b98a8;margin-top:3px">JPG, PNG or PDF up to 10 MB &middot; needed for GST claims over 82.50</div>
+                </div>
+              </sc-if>
+              <sc-if value="{{ ex_hasFile }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;align-items:center;gap:12px;border:1px solid #dfe6ee;border-radius:11px;padding:10px 12px">
+                  <div style="width:40px;height:48px;border-radius:6px;background:repeating-linear-gradient(135deg,#eef2f6 0 6px,#e4eaf1 6px 12px);display:grid;place-items:center;font-family:'IBM Plex Mono',monospace;font-size:9px;color:#5d6b7d;flex:none">PDF</div>
+                  <div style="flex:1;min-width:0">
+                    <div style="font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ ex_fFile }}</div>
+                    <div style="font-size:11px;color:#8b98a8">184 KB &middot; uploaded just now</div>
+                  </div>
+                  <div onClick="{{ ex_detach }}" style="height:30px;padding:0 11px;border-radius:7px;border:1px solid #dfe6ee;display:flex;align-items:center;font-size:12px;font-weight:600;color:#b02020;cursor:pointer" style-hover="background:#fdf4f4">Remove</div>
+                </div>
+              </sc-if>
+            </div>
+          </div>
+
+          <div style="display:grid;gap:14px;position:sticky;top:20px">
+            <div style="background:#ffffff;border:1px solid #dfe6ee;border-radius:12px;padding:17px 19px">
+              <div style="font-size:13px;font-weight:700;margin-bottom:12px">Payment</div>
+              <div style="display:flex;gap:3px;background:#eef2f6;padding:3px;border-radius:9px;margin-bottom:14px">
+                <sc-for list="{{ ex_payModes }}" as="m" hint-placeholder-count="2">
+                  <div onClick="{{ m.onClick }}" style="{{ m.style }}">{{ m.name }}</div>
+                </sc-for>
+              </div>
+              <sc-if value="{{ ex_isPaid }}" hint-placeholder-val="{{ true }}">
+                <div style="display:grid;gap:7px">
+                  <sc-for list="{{ ex_acctCards }}" as="a" hint-placeholder-count="3">
+                    <div onClick="{{ a.onClick }}" style="{{ a.style }}">
+                      <div style="{{ a.radio }}"></div>
+                      <div style="flex:1;min-width:0">
+                        <div style="font-size:13px;font-weight:600">{{ a.name }}</div>
+                        <div style="font-size:11px;color:#7d8b9c">{{ a.type }}</div>
+                      </div>
+                      <div style="text-align:right">
+                        <div style="font-family:'IBM Plex Mono',monospace;font-size:12.5px;font-weight:600">{{ a.bal }}</div>
+                        <div style="{{ a.afterStyle }}">{{ a.after }}</div>
+                      </div>
+                    </div>
+                  </sc-for>
+                </div>
+              </sc-if>
+              <sc-if value="{{ ex_isUnpaid }}" hint-placeholder-val="{{ false }}">
+                <label style="display:block;font-size:12px;font-weight:600;margin-bottom:5px">Due date</label>
+                <input value="{{ ex_fDue }}" onChange="{{ ex_onDue }}" style="width:100%;height:36px;border:1px solid #dfe6ee;border-radius:8px;padding:0 11px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;outline:none" style-focus="border-color:#1668c9" />
+                <div style="font-size:11.5px;color:#7d8b9c;margin-top:7px;line-height:1.5">Shows on the unpaid tab and the Home alerts until you mark it paid.</div>
+              </sc-if>
+            </div>
+            <div style="background:#ffffff;border:1px solid #dfe6ee;border-radius:12px;padding:17px 19px;display:grid;gap:8px;font-size:12.5px">
+              <div style="display:flex"><div style="flex:1;color:#5d6b7d">Amount ex GST</div><div style="font-family:'IBM Plex Mono',monospace">{{ ex_sEx }}</div></div>
+              <div style="display:flex"><div style="flex:1;color:#5d6b7d">GST</div><div style="font-family:'IBM Plex Mono',monospace">{{ ex_sGst }}</div></div>
+              <div style="display:flex;align-items:baseline;border-top:1px solid #eaeff5;padding-top:10px;margin-top:2px">
+                <div style="flex:1;font-size:13px;font-weight:600">Total</div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:20px;font-weight:600;letter-spacing:-0.02em">{{ ex_sTotal }}</div>
+              </div>
+            </div>
+            <sc-if value="{{ ex_hasWarn }}" hint-placeholder-val="{{ false }}">
+              <div style="display:grid;gap:6px">
+                <sc-for list="{{ ex_warns }}" as="w" hint-placeholder-count="1">
+                  <div style="{{ w.style }}"><span style="font-weight:700">{{ w.mark }}</span>{{ w.msg }}</div>
+                </sc-for>
+              </div>
+            </sc-if>
+          </div>
+        </div>
+      </div>
+      </sc-if>
+
+      <sc-if value="{{ ex_isDetails }}" hint-placeholder-val="{{ false }}">
+      <div>
+        <div style="padding:20px 24px 16px;background:#ffffff;border-bottom:1px solid #dfe6ee">
+          <div style="display:flex;align-items:center;gap:7px;font-size:11.5px;color:#7d8b9c;margin-bottom:8px">
+            <span onClick="{{ ex_goList }}" style="cursor:pointer;color:#1668c9">Expenses</span><span style="color:#c2cedb">/</span><span style="color:#0f1c2b;font-weight:500;font-family:'IBM Plex Mono',monospace">{{ ex_d.ref }}</span>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:20px;flex-wrap:wrap">
+            <div>
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:3px">
+                <h2 style="margin:0;font-size:22px;font-weight:700;letter-spacing:-0.018em">{{ ex_d.payee }}</h2>
+                <span style="{{ ex_d.badge }}">{{ ex_d.status }}</span>
+              </div>
+              <div style="font-size:12.5px;color:#5d6b7d">{{ ex_d.sub }}</div>
+            </div>
+            <div style="margin-left:auto;display:flex;gap:8px;align-items:center">
+              <div onClick="{{ ex_askDelete }}" style="height:34px;padding:0 13px;border-radius:8px;border:1px solid #f3cfcf;background:#fdf4f4;display:flex;align-items:center;font-size:12.5px;font-weight:600;color:#b02020;cursor:pointer" style-hover="background:#fdeaea">Delete</div>
+              <div onClick="{{ ex_editIt }}" style="height:34px;padding:0 13px;border-radius:8px;border:1px solid #dfe6ee;display:flex;align-items:center;font-size:12.5px;font-weight:600;color:#14549e;cursor:pointer" style-hover="background:#f2f6fa">Edit</div>
+              <sc-if value="{{ ex_d.unpaid }}" hint-placeholder-val="{{ false }}">
+                <div onClick="{{ ex_openPay }}" style="height:34px;padding:0 15px;border-radius:8px;background:#1668c9;color:#ffffff;display:flex;align-items:center;font-size:12.5px;font-weight:600;cursor:pointer" style-hover="background:#1257ab">Mark as paid</div>
+              </sc-if>
+            </div>
+          </div>
+        </div>
+
+        <div style="padding:20px 24px 32px;display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:16px;align-items:start">
+          <div style="display:grid;gap:14px">
+            <div style="background:#ffffff;border:1px solid #dfe6ee;border-radius:12px;padding:20px 22px;display:grid;grid-template-columns:auto 1fr;gap:26px;align-items:center">
+              <div>
+                <div style="font-size:11.5px;color:#7d8b9c;margin-bottom:2px">Amount</div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:32px;font-weight:600;letter-spacing:-0.03em">{{ ex_d.amount }}</div>
+                <div style="font-size:11.5px;color:#7d8b9c;margin-top:2px">{{ ex_d.gstLine }}</div>
+              </div>
+              <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;border-left:1px solid #eaeff5;padding-left:26px">
+                <sc-for list="{{ ex_d.facts }}" as="fa" hint-placeholder-count="6">
+                  <div style="min-width:0">
+                    <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.07em;text-transform:uppercase;color:#7d8b9c;margin-bottom:3px">{{ fa.k }}</div>
+                    <div style="font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ fa.v }}</div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+
+            <div style="background:#ffffff;border:1px solid #dfe6ee;border-radius:12px;padding:17px 19px">
+              <div style="font-size:13px;font-weight:700;margin-bottom:12px">Receipt</div>
+              <sc-if value="{{ ex_d.hasFile }}" hint-placeholder-val="{{ true }}">
+                <div style="display:grid;grid-template-columns:180px 1fr;gap:16px;align-items:start">
+                  <div style="height:220px;border-radius:9px;border:1px solid #e4eaf1;background:repeating-linear-gradient(135deg,#f6f9fc 0 8px,#eef2f6 8px 16px);display:grid;place-items:center;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#7d8b9c;text-align:center;padding:10px">receipt scan</div>
+                  <div>
+                    <div style="font-size:13px;font-weight:500">{{ ex_d.file }}</div>
+                    <div style="font-size:11.5px;color:#8b98a8;margin-top:2px">Uploaded by {{ ex_d.by }}</div>
+                    <div onClick="{{ ex_download }}" style="margin-top:12px;display:inline-flex;height:32px;padding:0 12px;border-radius:8px;border:1px solid #dfe6ee;align-items:center;font-size:12.5px;font-weight:600;color:#4a5866;cursor:pointer" style-hover="background:#f2f6fa">Download</div>
+                  </div>
+                </div>
+              </sc-if>
+              <sc-if value="{{ ex_d.noFile }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;align-items:center;gap:12px;background:#fdf1dd;border:1px solid #f0d9ac;border-radius:10px;padding:11px 14px">
+                  <div style="font-size:12.5px;color:#8a5300;flex:1">{{ ex_d.noFileMsg }}</div>
+                  <div onClick="{{ ex_attachLater }}" style="height:30px;padding:0 12px;border-radius:7px;background:#ffffff;border:1px solid #f0d9ac;display:flex;align-items:center;font-size:12px;font-weight:600;color:#8a5300;cursor:pointer">Attach receipt</div>
+                </div>
+              </sc-if>
+            </div>
+
+            <sc-if value="{{ ex_d.hasNotes }}" hint-placeholder-val="{{ false }}">
+              <div style="background:#ffffff;border:1px solid #dfe6ee;border-radius:12px;padding:15px 19px">
+                <div style="font-size:12px;font-weight:600;margin-bottom:5px">Notes</div>
+                <div style="font-size:13px;color:#4a5866;line-height:1.55">{{ ex_d.notes }}</div>
+              </div>
+            </sc-if>
+          </div>
+
+          <div style="display:grid;gap:14px">
+            <div style="background:#ffffff;border:1px solid #dfe6ee;border-radius:12px;padding:17px 19px">
+              <div style="font-size:13px;font-weight:700;margin-bottom:10px">Posted to accounts</div>
+              <sc-for list="{{ ex_d.journal }}" as="j" hint-placeholder-count="3">
+                <div style="{{ j.style }}"><div style="flex:1">{{ j.acct }}</div><div style="font-family:'IBM Plex Mono',monospace;width:70px;text-align:right">{{ j.dr }}</div><div style="font-family:'IBM Plex Mono',monospace;width:70px;text-align:right">{{ j.cr }}</div></div>
+              </sc-for>
+            </div>
+            <div style="background:#ffffff;border:1px solid #dfe6ee;border-radius:12px;padding:17px 19px">
+              <div style="font-size:13px;font-weight:700;margin-bottom:12px">Activity</div>
+              <div style="display:grid;gap:12px">
+                <sc-for list="{{ ex_d.log }}" as="a" hint-placeholder-count="2">
+                  <div style="display:flex;gap:10px">
+                    <div style="{{ a.dot }}"></div>
+                    <div>
+                      <div style="font-size:12.5px;line-height:1.45">{{ a.what }}</div>
+                      <div style="font-size:11px;color:#9aa7b6;margin-top:1px">{{ a.when }}</div>
+                    </div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </sc-if>
+
+    </div>
+  </div>
+
+  <sc-if value="{{ ex_payOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ ex_closeModal }}" style="position:absolute;inset:0;background:rgba(9,22,35,.48);z-index:30"></div>
+    <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:440px;background:#ffffff;border-radius:16px;z-index:31;box-shadow:0 30px 80px -24px rgba(9,22,35,.65);padding:22px">
+      <div style="font-size:17px;font-weight:700;margin-bottom:4px">Mark as paid</div>
+      <div style="font-size:12.5px;color:#5d6b7d;margin-bottom:16px">{{ ex_payWhat }}</div>
+      <div style="display:grid;gap:7px;margin-bottom:18px">
+        <sc-for list="{{ ex_modalAccts }}" as="a" hint-placeholder-count="3">
+          <div onClick="{{ a.onClick }}" style="{{ a.style }}">
+            <div style="{{ a.radio }}"></div>
+            <div style="flex:1;min-width:0">
+              <div style="font-size:13px;font-weight:600">{{ a.name }}</div>
+              <div style="font-size:11px;color:#7d8b9c">{{ a.type }}</div>
+            </div>
+            <div style="text-align:right">
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:12.5px;font-weight:600">{{ a.bal }}</div>
+              <div style="{{ a.afterStyle }}">{{ a.after }}</div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+      <div style="display:flex;gap:9px;justify-content:flex-end">
+        <div onClick="{{ ex_closeModal }}" style="height:40px;padding:0 16px;border-radius:9px;border:1px solid #dfe6ee;display:flex;align-items:center;font-size:13px;font-weight:600;color:#4a5866;cursor:pointer" style-hover="background:#f2f6fa">Cancel</div>
+        <div onClick="{{ ex_confirmPay }}" style="height:40px;padding:0 16px;border-radius:9px;background:#1668c9;color:#ffffff;display:flex;align-items:center;font-size:13px;font-weight:700;cursor:pointer" style-hover="background:#1257ab">Pay {{ ex_payAmt }}</div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ ex_delOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ ex_closeModal }}" style="position:absolute;inset:0;background:rgba(9,22,35,.48);z-index:30"></div>
+    <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:400px;background:#ffffff;border-radius:16px;z-index:31;box-shadow:0 30px 80px -24px rgba(9,22,35,.65);padding:22px">
+      <div style="font-size:17px;font-weight:700;margin-bottom:8px">Delete this expense?</div>
+      <div style="font-size:13px;line-height:1.6;color:#5d6b7d;margin-bottom:20px;text-wrap:pretty">{{ ex_delText }}</div>
+      <div style="display:flex;gap:9px;justify-content:flex-end">
+        <div onClick="{{ ex_closeModal }}" style="height:40px;padding:0 16px;border-radius:9px;border:1px solid #dfe6ee;display:flex;align-items:center;font-size:13px;font-weight:600;color:#4a5866;cursor:pointer" style-hover="background:#f2f6fa">Keep it</div>
+        <div onClick="{{ ex_confirmDelete }}" style="height:40px;padding:0 16px;border-radius:9px;background:#c62828;color:#ffffff;display:flex;align-items:center;font-size:13px;font-weight:700;cursor:pointer" style-hover="background:#a81f1f">Delete</div>
+      </div>
+    </div>
+  </sc-if>
+
+  <div style="position:absolute;left:50%;bottom:20px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:6px;z-index:40;pointer-events:none">
+    <sc-for list="{{ ex_toasts }}" as="t" hint-placeholder-count="0">
+      <div style="background:#0f1c2b;color:#ffffff;border-radius:10px;padding:10px 15px;font-size:13px;display:flex;align-items:center;gap:10px;box-shadow:0 14px 30px -12px rgba(9,22,35,.6);white-space:nowrap">
+        <div style="{{ t.dot }}"></div>{{ t.msg }}
+      </div>
+    </sc-for>
+  </div>
+</div>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1560,&quot;height&quot;:1040}}"></script>
+<script src="js/base.js"></script>
+<script src="js/modules/expenses.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,198 @@
+[
+ {
+  "key": "settings",
+  "value": {
+   "vals": {
+    "bizName": "Madinah Butchery",
+    "legal": "Madinah Halal Meats Pty Ltd",
+    "abn": "51 824 753 556",
+    "phone": "02 9759 4410",
+    "email": "accounts@madinahbutchery.com.au",
+    "addr": "118 Haldon St\nLakemba NSW 2195",
+    "logo": "madinah-logo.png",
+    "brand": "Blue",
+    "theme": "Blue",
+    "defLoc": "Main branch",
+    "perLoc": true,
+    "gstReg": true,
+    "priceInc": true,
+    "bas": "Quarterly",
+    "taxRound": "Per line",
+    "cur": "AUD · Australian dollar",
+    "symPos": "Before",
+    "dec": "2",
+    "dateFmt": "DD/MM/YYYY",
+    "h24": true,
+    "week": "Monday",
+    "weight": "kg",
+    "surch": "0",
+    "round5": true,
+    "split": true,
+    "invPrefix": "INV-",
+    "invNext": "3311",
+    "rcpPrefix": "R-",
+    "paper": "80mm roll",
+    "showLogo": true,
+    "showAbn": true,
+    "terms": "Due on receipt",
+    "footer": "Thank you for shopping with us.\nAll meat is certified halal.",
+    "skuAuto": true,
+    "skuPrefix": "66",
+    "unit": "kg",
+    "lowAlert": "10",
+    "barcode": "EAN-13",
+    "expiry": true,
+    "batch": false,
+    "defCust": "Walk-in customer",
+    "belowStock": false,
+    "maxDisc": "15",
+    "refundPin": true,
+    "scale": true,
+    "printRcp": "Ask",
+    "holdExp": "End of day",
+    "poPrefix": "PO-",
+    "approve": "5000",
+    "poTerms": "14 days",
+    "partial": true,
+    "costing": "Weighted average",
+    "nEmail": "aminul@madinahbutchery.com.au",
+    "nLow": true,
+    "nDaily": true,
+    "nBills": true,
+    "nBook": true,
+    "nLead": "2 hours before",
+    "nReady": true,
+    "timeout": "30 minutes",
+    "twofa": true,
+    "posPin": true,
+    "backup": true,
+    "backupAt": "03:00"
+   },
+   "tables": {
+    "locs": [
+     {
+      "name": "Main branch",
+      "addr": "118 Haldon St, Lakemba",
+      "code": "MB-",
+      "on": true
+     },
+     {
+      "name": "Bankstown shop",
+      "addr": "22 Chapel Rd, Bankstown",
+      "code": "BK-",
+      "on": true
+     },
+     {
+      "name": "Cold store",
+      "addr": "7 Muir Rd, Chullora",
+      "code": "CS-",
+      "on": true
+     }
+    ],
+    "rates": [
+     {
+      "name": "GST",
+      "rate": "10",
+      "code": "GST",
+      "on": true
+     },
+     {
+      "name": "GST free",
+      "rate": "0",
+      "code": "FRE",
+      "on": true
+     },
+     {
+      "name": "Input taxed",
+      "rate": "0",
+      "code": "ITS",
+      "on": false
+     }
+    ],
+    "pays": [
+     {
+      "name": "Cash",
+      "acct": "Cash drawer",
+      "on": true
+     },
+     {
+      "name": "Card · Tyro",
+      "acct": "CBA Business",
+      "on": true
+     },
+     {
+      "name": "Bank transfer",
+      "acct": "CBA Business",
+      "on": true
+     },
+     {
+      "name": "Store credit",
+      "acct": "Customer balances",
+      "on": true
+     },
+     {
+      "name": "Afterpay",
+      "acct": "CBA Business",
+      "on": false
+     }
+    ]
+   }
+  }
+ },
+ {
+  "key": "payroll",
+  "value": {
+   "pay": {
+    "1": {
+     "ord": "76",
+     "ot": "0"
+    },
+    "2": {
+     "ord": "76",
+     "ot": "4"
+    },
+    "3": {
+     "ord": "76",
+     "ot": "0"
+    },
+    "4": {
+     "ord": "48",
+     "ot": "0"
+    },
+    "5": {
+     "ord": "38",
+     "ot": "0"
+    },
+    "6": {
+     "ord": "76",
+     "ot": "6.5"
+    },
+    "7": {
+     "ord": "38.5",
+     "ot": "0"
+    },
+    "8": {
+     "ord": "33",
+     "ot": "0"
+    },
+    "9": {
+     "ord": "30",
+     "ot": "0"
+    },
+    "10": {
+     "ord": "76",
+     "ot": "0"
+    }
+   },
+   "payStatus": "draft"
+  }
+ },
+ {
+  "key": "accounting.periods",
+  "value": {
+   "07": true,
+   "08": true,
+   "09": false
+  }
+ }
+]

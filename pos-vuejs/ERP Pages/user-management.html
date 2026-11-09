@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en" data-page="users">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>User Management · Madinah Butchery ERP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<script src="js/loader.js"></script>
+<script src="js/support.js"></script>
+</head>
+<body>
+<x-dc>
+<div style="min-height:100vh;background:#eef2f6">
+
+  <sc-if value="{{ isUsers }}" hint-placeholder-val="{{ false }}">
+  <div data-screen-label="User Management" style="height:100vh;min-height:720px;position:relative">
+    <div style="height:100%;overflow:auto">
+    <div style="min-width:1280px;display:flex;background:#eef2f6;height:100%;position:relative;overflow:hidden">
+
+      <div style="{{ sideStyle }}">
+        <div style="height:56px;display:flex;align-items:center;gap:10px;padding:0 14px;flex:none;border-bottom:1px solid rgba(255,255,255,.09)">
+          <div style="width:26px;height:26px;border-radius:7px;background:#4da3e8;color:#06283a;display:grid;place-items:center;font-weight:700;font-size:13px;flex:none">M</div>
+          <div style="{{ sideText }}">
+            <div style="font-size:13px;font-weight:600;color:#ffffff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Madinah Butchery</div>
+            <div style="font-size:10.5px;color:#89aec6">All locations</div>
+          </div>
+          <div style="{{ sideCaret }}">&#9662;</div>
+        </div>
+        <div style="{{ sideListStyle }}">
+          <sc-for list="{{ userNav }}" as="n" hint-placeholder-count="18">
+            <div>
+              <div onClick="{{ n.onClick }}" title="{{ n.name }}" style="{{ n.style }}" style-hover="background:rgba(255,255,255,.07)">
+                <div style="{{ n.iconStyle }}">{{ n.key }}</div>
+                <div style="{{ n.nameStyle }}">{{ n.name }}</div>
+                <div style="{{ n.caretStyle }}">&#8250;</div>
+              </div>
+              <sc-if value="{{ n.open }}" hint-placeholder-val="{{ false }}">
+                <div style="margin:2px 0 6px 26px;border-left:1px solid rgba(255,255,255,.12);padding-left:10px;display:flex;flex-direction:column;gap:1px">
+                  <sc-for list="{{ n.children }}" as="c" hint-placeholder-count="2">
+                    <div onClick="{{ c.onClick }}" style="{{ c.style }}" style-hover="color:#ffffff">{{ c.name }}</div>
+                  </sc-for>
+                </div>
+              </sc-if>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <div style="flex:1;min-width:0;display:flex;flex-direction:column">
+        <div style="height:56px;flex:none;background:#ffffff;border-bottom:1px solid #dfe6ee;display:flex;align-items:center;gap:14px;padding:0 20px">
+          <div onClick="{{ toggleNav }}" title="{{ navTip }}" style="width:30px;height:30px;border-radius:7px;border:1px solid #dfe6ee;display:grid;place-items:center;cursor:pointer;color:#5d6b7d;font-size:13px;flex:none" style-hover="background:#f2f6fa;color:#1668c9">&#9776;</div>
+          <div style="flex:1;max-width:420px;position:relative">
+            <div style="position:absolute;left:11px;top:50%;transform:translateY(-50%);color:#9aa7b6;font-size:12px">&#9906;</div>
+            <input placeholder="Search products, invoices, contacts&hellip;" style="width:100%;height:34px;border:1px solid #dfe6ee;border-radius:8px;background:#f7fafc;padding:0 10px 0 30px;font-family:'Public Sans',sans-serif;font-size:13px;outline:none" style-focus="background:#ffffff;border-color:#1668c9" />
+          </div>
+          <div style="margin-left:auto;display:flex;align-items:center;gap:8px">
+            <div onClick="{{ goPos }}" style="height:32px;padding:0 12px;border-radius:8px;background:#1668c9;color:#ffffff;display:flex;align-items:center;font-size:12.5px;font-weight:600;cursor:pointer" style-hover="background:#1257ab">Open POS</div>
+            <div style="height:32px;padding:0 11px;border-radius:8px;border:1px solid #dfe6ee;display:flex;align-items:center;font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:#4a5866;cursor:pointer">29/09/2026</div>
+            <div style="width:32px;height:32px;border-radius:8px;border:1px solid #dfe6ee;display:grid;place-items:center;cursor:pointer;position:relative;color:#5d6b7d">&#9737;<div style="position:absolute;top:6px;right:6px;width:6px;height:6px;border-radius:50%;background:#d93a3a;border:1.5px solid #ffffff"></div></div>
+            <div style="display:flex;align-items:center;gap:8px;padding:3px 9px 3px 3px;border-radius:8px;border:1px solid #dfe6ee;cursor:pointer">
+              <div style="width:25px;height:25px;border-radius:6px;background:#0a3a52;color:#ffffff;display:grid;place-items:center;font-size:11px;font-weight:600">AM</div>
+              <div style="font-size:12.5px;font-weight:500">Aminul</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="flex:1;overflow-y:auto;min-height:0">
+
+          <sc-if value="{{ uList }}" hint-placeholder-val="{{ true }}">
+          <div>
+            <div style="padding:20px 24px 0;background:#ffffff;border-bottom:1px solid #dfe6ee">
+              <div style="display:flex;align-items:center;gap:7px;font-size:11.5px;color:#7d8b9c;margin-bottom:8px">
+                <span>User Management</span><span style="color:#c2cedb">/</span><span style="color:#0f1c2b;font-weight:500">Users</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;gap:20px;flex-wrap:wrap">
+                <div>
+                  <h2 style="margin:0 0 3px;font-size:22px;font-weight:700;letter-spacing:-0.018em">Users</h2>
+                  <div style="font-size:12.5px;color:#5d6b7d">8 users &middot; 6 active, 1 invited, 1 deactivated</div>
+                </div>
+                <div style="margin-left:auto;display:flex;gap:8px;align-items:center">
+                  <div onClick="{{ uGoRoles }}" style="height:34px;padding:0 13px;border-radius:8px;border:1px solid #dfe6ee;display:flex;align-items:center;font-size:12.5px;font-weight:500;color:#4a5866;cursor:pointer" style-hover="background:#f2f6fa">Manage roles</div>
+                  <div onClick="{{ openUserForm }}" style="height:34px;padding:0 15px;border-radius:8px;background:#1668c9;color:#ffffff;display:flex;align-items:center;font-size:12.5px;font-weight:600;cursor:pointer" style-hover="background:#1257ab">+ Invite user</div>
+                </div>
+              </div>
+              <div style="display:flex;gap:2px;margin-top:16px">
+                <sc-for list="{{ statusTabs }}" as="t" hint-placeholder-count="4">
+                  <div onClick="{{ t.onClick }}" style="{{ t.style }}">{{ t.name }}<span style="{{ t.countStyle }}">{{ t.count }}</span></div>
+                </sc-for>
+              </div>
+            </div>
+
+            <div style="padding:20px 24px 32px">
+              <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:14px">
+                <div style="position:relative;width:250px">
+                  <div style="position:absolute;left:10px;top:50%;transform:translateY(-50%);color:#9aa7b6;font-size:12px">&#9906;</div>
+                  <input placeholder="Name, email or phone" style="width:100%;height:34px;border:1px solid #dfe6ee;border-radius:8px;background:#ffffff;padding:0 10px 0 29px;font-family:'Public Sans',sans-serif;font-size:12.5px;outline:none" style-focus="border-color:#1668c9" />
+                </div>
+                <div style="height:34px;padding:0 11px;border-radius:8px;border:1px solid #dfe6ee;background:#ffffff;display:flex;align-items:center;gap:20px;font-size:12.5px;color:#4a5866;cursor:pointer" style-hover="border-color:#c9d4e0">Role<span style="color:#9aa7b6;font-size:10px">&#9662;</span></div>
+                <div style="height:34px;padding:0 11px;border-radius:8px;border:1px solid #dfe6ee;background:#ffffff;display:flex;align-items:center;gap:20px;font-size:12.5px;color:#4a5866;cursor:pointer" style-hover="border-color:#c9d4e0">Location<span style="color:#9aa7b6;font-size:10px">&#9662;</span></div>
+                <div style="margin-left:auto;display:flex;align-items:center;gap:8px">
+                  <div style="height:34px;padding:0 12px;border-radius:8px;border:1px solid #dfe6ee;background:#ffffff;display:flex;align-items:center;font-size:12.5px;font-weight:500;color:#4a5866;cursor:pointer" style-hover="background:#f2f6fa">Export</div>
+                  <div style="height:34px;padding:0 12px;border-radius:8px;border:1px solid #dfe6ee;background:#ffffff;display:flex;align-items:center;font-size:12.5px;font-weight:500;color:#4a5866;cursor:pointer" style-hover="background:#f2f6fa">Columns</div>
+                </div>
+              </div>
+
+              <div style="background:#ffffff;border:1px solid #dfe6ee;border-radius:12px;overflow:hidden">
+                <div style="display:grid;grid-template-columns:36px 2.2fr 1.3fr 1fr 1.1fr 1fr 90px;gap:12px;padding:10px 16px;background:#f6f9fc;border-bottom:1px solid #dfe6ee;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.07em;text-transform:uppercase;color:#5d6b7d;align-items:center">
+                  <div><div style="width:15px;height:15px;border:1.5px solid #c2cedb;border-radius:4px"></div></div>
+                  <div>User</div><div>Role</div><div>Locations</div><div>Last active</div><div>Status</div><div></div>
+                </div>
+                <sc-for list="{{ users }}" as="u" hint-placeholder-count="8">
+                  <div style="display:grid;grid-template-columns:36px 2.2fr 1.3fr 1fr 1.1fr 1fr 90px;gap:12px;padding:11px 16px;border-bottom:1px solid #f0f4f8;align-items:center" style-hover="background:#f9fbfd">
+                    <div><div style="width:15px;height:15px;border:1.5px solid #c2cedb;border-radius:4px"></div></div>
+                    <div style="display:flex;align-items:center;gap:11px;min-width:0">
+                      <div style="{{ u.avatar }}">{{ u.initials }}</div>
+                      <div style="min-width:0">
+                        <div onClick="{{ uGoDetails }}" style="font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer;color:#1668c9">{{ u.name }}</div>
+                        <div style="font-size:11px;color:#8b98a8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ u.email }}</div>
+                      </div>
+                    </div>
+                    <div><span style="{{ u.roleBadge }}">{{ u.role }}</span></div>
+                    <div style="font-size:12.5px;color:#4a5866">{{ u.locations }}</div>
+                    <div style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:#5d6b7d">{{ u.lastActive }}</div>
+                    <div><span style="{{ u.statusBadge }}">{{ u.status }}</span></div>
+                    <div style="display:flex;justify-content:flex-end;gap:5px">
+                      <div onClick="{{ openUserForm }}" style="width:26px;height:26px;border-radius:6px;border:1px solid #e4eaf1;display:grid;place-items:center;font-size:11px;color:#5d6b7d;cursor:pointer" style-hover="background:#f2f6fa;color:#1668c9">&#9998;</div>
+                      <div style="width:26px;height:26px;border-radius:6px;border:1px solid #e4eaf1;display:grid;place-items:center;font-size:13px;color:#5d6b7d;cursor:pointer" style-hover="background:#f2f6fa">&#8943;</div>
+                    </div>
+                  </div>
+                </sc-for>
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 16px;flex-wrap:wrap">
+                  <div style="font-size:12px;color:#7d8b9c">Showing {{ userCount }} of 8</div>
+                  <div style="display:flex;gap:4px;align-items:center">
+                    <div style="height:29px;padding:0 10px;border-radius:7px;border:1px solid #dfe6ee;display:flex;align-items:center;font-size:12px;color:#9aa7b6">Prev</div>
+                    <div style="min-width:29px;height:29px;border-radius:7px;background:#1668c9;color:#ffffff;display:grid;place-items:center;font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600">1</div>
+                    <div style="height:29px;padding:0 10px;border-radius:7px;border:1px solid #dfe6ee;display:flex;align-items:center;font-size:12px;color:#9aa7b6">Next</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          </sc-if>
+
+          <sc-if value="{{ uDetails }}" hint-placeholder-val="{{ false }}">
+          <div>
+            <div style="padding:20px 24px 0;background:#ffffff;border-bottom:1px solid #dfe6ee">
+              <div style="display:flex;align-items:center;gap:7px;font-size:11.5px;color:#7d8b9c;margin-bottom:14px">
+                <span onClick="{{ uGoList }}" style="cursor:pointer;color:#1668c9">Users</span><span style="color:#c2cedb">/</span><span style="color:#0f1c2b;font-weight:500">Sara Rahman</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;gap:16px;flex-wrap:wrap">
+                <div style="width:52px;height:52px;border-radius:12px;background:#0a3a52;color:#ffffff;display:grid;place-items:center;font-size:18px;font-weight:600;flex:none">SR</div>
+                <div style="min-width:0">
+                  <div style="display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:4px">
+                    <h2 style="margin:0;font-size:22px;font-weight:700;letter-spacing:-0.018em">Sara Rahman</h2>
+                    <span style="background:#eaf1fb;color:#14549e;border-radius:5px;padding:3px 9px;font-size:11.5px;font-weight:600">Manager</span>
+                    <span style="background:#e7f6ee;color:#0f6b43;border-radius:5px;padding:3px 9px;font-size:11.5px;font-weight:600">Active</span>
+                  </div>
+                  <div style="font-size:12.5px;color:#5d6b7d">sara.rahman@madinah.com.au &middot; +61 412 884 201</div>
+                </div>
+                <div style="margin-left:auto;display:flex;gap:8px;align-items:center">
+                  <div style="height:34px;padding:0 13px;border-radius:8px;border:1px solid #dfe6ee;display:flex;align-items:center;font-size:12.5px;font-weight:500;color:#4a5866;cursor:pointer" style-hover="background:#f2f6fa">Reset password</div>
+                  <div style="height:34px;padding:0 13px;border-radius:8px;border:1px solid #f3cfcf;background:#fdf4f4;display:flex;align-items:center;font-size:12.5px;font-weight:600;color:#b02020;cursor:pointer" style-hover="background:#fdeaea">Deactivate</div>
+                  <div onClick="{{ openUserForm }}" style="height:34px;padding:0 15px;border-radius:8px;background:#1668c9;color:#ffffff;display:flex;align-items:center;font-size:12.5px;font-weight:600;cursor:pointer" style-hover="background:#1257ab">Edit user</div>
+                </div>
+              </div>
+              <div style="display:flex;gap:2px;margin-top:16px">
+                <sc-for list="{{ detailTabs }}" as="t" hint-placeholder-count="3">
+                  <div onClick="{{ t.onClick }}" style="{{ t.style }}">{{ t.name }}</div>
+                </sc-for>
+              </div>
+            </div>
+
+            <div style="padding:20px 24px 32px;display:grid;grid-template-columns:1fr 320px;gap:16px;align-items:start">
+              <div style="display:grid;gap:14px">
+
+                <sc-if value="{{ dtActivity }}" hint-placeholder-val="{{ true }}">
+                <div style="background:#ffffff;border:1px solid #dfe6ee;border-radius:12px;overflow:hidden">
+                  <div style="padding:14px 18px;border-bottom:1px solid #eaeff5;display:flex;align-items:center;gap:12px">
+                    <div style="font-size:13px;font-weight:700">Activity</div>
+                    <div style="margin-left:auto;height:30px;padding:0 11px;border-radius:7px;border:1px solid #dfe6ee;display:flex;align-items:center;font-family:'IBM Plex Mono',monospace;font-size:11px;color:#4a5866;cursor:pointer">Last 7 days</div>
+                  </div>
+                  <sc-for list="{{ activity }}" as="a" hint-placeholder-count="7">
+                    <div style="display:flex;gap:14px;padding:13px 18px;border-bottom:1px solid #f0f4f8;align-items:flex-start">
+                      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#9aa7b6;flex:none;width:88px;padding-top:2px">{{ a.when }}</div>
+                      <div style="{{ a.dot }}"></div>
+                      <div style="flex:1;min-width:0">
+                        <div style="font-size:13px;line-height:1.45">{{ a.what }}</div>
+                        <div style="font-size:11.5px;color:#8b98a8;margin-top:2px">{{ a.meta }}</div>
+                      </div>
+                    </div>
+                  </sc-for>
+                </div>
+                </sc-if>
+
+                <sc-if value="{{ dtPerms }}" hint-placeholder-val="{{ false }}">
+                <div style="background:#ffffff;border:1px solid #dfe6ee;border-radius:12px;overflow:hidden">
+                  <div style="padding:14px 18px;border-bottom:1px solid #eaeff5;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+                    <div>
+                      <div style="font-size:13px;font-weight:700">Effective permissions</div>
+                      <div style="font-size:11.5px;color:#7d8b9c;margin-top:2px">Inherited from Manager, plus 2 overrides</div>
+                    </div>
+                    <div onClick="{{ uGoMatrix }}" style="margin-left:auto;height:30px;padding:0 11px;border-radius:7px;border:1px solid #dfe6ee;display:flex;align-items:center;font-size:12px;font-weight:500;color:#4a5866;cursor:pointer" style-hover="background:#f2f6fa">Edit role</div>
+                  </div>
+                  <sc-for list="{{ effective }}" as="e" hint-placeholder-count="10">
+                    <div style="display:grid;grid-template-columns:1.6fr 1fr auto;gap:14px;padding:10px 18px;border-bottom:1px solid #f0f4f8;align-items:center">
+                      <div style="display:flex;align-items:center;gap:10px;min-width:0">
+                        <div style="width:22px;height:22px;border-radius:6px;background:#eef2f6;display:grid;place-items:center;font-family:'IBM Plex Mono',monospace;font-size:9px;color:#7d8b9c;flex:none">{{ e.key }}</div>
+                        <div style="font-size:12.5px;font-weight:500">{{ e.name }}</div>
+                      </div>
+                      <div style="font-size:12px;color:#5d6b7d">{{ e.actions }}</div>
+                      <div><span style="{{ e.srcStyle }}">{{ e.src }}</span></div>
+                    </div>
+                  </sc-for>
+                </div>
+                </sc-if>
+
+                <sc-if value="{{ dtSessions }}" hint-placeholder-val="{{ false }}">
+                <div style="background:#ffffff;border:1px solid #dfe6ee;border-radius:12px;overflow:hidden">
+                  <div style="padding:14px 18px;border-bottom:1px solid #eaeff5;display:flex;align-items:center;gap:12px">
+                    <div style="font-size:13px;font-weight:700">Sessions</div>
+                    <div style="margin-left:auto;height:30px;padding:0 11px;border-radius:7px;border:1px solid #f3cfcf;background:#fdf4f4;display:flex;align-items:center;font-size:12px;font-weight:600;color:#b02020;cursor:pointer" style-hover="background:#fdeaea">Sign out everywhere</div>
+                  </div>
+                  <sc-for list="{{ sessions }}" as="s" hint-placeholder-count="3">
+                    <div style="display:grid;grid-template-columns:1.5fr 1.2fr 1fr auto;gap:14px;padding:12px 18px;border-bottom:1px solid #f0f4f8;align-items:center">
+                      <div>
+                        <div style="font-size:12.5px;font-weight:500">{{ s.device }}</div>
+                        <div style="font-size:11px;color:#8b98a8">{{ s.agent }}</div>
+                      </div>
+                      <div style="font-size:12px;color:#5d6b7d">{{ s.where }}</div>
+                      <div style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:#5d6b7d">{{ s.when }}</div>
+                      <div><span style="{{ s.badge }}">{{ s.state }}</span></div>
+                    </div>
+                  </sc-for>
+                </div>
+                </sc-if>
+              </div>
+
+              <div style="display:grid;gap:12px">
+                <div style="background:#ffffff;border:1px solid #dfe6ee;border-radius:12px;padding:16px 18px">
+                  <div style="font-size:12.5px;font-weight:700;margin-bottom:13px">Details</div>
+                  <div style="display:grid;gap:11px">
+                    <sc-for list="{{ meta }}" as="m" hint-placeholder-count="7">
+                      <div>
+                        <div style="font-size:11px;color:#8b98a8;margin-bottom:2px">{{ m.k }}</div>
+                        <div style="{{ m.vStyle }}">{{ m.v }}</div>
+                      </div>
+                    </sc-for>
+                  </div>
+                </div>
+                <div style="background:#ffffff;border:1px solid #dfe6ee;border-radius:12px;padding:16px 18px">
+                  <div style="font-size:12.5px;font-weight:700;margin-bottom:12px">This month</div>
+                  <div style="display:grid;gap:12px">
+                    <sc-for list="{{ userStats }}" as="st" hint-placeholder-count="4">
+                      <div style="display:flex;align-items:baseline;gap:10px">
+                        <div style="font-size:12.5px;color:#5d6b7d;flex:1">{{ st.k }}</div>
+                        <div style="{{ st.vStyle }}">{{ st.v }}</div>
+                      </div>
+                    </sc-for>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          </sc-if>
+
+          <sc-if value="{{ uRoles }}" hint-placeholder-val="{{ false }}">
+          <div>
+            <div style="padding:20px 24px 16px;background:#ffffff;border-bottom:1px solid #dfe6ee">
+              <div style="display:flex;align-items:center;gap:7px;font-size:11.5px;color:#7d8b9c;margin-bottom:8px">
+                <span>User Management</span><span style="color:#c2cedb">/</span><span style="color:#0f1c2b;font-weight:500">Roles</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;gap:20px;flex-wrap:wrap">
+                <div>
+                  <h2 style="margin:0 0 3px;font-size:22px;font-weight:700;letter-spacing:-0.018em">Roles</h2>
+                  <div style="font-size:12.5px;color:#5d6b7d">6 roles &middot; 4 built in, 2 custom</div>
+                </div>
+                <div onClick="{{ uGoMatrix }}" style="margin-left:auto;height:34px;padding:0 15px;border-radius:8px;background:#1668c9;color:#ffffff;display:flex;align-items:center;font-size:12.5px;font-weight:600;cursor:pointer" style-hover="background:#1257ab">+ New role</div>
+              </div>
+            </div>
+            <div style="padding:20px 24px 32px">
+              <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:14px">
+                <sc-for list="{{ roles }}" as="r" hint-placeholder-count="6">
+                  <div onClick="{{ uGoMatrix }}" style="background:#ffffff;border:1px solid #dfe6ee;border-radius:12px;padding:17px 19px;cursor:pointer" style-hover="border-color:#1668c9;box-shadow:0 6px 18px -10px rgba(22,104,201,.4)">
+                    <div style="margin-bottom:12px">
+                      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+                        <div style="font-size:14px;font-weight:700;letter-spacing:-0.01em">{{ r.name }}</div>
+                        <span style="{{ r.kindStyle }}">{{ r.kind }}</span>
+                      </div>
+                      <div style="font-size:12px;color:#5d6b7d;line-height:1.5;margin-top:5px;text-wrap:pretty">{{ r.desc }}</div>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:9px;padding-top:12px;border-top:1px solid #f0f4f8">
+                      <div style="font-size:12px;color:#5d6b7d">{{ r.userLabel }}</div>
+                      <div style="margin-left:auto;font-family:'IBM Plex Mono',monospace;font-size:11px;color:#14549e;background:#eaf1fb;border-radius:5px;padding:3px 8px">{{ r.permLabel }}</div>
+                    </div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+          </sc-if>
+
+          <sc-if value="{{ uMatrix }}" hint-placeholder-val="{{ false }}">
+          <div>
+            <div style="padding:20px 24px 16px;background:#ffffff;border-bottom:1px solid #dfe6ee">
+              <div style="display:flex;align-items:center;gap:7px;font-size:11.5px;color:#7d8b9c;margin-bottom:8px">
+                <span onClick="{{ uGoRoles }}" style="cursor:pointer;color:#1668c9">Roles</span><span style="color:#c2cedb">/</span><span style="color:#0f1c2b;font-weight:500">{{ presetName }}</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;gap:20px;flex-wrap:wrap">
+                <div>
+                  <h2 style="margin:0 0 3px;font-size:22px;font-weight:700;letter-spacing:-0.018em">Role permissions</h2>
+                  <div style="font-size:12.5px;color:#5d6b7d">{{ grantSummary }}</div>
+                </div>
+                <div style="margin-left:auto;display:flex;gap:8px;align-items:center">
+                  <div onClick="{{ uGoRoles }}" style="height:34px;padding:0 13px;border-radius:8px;border:1px solid #dfe6ee;display:flex;align-items:center;font-size:12.5px;font-weight:500;color:#4a5866;cursor:pointer" style-hover="background:#f2f6fa">Cancel</div>
+                  <div style="height:34px;padding:0 15px;border-radius:8px;background:#1668c9;color:#ffffff;display:flex;align-items:center;font-size:12.5px;font-weight:600;cursor:pointer" style-hover="background:#1257ab">Save role</div>
+                </div>
+              </div>
+            </div>
+
+            <div style="padding:20px 24px 32px">
+              <div style="background:#ffffff;border:1px solid #dfe6ee;border-radius:12px;padding:17px 19px;margin-bottom:14px;display:grid;grid-template-columns:1.1fr 1.2fr;gap:20px">
+                <div>
+                  <label style="display:block;font-size:12px;font-weight:600;margin-bottom:5px">Role name</label>
+                  <div style="height:36px;border:1px solid #dfe6ee;border-radius:8px;padding:0 11px;display:flex;align-items:center;font-size:13px">{{ presetName }}</div>
+                  <div style="font-size:11.5px;color:#7d8b9c;margin-top:7px;line-height:1.5">Start from a template, then adjust. Any change marks the role as custom.</div>
+                </div>
+                <div>
+                  <label style="display:block;font-size:12px;font-weight:600;margin-bottom:5px">Start from</label>
+                  <div style="display:flex;flex-wrap:wrap;gap:6px">
+                    <sc-for list="{{ presets }}" as="p" hint-placeholder-count="5">
+                      <div onClick="{{ p.onClick }}" style="{{ p.style }}">{{ p.name }}</div>
+                    </sc-for>
+                  </div>
+                </div>
+              </div>
+
+              <div style="background:#ffffff;border:1px solid #dfe6ee;border-radius:12px;overflow:hidden">
+                <div style="padding:14px 18px;border-bottom:1px solid #dfe6ee;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+                  <div style="max-width:520px">
+                    <div style="font-size:13px;font-weight:700">Permission grid</div>
+                    <div style="font-size:11.5px;color:#7d8b9c;margin-top:2px;line-height:1.5;text-wrap:pretty">One grid covers all 18 modules. Click any cell to toggle, or a column header to toggle the whole action.</div>
+                  </div>
+                  <div style="margin-left:auto;display:flex;gap:7px">
+                    <div onClick="{{ grantAll }}" style="height:30px;padding:0 11px;border-radius:7px;border:1px solid #dfe6ee;display:flex;align-items:center;font-size:12px;font-weight:500;color:#4a5866;cursor:pointer" style-hover="background:#f2f6fa">Grant all</div>
+                    <div onClick="{{ revokeAll }}" style="height:30px;padding:0 11px;border-radius:7px;border:1px solid #dfe6ee;display:flex;align-items:center;font-size:12px;font-weight:500;color:#4a5866;cursor:pointer" style-hover="background:#f2f6fa">Revoke all</div>
+                  </div>
+                </div>
+
+                <div style="display:grid;grid-template-columns:1.9fr repeat(5,84px);padding:0 18px;background:#f6f9fc;border-bottom:1px solid #dfe6ee;align-items:stretch">
+                  <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.07em;text-transform:uppercase;color:#5d6b7d;padding:11px 0;align-self:center">Module</div>
+                  <sc-for list="{{ cols }}" as="c" hint-placeholder-count="5">
+                    <div onClick="{{ c.onClick }}" style="text-align:center;padding:11px 0;cursor:pointer;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.07em;text-transform:uppercase;color:#14549e" style-hover="background:#eaf1fb">{{ c.name }}</div>
+                  </sc-for>
+                </div>
+
+                <sc-for list="{{ grid }}" as="row" hint-placeholder-count="12">
+                  <div style="display:grid;grid-template-columns:1.9fr repeat(5,84px);padding:0 18px;border-bottom:1px solid #f0f4f8;align-items:stretch" style-hover="background:#f9fbfd">
+                    <div style="display:flex;align-items:center;gap:10px;min-width:0;padding:9px 0">
+                      <div style="width:22px;height:22px;border-radius:6px;background:#eef2f6;display:grid;place-items:center;font-family:'IBM Plex Mono',monospace;font-size:9px;color:#7d8b9c;flex:none">{{ row.key }}</div>
+                      <div style="font-size:12.5px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ row.name }}</div>
+                      <div style="{{ row.extraStyle }}">{{ row.extra }}</div>
+                    </div>
+                    <sc-for list="{{ row.cells }}" as="cell" hint-placeholder-count="5">
+                      <div onClick="{{ cell.onClick }}" style="display:grid;place-items:center;cursor:pointer;padding:9px 0">
+                        <div style="{{ cell.style }}">{{ cell.mark }}</div>
+                      </div>
+                    </sc-for>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+          </sc-if>
+
+        </div>
+      </div>
+
+      <sc-if value="{{ userFormOpen }}" hint-placeholder-val="{{ false }}">
+        <div onClick="{{ closeUserForm }}" style="position:absolute;inset:0;background:rgba(9,22,35,.42);z-index:20"></div>
+        <div style="position:absolute;top:0;right:0;bottom:0;width:520px;background:#ffffff;z-index:21;box-shadow:-18px 0 40px -20px rgba(15,28,43,.4);display:flex;flex-direction:column">
+          <div style="flex:none;padding:18px 22px;border-bottom:1px solid #dfe6ee;display:flex;align-items:center;gap:14px">
+            <div>
+              <div style="font-size:16px;font-weight:700;letter-spacing:-0.015em">Invite user</div>
+              <div style="font-size:12px;color:#5d6b7d;margin-top:2px">Same form handles edit &mdash; one shell, two entry points</div>
+            </div>
+            <div onClick="{{ closeUserForm }}" style="margin-left:auto;width:30px;height:30px;border-radius:7px;border:1px solid #dfe6ee;display:grid;place-items:center;cursor:pointer;color:#5d6b7d;font-size:14px" style-hover="background:#f2f6fa">&times;</div>
+          </div>
+
+          <div style="flex:1;overflow-y:auto;padding:20px 22px">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.09em;text-transform:uppercase;color:#7d8b9c;margin-bottom:12px">Identity</div>
+            <div style="display:grid;gap:14px;margin-bottom:26px">
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+                <div>
+                  <label style="display:block;font-size:12px;font-weight:600;margin-bottom:5px">First name <span style="color:#d93a3a">*</span></label>
+                  <input placeholder="Sara" style="width:100%;height:36px;border:1px solid #dfe6ee;border-radius:8px;padding:0 11px;font-family:'Public Sans',sans-serif;font-size:13px;outline:none" style-focus="border-color:#1668c9" />
+                </div>
+                <div>
+                  <label style="display:block;font-size:12px;font-weight:600;margin-bottom:5px">Last name <span style="color:#d93a3a">*</span></label>
+                  <input placeholder="Rahman" style="width:100%;height:36px;border:1px solid #dfe6ee;border-radius:8px;padding:0 11px;font-family:'Public Sans',sans-serif;font-size:13px;outline:none" style-focus="border-color:#1668c9" />
+                </div>
+              </div>
+              <div>
+                <label style="display:block;font-size:12px;font-weight:600;margin-bottom:5px">Email <span style="color:#d93a3a">*</span></label>
+                <input placeholder="name@madinah.com.au" style="width:100%;height:36px;border:1px solid #dfe6ee;border-radius:8px;padding:0 11px;font-family:'Public Sans',sans-serif;font-size:13px;outline:none" style-focus="border-color:#1668c9" />
+                <div style="font-size:11.5px;color:#7d8b9c;margin-top:5px">The invite and sign-in link go here. Doubles as the username.</div>
+              </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+                <div>
+                  <label style="display:block;font-size:12px;font-weight:600;margin-bottom:5px">Phone</label>
+                  <input placeholder="+61" style="width:100%;height:36px;border:1px solid #dfe6ee;border-radius:8px;padding:0 11px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;outline:none" style-focus="border-color:#1668c9" />
+                </div>
+                <div>
+                  <label style="display:block;font-size:12px;font-weight:600;margin-bottom:5px">POS PIN</label>
+                  <input placeholder="4 digits" style="width:100%;height:36px;border:1px solid #dfe6ee;border-radius:8px;padding:0 11px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;outline:none" style-focus="border-color:#1668c9" />
+                </div>
+              </div>
+            </div>
+
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.09em;text-transform:uppercase;color:#7d8b9c;margin-bottom:12px">Access</div>
+            <div style="display:grid;gap:12px;margin-bottom:14px">
+              <div>
+                <label style="display:block;font-size:12px;font-weight:600;margin-bottom:6px">Role <span style="color:#d93a3a">*</span></label>
+                <div style="display:grid;gap:7px">
+                  <sc-for list="{{ roleChoices }}" as="rc" hint-placeholder-count="4">
+                    <div onClick="{{ rc.onClick }}" style="{{ rc.style }}">
+                      <div style="{{ rc.radio }}"><div style="{{ rc.inner }}"></div></div>
+                      <div style="flex:1;min-width:0">
+                        <div style="font-size:12.5px;font-weight:600">{{ rc.name }}</div>
+                        <div style="font-size:11.5px;color:#7d8b9c;line-height:1.45;margin-top:1px">{{ rc.desc }}</div>
+                      </div>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+              <div>
+                <label style="display:block;font-size:12px;font-weight:600;margin-bottom:5px">Locations <span style="color:#d93a3a">*</span></label>
+                <div style="min-height:36px;border:1px solid #dfe6ee;border-radius:8px;padding:5px 8px;display:flex;flex-wrap:wrap;gap:5px;align-items:center">
+                  <div style="background:#eaf1fb;color:#14549e;border-radius:5px;padding:3px 7px;font-size:12px;display:flex;gap:6px;align-items:center">Main branch <span style="cursor:pointer">&times;</span></div>
+                  <div style="font-size:12px;color:#9aa7b6;padding:0 4px;cursor:pointer">+ add</div>
+                </div>
+              </div>
+            </div>
+
+            <div style="display:flex;gap:10px;align-items:flex-start;background:#eaf1fb;border:1px solid #cfe0f5;border-radius:9px;padding:11px 13px;font-size:12.5px;color:#14549e;line-height:1.55;margin-bottom:22px">
+              <div style="font-weight:700;flex:none">i</div>
+              <div>Permissions come from the role. Per-user overrides are possible from the user's Permissions tab, and show as <strong>Override</strong> there.</div>
+            </div>
+
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.09em;text-transform:uppercase;color:#7d8b9c;margin-bottom:12px">Options</div>
+            <div style="display:grid;gap:9px">
+              <sc-for list="{{ toggles }}" as="t" hint-placeholder-count="3">
+                <div onClick="{{ t.onClick }}" style="display:flex;align-items:center;gap:12px;padding:11px 13px;border:1px solid #dfe6ee;border-radius:9px;cursor:pointer" style-hover="background:#f9fbfd">
+                  <div style="{{ t.track }}"><div style="{{ t.knob }}"></div></div>
+                  <div style="flex:1;min-width:0">
+                    <div style="font-size:12.5px;font-weight:500">{{ t.name }}</div>
+                    <div style="font-size:11.5px;color:#7d8b9c;margin-top:1px">{{ t.desc }}</div>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+
+          <div style="flex:none;padding:14px 22px;border-top:1px solid #dfe6ee;display:flex;align-items:center;gap:10px">
+            <div style="font-size:12px;color:#7d8b9c;flex:1">Invite expires in 7 days</div>
+            <div onClick="{{ closeUserForm }}" style="height:36px;padding:0 15px;border-radius:8px;border:1px solid #dfe6ee;display:flex;align-items:center;font-size:13px;font-weight:500;color:#4a5866;cursor:pointer" style-hover="background:#f2f6fa">Cancel</div>
+            <div onClick="{{ closeUserForm }}" style="height:36px;padding:0 17px;border-radius:8px;background:#1668c9;color:#ffffff;display:flex;align-items:center;font-size:13px;font-weight:600;cursor:pointer" style-hover="background:#1257ab">Send invite</div>
+          </div>
+        </div>
+      </sc-if>
+    </div>
+    </div>
+  </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1560,&quot;height&quot;:1040}}"></script>
+<script src="js/base.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

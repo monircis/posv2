@@ -1,0 +1,47 @@
+[
+ {
+  "name": "Retail",
+  "description": "Walk-in counter customers",
+  "price_group": "Default selling price",
+  "discount": 0,
+  "terms": "On sale",
+  "members": 412,
+  "balance": 0
+ },
+ {
+  "name": "Wholesale",
+  "description": "Restaurants, caterers, cafes",
+  "price_group": "Wholesale ex-GST",
+  "discount": 8,
+  "terms": "30 days",
+  "members": 38,
+  "balance": 4305.25
+ },
+ {
+  "name": "Staff",
+  "description": "Employee purchases",
+  "price_group": "Cost + 10%",
+  "discount": 0,
+  "terms": "Payroll deduct",
+  "members": 8,
+  "balance": 184.4
+ },
+ {
+  "name": "Charity",
+  "description": "Registered community organisations",
+  "price_group": "Cost price",
+  "discount": 15,
+  "terms": "14 days",
+  "members": 4,
+  "balance": 0
+ },
+ {
+  "name": "Online",
+  "description": "Catalogue QR and phone orders",
+  "price_group": "Default selling price",
+  "discount": 0,
+  "terms": "Prepaid",
+  "members": 126,
+  "balance": 0
+ }
+]

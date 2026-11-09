@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sign in · Madinah Butchery ERP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+<main class="auth">
+
+  <aside class="brand-panel">
+    <div class="brand">
+      <div class="logo">M</div>
+      <div>
+        <div class="brand-name">Madinah Butchery</div>
+        <div class="brand-sub">Dooit ERP</div>
+      </div>
+    </div>
+
+    <div class="pitch">
+      <h1>Shop, kitchen and books in one place.</h1>
+      <p>Sales, stock across branches, kitchen orders and accounts stay in step as you work.</p>
+    </div>
+
+    <ul class="locations" aria-label="Locations">
+      <li><span class="dot"></span>Main branch</li>
+      <li><span class="dot"></span>Bankstown shop</li>
+      <li><span class="dot"></span>Cold store</li>
+    </ul>
+
+    <div class="brand-foot">GST registered · Prices in AUD</div>
+  </aside>
+
+  <section class="form-panel">
+    <div class="mobile-brand">
+      <div class="logo">M</div>
+      <div class="brand-name">Madinah Butchery</div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <h2>Sign in</h2>
+        <p class="muted">Use your work email and password.</p>
+      </div>
+
+      <form id="pass-form" novalidate>
+        <div class="alert" id="pass-alert" role="alert" hidden></div>
+
+        <div class="field">
+          <label for="email">Work email</label>
+          <input id="email" name="email" type="email" autocomplete="username" placeholder="name@madinah.com.au" spellcheck="false">
+          <div class="field-error" id="email-err"></div>
+        </div>
+
+        <div class="field">
+          <div class="label-row">
+            <label for="password">Password</label>
+            <button type="button" class="link" id="forgot">Forgot password?</button>
+          </div>
+          <div class="pw">
+            <input id="password" name="password" type="password" autocomplete="current-password">
+            <button type="button" id="toggle-pw" aria-label="Show password" aria-pressed="false">Show</button>
+          </div>
+          <div class="field-error" id="password-err"></div>
+        </div>
+
+        <div class="field">
+          <label for="location">Location</label>
+          <select id="location" name="location">
+            <option value="All">All locations</option>
+            <option>Main branch</option>
+            <option>Bankstown shop</option>
+            <option>Cold store</option>
+          </select>
+        </div>
+
+        <label class="check">
+          <input type="checkbox" id="remember" name="remember">
+          <span>Keep me signed in on this device for 30 days</span>
+        </label>
+
+        <button class="primary" type="submit" id="pass-submit">Sign in</button>
+      </form>
+
+      <details class="demo">
+        <summary>Demo accounts</summary>
+        <p class="muted small">This page signs in against sample staff from User Management. Pick one to fill the form.</p>
+        <div class="demo-list" id="demo-list"></div>
+      </details>
+    </div>
+
+    <p class="help">Locked out? The business owner can reset your access in User Management.</p>
+  </section>
+
+</main>
+<script src="js/login.js"></script>
+</body>
+</html>

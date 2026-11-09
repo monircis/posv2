@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en" data-page="pos">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>POS Terminal · Madinah Butchery ERP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/pos.css">
+<script src="js/loader.js"></script>
+<script src="js/support.js"></script>
+</head>
+<body>
+<x-dc>
+
+<div data-screen-label="POS Terminal" style="height:100%;min-height:720px;min-width:1120px;display:flex;flex-direction:column;background:#eef2f6;position:relative;overflow:hidden;font-family:'Public Sans',system-ui,sans-serif;color:#0f1c2b">
+
+  <div style="height:58px;flex:none;background:#0f1c2b;display:flex;align-items:center;gap:14px;padding:0 16px">
+    <sc-if value="{{ hasExit }}" hint-placeholder-val="{{ false }}">
+      <div onClick="{{ exit }}" title="Back to Sell" style="height:34px;padding:0 12px;border-radius:8px;border:1px solid rgba(255,255,255,.18);display:flex;align-items:center;font-size:12.5px;font-weight:600;color:#c4dced;cursor:pointer;flex:none" style-hover="background:rgba(255,255,255,.06)">&lsaquo; Sell</div>
+    </sc-if>
+    <div style="width:32px;height:32px;border-radius:9px;background:#4da3e8;color:#06283a;display:grid;place-items:center;font-weight:700;font-size:14px;flex:none">M</div>
+    <div style="min-width:0">
+      <div style="font-size:13.5px;font-weight:600;color:#ffffff;line-height:1.2">Madinah Butchery</div>
+      <div style="font-size:11px;color:#8fa3b6">Register 1 &middot; Main branch</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;background:rgba(47,158,99,.14);border:1px solid rgba(47,158,99,.38);border-radius:99px;padding:5px 12px;margin-left:6px">
+      <div style="width:7px;height:7px;border-radius:50%;background:#2f9e63"></div>
+      <div style="font-size:11.5px;font-weight:600;color:#86dcaa">Session open</div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:#cfe9da">{{ sessLine }}</div>
+    </div>
+    <div style="margin-left:auto;display:flex;align-items:center;gap:6px">
+      <div onClick="{{ openHeld }}" style="height:34px;padding:0 12px;border-radius:9px;background:rgba(255,255,255,.08);color:#dbe5ee;display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;cursor:pointer" style-hover="background:rgba(255,255,255,.16)">Held orders<span style="{{ heldBadgeStyle }}">{{ heldCount }}</span></div>
+      <div onClick="{{ openRecent }}" style="height:34px;padding:0 12px;border-radius:9px;background:rgba(255,255,255,.08);color:#dbe5ee;display:flex;align-items:center;font-size:12.5px;font-weight:600;cursor:pointer" style-hover="background:rgba(255,255,255,.16)">Recent sales</div>
+      <div onClick="{{ noSale }}" style="height:34px;padding:0 12px;border-radius:9px;background:rgba(255,255,255,.08);color:#dbe5ee;display:flex;align-items:center;font-size:12.5px;font-weight:600;cursor:pointer" style-hover="background:rgba(255,255,255,.16)">Open drawer</div>
+      <div style="width:1px;height:24px;background:rgba(255,255,255,.14);margin:0 6px"></div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:15px;font-weight:600;color:#ffffff">{{ clock }}</div>
+      <div style="display:flex;align-items:center;gap:8px;padding:3px 10px 3px 3px;border-radius:9px;background:rgba(255,255,255,.06);margin-left:4px">
+        <div style="width:28px;height:28px;border-radius:7px;background:#1668c9;color:#ffffff;display:grid;place-items:center;font-size:11px;font-weight:600">AM</div>
+        <div style="font-size:12.5px;font-weight:500;color:#dbe5ee">Aminul</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="flex:1;min-height:0;display:grid;grid-template-columns:108px minmax(0,1fr) 420px">
+
+    <div style="background:#ffffff;border-right:1px solid #dfe6ee;overflow-y:auto;padding:10px 8px;display:flex;flex-direction:column;gap:6px">
+      <sc-for list="{{ cats }}" as="c" hint-placeholder-count="9">
+        <div onClick="{{ c.onClick }}" style="{{ c.style }}" style-hover="box-shadow:inset 0 0 0 1px #c9d4e0">
+          <div style="{{ c.codeStyle }}">{{ c.code }}</div>
+          <div style="font-size:11.5px;font-weight:600;line-height:1.2;text-align:center">{{ c.name }}</div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;opacity:.65">{{ c.count }}</div>
+        </div>
+      </sc-for>
+    </div>
+
+    <div style="display:flex;flex-direction:column;min-width:0;min-height:0;position:relative">
+      <div style="flex:none;padding:14px 16px 10px">
+        <div style="position:relative">
+          <div style="position:absolute;left:15px;top:50%;transform:translateY(-50%);color:#7d8b9c;font-size:15px">&#9906;</div>
+          <input ref="{{ searchRef }}" value="{{ q }}" onChange="{{ onSearch }}" onKeyDown="{{ onSearchKey }}" placeholder="Scan a barcode, or search by name or SKU" style="width:100%;height:50px;border:1.5px solid #1668c9;border-radius:12px;background:#ffffff;padding:0 96px 0 42px;font-family:'Public Sans',sans-serif;font-size:15px;color:#0f1c2b;outline:none;box-shadow:0 0 0 4px rgba(22,104,201,.08)" />
+          <sc-if value="{{ hasQuery }}" hint-placeholder-val="{{ false }}">
+            <div onClick="{{ clearSearch }}" style="position:absolute;right:52px;top:50%;transform:translateY(-50%);width:28px;height:28px;border-radius:7px;display:grid;place-items:center;color:#7d8b9c;cursor:pointer;font-size:15px" style-hover="background:#eef2f6;color:#0f1c2b">&times;</div>
+          </sc-if>
+          <div style="position:absolute;right:12px;top:50%;transform:translateY(-50%);font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#5d6b7d;background:#eaf1fb;border-radius:5px;padding:3px 7px">F2</div>
+        </div>
+      </div>
+      <div style="flex:none;padding:0 18px 10px;display:flex;align-items:baseline;gap:10px">
+        <div style="font-size:14px;font-weight:700;letter-spacing:-0.01em">{{ gridTitle }}</div>
+        <div style="font-size:12px;color:#7d8b9c">{{ gridMeta }}</div>
+      </div>
+
+      <div style="flex:1;overflow-y:auto;min-height:0;padding:0 16px 24px">
+        <sc-if value="{{ noResults }}" hint-placeholder-val="{{ false }}">
+          <div style="border:1px dashed #cfdae6;border-radius:14px;padding:44px 20px;text-align:center;background:#ffffff">
+            <div style="font-size:14px;font-weight:600;margin-bottom:5px">Nothing matches &ldquo;{{ q }}&rdquo;</div>
+            <div style="font-size:12.5px;color:#7d8b9c;margin-bottom:14px">Try part of the name, or the SKU printed on the label.</div>
+            <div onClick="{{ clearSearch }}" style="display:inline-flex;height:34px;padding:0 14px;border-radius:9px;border:1px solid #dfe6ee;align-items:center;font-size:12.5px;font-weight:600;cursor:pointer;background:#ffffff" style-hover="background:#f2f6fa">Clear search</div>
+          </div>
+        </sc-if>
+        <div style="{{ gridStyle }}">
+          <sc-for list="{{ products }}" as="p" hint-placeholder-count="16">
+            <div onClick="{{ p.onClick }}" style="{{ p.style }}" style-hover="border-color:#1668c9;box-shadow:0 8px 18px -10px rgba(22,104,201,.45)">
+              <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px;min-height:22px">
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#8b98a8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ p.tag }}</div>
+                <div style="{{ p.inCartStyle }}">{{ p.inCart }}</div>
+              </div>
+              <div style="{{ p.nameStyle }}">{{ p.name }}</div>
+              <div style="display:flex;align-items:baseline;gap:5px;margin-top:10px">
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:16px;font-weight:600;letter-spacing:-0.02em">{{ p.price }}</div>
+                <div style="font-size:11px;color:#8b98a8">{{ p.per }}</div>
+                <div style="{{ p.stockStyle }}">{{ p.stock }}</div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <div style="position:absolute;left:50%;bottom:18px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:6px;z-index:25;pointer-events:none">
+        <sc-for list="{{ toasts }}" as="t" hint-placeholder-count="0">
+          <div style="background:#0f1c2b;color:#ffffff;border-radius:10px;padding:10px 15px;font-size:13px;display:flex;align-items:center;gap:10px;box-shadow:0 14px 30px -12px rgba(9,22,35,.6);white-space:nowrap">
+            <div style="{{ t.dot }}"></div>{{ t.msg }}
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+    <div style="background:#ffffff;border-left:1px solid #dfe6ee;display:flex;flex-direction:column;min-height:0">
+      <div style="flex:none;padding:14px 16px 12px;border-bottom:1px solid #eaeff5;display:grid;gap:10px">
+        <div style="display:flex;align-items:baseline;gap:9px">
+          <div style="font-size:15px;font-weight:700;letter-spacing:-0.01em">Order</div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600;color:#1668c9">#{{ orderNo }}</div>
+          <div style="margin-left:auto;font-size:11.5px;color:#7d8b9c">{{ orderMeta }}</div>
+        </div>
+        <div style="display:flex;gap:3px;background:#eef2f6;padding:3px;border-radius:10px">
+          <sc-for list="{{ types }}" as="t" hint-placeholder-count="3">
+            <div onClick="{{ t.onClick }}" style="{{ t.style }}">{{ t.name }}</div>
+          </sc-for>
+        </div>
+        <div style="display:grid;grid-template-columns:0.85fr 1.15fr;gap:8px">
+          <div onClick="{{ ctx.onClick }}" style="{{ ctx.style }}">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.07em;text-transform:uppercase;opacity:.7">{{ ctx.kicker }}</div>
+            <div style="font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px">{{ ctx.label }}</div>
+            <div style="font-size:11px;opacity:.8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ ctx.sub }}</div>
+          </div>
+          <div onClick="{{ openCust }}" style="{{ custChip.style }}" style-hover="border-color:#1668c9">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.07em;text-transform:uppercase;opacity:.7">Customer</div>
+            <div style="font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:2px">{{ custChip.name }}</div>
+            <div style="font-size:11px;opacity:.8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ custChip.sub }}</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="flex:1;overflow-y:auto;min-height:0">
+        <sc-if value="{{ cartEmpty }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:52px 28px;text-align:center">
+            <div style="width:44px;height:44px;border-radius:12px;background:#eef2f6;margin:0 auto 14px"></div>
+            <div style="font-size:14px;font-weight:600;margin-bottom:5px">No items yet</div>
+            <div style="font-size:12.5px;color:#7d8b9c;line-height:1.55;margin-bottom:16px;text-wrap:pretty">Scan a barcode, search, or tap a product. Cuts sold by weight ask for the weight.</div>
+            <div style="display:flex;justify-content:center;gap:6px;flex-wrap:wrap">
+              <div style="font-size:11px;color:#5d6b7d;background:#f2f6fa;border-radius:6px;padding:4px 8px"><span style="font-family:'IBM Plex Mono',monospace;font-weight:600">F2</span> search</div>
+              <div style="font-size:11px;color:#5d6b7d;background:#f2f6fa;border-radius:6px;padding:4px 8px"><span style="font-family:'IBM Plex Mono',monospace;font-weight:600">F4</span> hold</div>
+              <div style="font-size:11px;color:#5d6b7d;background:#f2f6fa;border-radius:6px;padding:4px 8px"><span style="font-family:'IBM Plex Mono',monospace;font-weight:600">F9</span> pay</div>
+              <div style="font-size:11px;color:#5d6b7d;background:#f2f6fa;border-radius:6px;padding:4px 8px"><span style="font-family:'IBM Plex Mono',monospace;font-weight:600">Esc</span> close</div>
+            </div>
+          </div>
+        </sc-if>
+        <sc-for list="{{ lines }}" as="l" hint-placeholder-count="3">
+          <div style="{{ l.rowStyle }}">
+            <div style="display:flex;align-items:center;gap:10px">
+              <div onClick="{{ l.select }}" style="flex:1;min-width:0;cursor:pointer">
+                <div style="display:flex;align-items:center;gap:6px;min-width:0">
+                  <div style="font-size:13.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ l.name }}</div>
+                  <div style="{{ l.kitchenStyle }}">Kitchen</div>
+                </div>
+                <div style="display:flex;align-items:center;gap:6px;margin-top:2px">
+                  <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#8b98a8">{{ l.meta }}</div>
+                  <div style="{{ l.discTagStyle }}">{{ l.discTag }}</div>
+                </div>
+                <div style="{{ l.noteStyle }}">{{ l.note }}</div>
+              </div>
+              <div style="display:flex;align-items:center;border:1px solid #dfe6ee;border-radius:9px;overflow:hidden;height:36px;flex:none;background:#ffffff">
+                <div onClick="{{ l.dec }}" style="width:32px;height:100%;display:grid;place-items:center;font-size:16px;color:#5d6b7d;cursor:pointer;user-select:none" style-hover="background:#f2f6fa;color:#1668c9">&minus;</div>
+                <div onClick="{{ l.edit }}" style="min-width:60px;padding:0 6px;height:100%;display:grid;place-items:center;font-family:'IBM Plex Mono',monospace;font-size:12.5px;font-weight:600;border-left:1px solid #eaeff5;border-right:1px solid #eaeff5;cursor:pointer" style-hover="background:#f6faff;color:#1668c9">{{ l.qty }}</div>
+                <div onClick="{{ l.inc }}" style="width:32px;height:100%;display:grid;place-items:center;font-size:16px;color:#5d6b7d;cursor:pointer;user-select:none" style-hover="background:#f2f6fa;color:#1668c9">+</div>
+              </div>
+              <div style="width:74px;text-align:right;flex:none">
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:13.5px;font-weight:600">{{ l.total }}</div>
+                <div style="{{ l.origStyle }}">{{ l.orig }}</div>
+              </div>
+            </div>
+            <sc-if value="{{ l.selected }}" hint-placeholder-val="{{ false }}">
+              <div style="margin-top:10px;display:grid;gap:8px">
+                <div style="display:flex;align-items:center;gap:6px">
+                  <div style="font-size:11.5px;color:#5d6b7d;width:60px;flex:none">Discount</div>
+                  <sc-for list="{{ l.discChips }}" as="d" hint-placeholder-count="4">
+                    <div onClick="{{ d.onClick }}" style="{{ d.style }}">{{ d.label }}</div>
+                  </sc-for>
+                  <div onClick="{{ l.remove }}" style="margin-left:auto;height:30px;padding:0 11px;border-radius:8px;border:1px solid #f3cfcf;background:#fdf4f4;color:#b02020;display:flex;align-items:center;font-size:12px;font-weight:600;cursor:pointer" style-hover="background:#fdeaea">Remove</div>
+                </div>
+                <div style="display:flex;align-items:center;gap:6px">
+                  <div style="font-size:11.5px;color:#5d6b7d;width:60px;flex:none">Note</div>
+                  <input value="{{ l.note }}" onChange="{{ l.onNote }}" placeholder="e.g. slice thin, no onion" style="flex:1;min-width:0;height:32px;border:1px solid #dfe6ee;border-radius:8px;padding:0 10px;font-family:'Public Sans',sans-serif;font-size:12.5px;outline:none;background:#ffffff" style-focus="border-color:#1668c9" />
+                </div>
+              </div>
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+
+      <div style="flex:none;border-top:1px solid #dfe6ee;padding:12px 16px 8px;background:#fbfcfe;display:grid;gap:6px">
+        <div style="display:flex;align-items:baseline;gap:10px;font-size:12.5px">
+          <div style="flex:1;color:#5d6b7d">Items <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#9aa7b6">({{ itemCount }})</span></div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:13px">{{ itemsTotal }}</div>
+        </div>
+        <sc-if value="{{ showGroup }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;align-items:baseline;gap:10px;font-size:12.5px">
+            <div style="flex:1;color:#5d6b7d">{{ groupLabel }}</div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;color:#b02020">&minus;{{ groupAmt }}</div>
+          </div>
+        </sc-if>
+        <div onClick="{{ openDisc }}" style="display:flex;align-items:baseline;gap:10px;font-size:12.5px;cursor:pointer">
+          <div style="flex:1;color:#5d6b7d">{{ discLabel }}</div>
+          <div style="{{ discAmtStyle }}">{{ discAmt }}</div>
+        </div>
+        <sc-if value="{{ showFee }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;align-items:baseline;gap:10px;font-size:12.5px">
+            <div style="flex:1;color:#5d6b7d">Delivery fee</div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:13px">15.00</div>
+          </div>
+        </sc-if>
+        <div style="display:flex;align-items:baseline;gap:10px;font-size:12px">
+          <div style="flex:1;color:#8b98a8">GST included</div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#8b98a8">{{ gst }}</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;background:#0f1c2b;border-radius:12px;margin-top:6px">
+          <div style="flex:1">
+            <div style="font-size:12.5px;font-weight:600;color:#cfdbe6">Total</div>
+            <div style="font-size:10.5px;color:#7d93a8">inc. GST</div>
+          </div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:28px;font-weight:600;color:#ffffff;letter-spacing:-0.03em">{{ total }}</div>
+        </div>
+      </div>
+      <div style="flex:none;padding:8px 16px 14px;display:grid;gap:8px;background:#fbfcfe">
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
+          <div onClick="{{ hold }}" style="height:46px;border-radius:10px;border:1px solid #dfe6ee;background:#ffffff;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer" style-hover="background:#f2f6fa">
+            <div style="font-size:13px;font-weight:600">Hold</div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#8b98a8">F4</div>
+          </div>
+          <div onClick="{{ openDisc }}" style="height:46px;border-radius:10px;border:1px solid #dfe6ee;background:#ffffff;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer" style-hover="background:#f2f6fa">
+            <div style="font-size:13px;font-weight:600">Discount</div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#8b98a8">{{ discHint }}</div>
+          </div>
+          <div onClick="{{ openVoid }}" style="height:46px;border-radius:10px;border:1px solid #f3cfcf;background:#fdf4f4;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer" style-hover="background:#fdeaea">
+            <div style="font-size:13px;font-weight:600;color:#b02020">Clear</div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#c77a7a">{{ lineCountHint }}</div>
+          </div>
+        </div>
+        <div onClick="{{ openPay }}" style="{{ payBtnStyle }}">
+          <div style="font-size:16px;font-weight:700">{{ payBtnLabel }}</div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;background:rgba(255,255,255,.18);border-radius:5px;padding:2px 7px">F9</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <sc-if value="{{ kpOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeOverlay }}" style="position:absolute;inset:0;background:rgba(9,22,35,.48);z-index:30"></div>
+    <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:400px;background:#ffffff;border-radius:18px;z-index:31;box-shadow:0 30px 80px -24px rgba(9,22,35,.65);padding:20px">
+      <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:14px">
+        <div style="min-width:0">
+          <div style="font-size:16px;font-weight:700;letter-spacing:-0.01em">{{ kp.title }}</div>
+          <div style="font-size:12px;color:#5d6b7d;margin-top:2px">{{ kp.sub }}</div>
+        </div>
+        <div onClick="{{ closeOverlay }}" style="margin-left:auto;width:32px;height:32px;border-radius:8px;border:1px solid #dfe6ee;display:grid;place-items:center;cursor:pointer;color:#5d6b7d;font-size:15px;flex:none" style-hover="background:#f2f6fa">&times;</div>
+      </div>
+      <div style="border:1.5px solid #1668c9;background:#f6faff;border-radius:12px;padding:10px 14px;margin-bottom:10px">
+        <div style="display:flex;align-items:baseline;justify-content:flex-end;gap:8px">
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:38px;font-weight:600;letter-spacing:-0.03em;line-height:1.1">{{ kp.display }}</div>
+          <div style="font-size:14px;color:#5d6b7d;font-weight:600">{{ kp.unit }}</div>
+        </div>
+        <div style="display:flex;align-items:baseline;gap:8px;margin-top:2px">
+          <div style="{{ kp.stockStyle }}">{{ kp.stock }}</div>
+          <div style="margin-left:auto;font-family:'IBM Plex Mono',monospace;font-size:13px;color:#14549e;font-weight:600">{{ kp.preview }}</div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:10px">
+        <sc-for list="{{ kp.presets }}" as="pr" hint-placeholder-count="5">
+          <div onClick="{{ pr.onClick }}" style="height:36px;border-radius:9px;border:1px solid #dfe6ee;display:grid;place-items:center;font-family:'IBM Plex Mono',monospace;font-size:12.5px;font-weight:600;cursor:pointer" style-hover="border-color:#1668c9;color:#1668c9">{{ pr.label }}</div>
+        </sc-for>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px">
+        <sc-for list="{{ kpKeys }}" as="k" hint-placeholder-count="12">
+          <div onClick="{{ k.onClick }}" style="height:56px;border-radius:12px;border:1px solid #dfe6ee;display:grid;place-items:center;font-family:'IBM Plex Mono',monospace;font-size:21px;font-weight:600;cursor:pointer;user-select:none;background:#ffffff" style-hover="background:#f2f6fa" style-active="background:#e2edfb">{{ k.label }}</div>
+        </sc-for>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1.6fr;gap:8px">
+        <div onClick="{{ closeOverlay }}" style="height:48px;border-radius:11px;border:1px solid #dfe6ee;display:grid;place-items:center;font-size:13.5px;font-weight:600;color:#4a5866;cursor:pointer" style-hover="background:#f2f6fa">Cancel</div>
+        <div onClick="{{ kpConfirm }}" style="{{ kp.confirmStyle }}">{{ kp.confirmLabel }}</div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ custOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeOverlay }}" style="position:absolute;inset:0;background:rgba(9,22,35,.48);z-index:30"></div>
+    <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:540px;max-height:calc(100% - 60px);background:#ffffff;border-radius:18px;z-index:31;box-shadow:0 30px 80px -24px rgba(9,22,35,.65);display:flex;flex-direction:column;overflow:hidden">
+      <div style="padding:18px 20px 14px;border-bottom:1px solid #eaeff5">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+          <div>
+            <div style="font-size:16px;font-weight:700">Choose customer</div>
+            <div style="font-size:12px;color:#5d6b7d;margin-top:2px">Group pricing applies as soon as you pick</div>
+          </div>
+          <div onClick="{{ closeOverlay }}" style="margin-left:auto;width:32px;height:32px;border-radius:8px;border:1px solid #dfe6ee;display:grid;place-items:center;cursor:pointer;color:#5d6b7d;font-size:15px" style-hover="background:#f2f6fa">&times;</div>
+        </div>
+        <input value="{{ custQ }}" onChange="{{ onCustQ }}" placeholder="Name or phone number" style="width:100%;height:42px;border:1px solid #dfe6ee;border-radius:10px;padding:0 13px;font-family:'Public Sans',sans-serif;font-size:14px;outline:none" style-focus="border-color:#1668c9" />
+      </div>
+      <div style="flex:1;overflow-y:auto;min-height:0;padding:6px 8px">
+        <sc-for list="{{ custRows }}" as="c" hint-placeholder-count="6">
+          <div onClick="{{ c.onClick }}" style="{{ c.style }}" style-hover="background:#f6f9fc">
+            <div style="width:36px;height:36px;border-radius:9px;background:#0a3a52;color:#ffffff;display:grid;place-items:center;font-size:12px;font-weight:600;flex:none">{{ c.initials }}</div>
+            <div style="flex:1;min-width:0">
+              <div style="font-size:13.5px;font-weight:600">{{ c.name }}</div>
+              <div style="font-size:11.5px;color:#7d8b9c;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ c.sub }}</div>
+            </div>
+            <div style="text-align:right;flex:none">
+              <div style="{{ c.rightStyle }}">{{ c.right }}</div>
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#9aa7b6">{{ c.rightSub }}</div>
+            </div>
+            <div style="{{ c.checkStyle }}">&#10003;</div>
+          </div>
+        </sc-for>
+        <sc-if value="{{ custNone }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:28px;text-align:center;font-size:12.5px;color:#7d8b9c">No customer matches. Add them as a new contact.</div>
+        </sc-if>
+      </div>
+      <div style="padding:12px 20px;border-top:1px solid #eaeff5;display:flex;gap:8px;align-items:center">
+        <div onClick="{{ newCustomer }}" style="height:38px;padding:0 14px;border-radius:9px;border:1px solid #dfe6ee;display:flex;align-items:center;font-size:12.5px;font-weight:600;color:#1668c9;cursor:pointer" style-hover="background:#f2f6fa">+ New customer</div>
+        <div style="margin-left:auto;font-size:11.5px;color:#9aa7b6">Esc to close</div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ tableOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeOverlay }}" style="position:absolute;inset:0;background:rgba(9,22,35,.48);z-index:30"></div>
+    <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:580px;background:#ffffff;border-radius:18px;z-index:31;box-shadow:0 30px 80px -24px rgba(9,22,35,.65);padding:20px">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+        <div>
+          <div style="font-size:16px;font-weight:700">Tables</div>
+          <div style="font-size:12px;color:#5d6b7d;margin-top:2px">Tap a free table to seat this order. Tap a held table to pick its order back up.</div>
+        </div>
+        <div onClick="{{ closeOverlay }}" style="margin-left:auto;width:32px;height:32px;border-radius:8px;border:1px solid #dfe6ee;display:grid;place-items:center;cursor:pointer;color:#5d6b7d;font-size:15px;flex:none" style-hover="background:#f2f6fa">&times;</div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px">
+        <sc-for list="{{ tables }}" as="t" hint-placeholder-count="12">
+          <div onClick="{{ t.onClick }}" style="{{ t.style }}" style-hover="border-color:#1668c9">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:20px;font-weight:600;letter-spacing:-0.02em">{{ t.n }}</div>
+            <div style="display:flex;align-items:center;gap:6px;font-size:11.5px;font-weight:600">
+              <div style="{{ t.dot }}"></div>{{ t.status }}
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ discOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeOverlay }}" style="position:absolute;inset:0;background:rgba(9,22,35,.48);z-index:30"></div>
+    <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:420px;background:#ffffff;border-radius:18px;z-index:31;box-shadow:0 30px 80px -24px rgba(9,22,35,.65);padding:20px">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+        <div>
+          <div style="font-size:16px;font-weight:700">Order discount</div>
+          <div style="font-size:12px;color:#5d6b7d;margin-top:2px">Cashiers can give up to 10%. Above that needs a manager PIN.</div>
+        </div>
+        <div onClick="{{ closeOverlay }}" style="margin-left:auto;width:32px;height:32px;border-radius:8px;border:1px solid #dfe6ee;display:grid;place-items:center;cursor:pointer;color:#5d6b7d;font-size:15px;flex:none" style-hover="background:#f2f6fa">&times;</div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:7px">
+        <sc-for list="{{ discChoices }}" as="d" hint-placeholder-count="5">
+          <div onClick="{{ d.onClick }}" style="{{ d.style }}">{{ d.label }}</div>
+        </sc-for>
+      </div>
+      <sc-if value="{{ pinOpen }}" hint-placeholder-val="{{ false }}">
+        <div style="margin-top:16px;padding-top:16px;border-top:1px solid #eef2f6">
+          <div style="display:flex;gap:10px;align-items:flex-start;background:#fdf1dd;border:1px solid #f0d9ac;border-radius:10px;padding:11px 13px;font-size:12.5px;color:#8a5300;line-height:1.5;margin-bottom:14px">
+            <div style="font-weight:700;flex:none">!</div>
+            <div>{{ pinPrompt }}</div>
+          </div>
+          <div style="display:flex;justify-content:center;gap:14px;margin-bottom:14px">
+            <sc-for list="{{ pinDots }}" as="pd" hint-placeholder-count="4">
+              <div style="{{ pd.style }}"></div>
+            </sc-for>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
+            <sc-for list="{{ pinKeys }}" as="k" hint-placeholder-count="12">
+              <div onClick="{{ k.onClick }}" style="height:50px;border-radius:11px;border:1px solid #dfe6ee;display:grid;place-items:center;font-family:'IBM Plex Mono',monospace;font-size:19px;font-weight:600;cursor:pointer;user-select:none" style-hover="background:#f2f6fa" style-active="background:#e2edfb">{{ k.label }}</div>
+            </sc-for>
+          </div>
+          <div style="font-size:11px;color:#9aa7b6;text-align:center;margin-top:10px">Prototype: any four digits approve as Sara Rahman</div>
+        </div>
+      </sc-if>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ voidOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeOverlay }}" style="position:absolute;inset:0;background:rgba(9,22,35,.48);z-index:30"></div>
+    <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:400px;background:#ffffff;border-radius:18px;z-index:31;box-shadow:0 30px 80px -24px rgba(9,22,35,.65);padding:22px">
+      <div style="font-size:17px;font-weight:700;margin-bottom:8px">Clear this order?</div>
+      <div style="font-size:13px;line-height:1.6;color:#5d6b7d;margin-bottom:20px;text-wrap:pretty">{{ voidText }}</div>
+      <div style="display:flex;gap:9px;justify-content:flex-end">
+        <div onClick="{{ closeOverlay }}" style="height:40px;padding:0 16px;border-radius:9px;border:1px solid #dfe6ee;display:flex;align-items:center;font-size:13px;font-weight:600;color:#4a5866;cursor:pointer" style-hover="background:#f2f6fa">Keep order</div>
+        <div onClick="{{ holdInstead }}" style="height:40px;padding:0 16px;border-radius:9px;border:1px solid #dfe6ee;display:flex;align-items:center;font-size:13px;font-weight:600;color:#14549e;cursor:pointer" style-hover="background:#f2f6fa">Hold instead</div>
+        <div onClick="{{ confirmVoid }}" style="height:40px;padding:0 16px;border-radius:9px;background:#c62828;color:#ffffff;display:flex;align-items:center;font-size:13px;font-weight:700;cursor:pointer" style-hover="background:#a81f1f">Clear order</div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ heldOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeOverlay }}" style="position:absolute;inset:0;background:rgba(9,22,35,.48);z-index:30"></div>
+    <div style="position:absolute;top:0;right:0;bottom:0;width:420px;background:#ffffff;z-index:31;display:flex;flex-direction:column;box-shadow:-20px 0 50px -24px rgba(9,22,35,.6)">
+      <div style="padding:18px 20px;border-bottom:1px solid #eaeff5;display:flex;align-items:center;gap:12px">
+        <div>
+          <div style="font-size:16px;font-weight:700">Held orders</div>
+          <div style="font-size:12px;color:#5d6b7d;margin-top:2px">Resuming holds whatever is on the register first</div>
+        </div>
+        <div onClick="{{ closeOverlay }}" style="margin-left:auto;width:32px;height:32px;border-radius:8px;border:1px solid #dfe6ee;display:grid;place-items:center;cursor:pointer;color:#5d6b7d;font-size:15px" style-hover="background:#f2f6fa">&times;</div>
+      </div>
+      <div style="flex:1;overflow-y:auto;padding:14px 16px;display:grid;gap:10px;align-content:start">
+        <sc-for list="{{ heldRows }}" as="h" hint-placeholder-count="2">
+          <div style="border:1px solid #dfe6ee;border-radius:12px;padding:14px 15px">
+            <div style="display:flex;align-items:baseline;gap:10px;margin-bottom:4px">
+              <div style="font-size:14px;font-weight:700">{{ h.label }}</div>
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#8b98a8">#{{ h.no }}</div>
+              <div style="margin-left:auto;font-family:'IBM Plex Mono',monospace;font-size:15px;font-weight:600">{{ h.total }}</div>
+            </div>
+            <div style="font-size:11.5px;color:#7d8b9c;margin-bottom:6px">{{ h.meta }}</div>
+            <div style="font-size:12.5px;color:#4a5866;line-height:1.5;margin-bottom:12px">{{ h.items }}</div>
+            <div style="display:flex;gap:8px">
+              <div onClick="{{ h.discard }}" style="height:36px;padding:0 13px;border-radius:9px;border:1px solid #dfe6ee;display:flex;align-items:center;font-size:12.5px;font-weight:600;color:#b02020;cursor:pointer" style-hover="background:#fdf4f4">Discard</div>
+              <div onClick="{{ h.resume }}" style="flex:1;height:36px;border-radius:9px;background:#1668c9;color:#ffffff;display:grid;place-items:center;font-size:12.5px;font-weight:700;cursor:pointer" style-hover="background:#1257ab">Resume</div>
+            </div>
+          </div>
+        </sc-for>
+        <sc-if value="{{ heldEmpty }}" hint-placeholder-val="{{ false }}">
+          <div style="border:1px dashed #cfdae6;border-radius:12px;padding:32px 20px;text-align:center">
+            <div style="font-size:13px;font-weight:600;margin-bottom:4px">No held orders</div>
+            <div style="font-size:12px;color:#7d8b9c">Press Hold (F4) to park an order and serve the next customer.</div>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ recentOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeOverlay }}" style="position:absolute;inset:0;background:rgba(9,22,35,.48);z-index:30"></div>
+    <div style="position:absolute;top:0;right:0;bottom:0;width:420px;background:#ffffff;z-index:31;display:flex;flex-direction:column;box-shadow:-20px 0 50px -24px rgba(9,22,35,.6)">
+      <div style="padding:18px 20px;border-bottom:1px solid #eaeff5;display:flex;align-items:center;gap:12px">
+        <div>
+          <div style="font-size:16px;font-weight:700">Recent sales</div>
+          <div style="font-size:12px;color:#5d6b7d;margin-top:2px">This register, this session</div>
+        </div>
+        <div onClick="{{ closeOverlay }}" style="margin-left:auto;width:32px;height:32px;border-radius:8px;border:1px solid #dfe6ee;display:grid;place-items:center;cursor:pointer;color:#5d6b7d;font-size:15px" style-hover="background:#f2f6fa">&times;</div>
+      </div>
+      <div style="flex:1;overflow-y:auto">
+        <sc-for list="{{ recentRows }}" as="r" hint-placeholder-count="4">
+          <div style="display:flex;align-items:center;gap:12px;padding:13px 20px;border-bottom:1px solid #f0f4f8">
+            <div style="flex:1;min-width:0">
+              <div style="display:flex;align-items:baseline;gap:8px">
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600">#{{ r.no }}</div>
+                <div style="font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ r.cust }}</div>
+              </div>
+              <div style="font-size:11.5px;color:#7d8b9c;margin-top:2px">{{ r.meta }}</div>
+            </div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:600">{{ r.total }}</div>
+            <div onClick="{{ r.reprint }}" style="height:32px;padding:0 11px;border-radius:8px;border:1px solid #dfe6ee;display:flex;align-items:center;font-size:12px;font-weight:600;color:#4a5866;cursor:pointer" style-hover="background:#f2f6fa">Reprint</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ payOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeOverlay }}" style="position:absolute;inset:0;background:rgba(9,22,35,.55);z-index:30"></div>
+    <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:880px;max-width:calc(100% - 40px);height:620px;max-height:calc(100% - 40px);background:#ffffff;border-radius:18px;z-index:31;box-shadow:0 30px 80px -24px rgba(9,22,35,.7);overflow:hidden;display:grid;grid-template-columns:minmax(0,1fr) 320px">
+      <div style="padding:22px 24px;overflow-y:auto;min-height:0">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+          <div>
+            <div style="font-size:17px;font-weight:700;letter-spacing:-0.015em">Take payment</div>
+            <div style="font-size:12px;color:#5d6b7d;margin-top:2px">{{ payWho }}</div>
+          </div>
+          <div onClick="{{ closeOverlay }}" style="margin-left:auto;width:32px;height:32px;border-radius:8px;border:1px solid #dfe6ee;display:grid;place-items:center;cursor:pointer;color:#5d6b7d;font-size:15px" style-hover="background:#f2f6fa">&times;</div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:18px">
+          <sc-for list="{{ tenders }}" as="t" hint-placeholder-count="4">
+            <div onClick="{{ t.onClick }}" style="{{ t.style }}">
+              <div style="font-size:14px;font-weight:700">{{ t.name }}</div>
+              <div style="font-size:11px;opacity:.75;margin-top:2px">{{ t.sub }}</div>
+            </div>
+          </sc-for>
+        </div>
+
+        <sc-if value="{{ tenderCash }}" hint-placeholder-val="{{ true }}">
+          <div style="display:flex;align-items:baseline;margin-bottom:6px">
+            <div style="font-size:12px;font-weight:600">Cash tendered</div>
+            <div style="margin-left:auto;font-size:11.5px;color:#7d8b9c">Cash is rounded to the nearest 5c</div>
+          </div>
+          <div style="height:58px;border:1.5px solid #1668c9;border-radius:12px;padding:0 16px;display:flex;align-items:center;justify-content:flex-end;font-family:'IBM Plex Mono',monospace;font-size:28px;font-weight:600;background:#f6faff;margin-bottom:10px;letter-spacing:-0.02em">{{ cashDisplay }}</div>
+          <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-bottom:12px">
+            <sc-for list="{{ quickCash }}" as="q" hint-placeholder-count="5">
+              <div onClick="{{ q.onClick }}" style="{{ q.style }}" style-hover="border-color:#1668c9;color:#1668c9">{{ q.label }}</div>
+            </sc-for>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ tenderSplit }}" hint-placeholder-val="{{ false }}">
+          <div style="display:grid;gap:7px;margin-bottom:12px">
+            <sc-for list="{{ splitRows }}" as="sr" hint-placeholder-count="0">
+              <div style="display:flex;align-items:center;gap:10px;border:1px solid #dfe6ee;border-radius:10px;padding:9px 12px">
+                <div style="font-size:13px;font-weight:600;flex:1">{{ sr.method }}</div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:600">{{ sr.amt }}</div>
+                <span style="background:#e7f6ee;color:#0f6b43;border-radius:5px;padding:2px 8px;font-size:11px;font-weight:600">{{ sr.state }}</span>
+                <div onClick="{{ sr.remove }}" style="width:24px;height:24px;border-radius:6px;display:grid;place-items:center;color:#b3c0cf;cursor:pointer;font-size:13px" style-hover="background:#fdeaea;color:#b02020">&times;</div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="display:flex;gap:6px;margin-bottom:8px">
+            <sc-for list="{{ splitMethods }}" as="m" hint-placeholder-count="3">
+              <div onClick="{{ m.onClick }}" style="{{ m.style }}">{{ m.name }}</div>
+            </sc-for>
+          </div>
+          <div style="height:52px;border:1.5px solid #1668c9;border-radius:12px;padding:0 16px;display:flex;align-items:center;justify-content:space-between;background:#f6faff;margin-bottom:10px">
+            <div style="font-size:12px;color:#5d6b7d">{{ splitHint }}</div>
+            <div style="{{ splitDisplayStyle }}">{{ splitDisplay }}</div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ showPayKeypad }}" hint-placeholder-val="{{ true }}">
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
+            <sc-for list="{{ payKeys }}" as="k" hint-placeholder-count="12">
+              <div onClick="{{ k.onClick }}" style="height:52px;border-radius:12px;border:1px solid #dfe6ee;display:grid;place-items:center;font-family:'IBM Plex Mono',monospace;font-size:20px;font-weight:600;cursor:pointer;user-select:none" style-hover="background:#f2f6fa" style-active="background:#e2edfb">{{ k.label }}</div>
+            </sc-for>
+          </div>
+          <sc-if value="{{ tenderSplit }}" hint-placeholder-val="{{ false }}">
+            <div onClick="{{ addSplit }}" style="{{ addSplitStyle }}">{{ addSplitLabel }}</div>
+          </sc-if>
+        </sc-if>
+
+        <sc-if value="{{ tenderCard }}" hint-placeholder-val="{{ false }}">
+          <div style="{{ card.box }}">
+            <div style="{{ card.icon }}">EFT</div>
+            <div style="font-size:16px;font-weight:700;margin-bottom:5px">{{ card.title }}</div>
+            <div style="font-size:12.5px;line-height:1.55;max-width:380px;margin:0 auto 18px;text-wrap:pretty">{{ card.body }}</div>
+            <sc-if value="{{ card.showSend }}" hint-placeholder-val="{{ true }}">
+              <div style="display:flex;gap:8px;justify-content:center">
+                <div onClick="{{ sendCard }}" style="height:44px;padding:0 20px;border-radius:11px;background:#1668c9;color:#ffffff;display:flex;align-items:center;font-size:14px;font-weight:700;cursor:pointer" style-hover="background:#1257ab">{{ card.sendLabel }}</div>
+                <div onClick="{{ sendCardDecline }}" style="height:44px;padding:0 14px;border-radius:11px;border:1px solid #dfe6ee;display:flex;align-items:center;font-size:12.5px;font-weight:600;color:#5d6b7d;cursor:pointer;background:#ffffff" style-hover="background:#f2f6fa">Simulate decline</div>
+              </div>
+            </sc-if>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ tenderAccount }}" hint-placeholder-val="{{ false }}">
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px">
+            <sc-for list="{{ acctStats }}" as="a" hint-placeholder-count="3">
+              <div style="border:1px solid #e4eaf1;border-radius:11px;padding:12px 13px">
+                <div style="font-size:11px;color:#7d8b9c;margin-bottom:5px">{{ a.k }}</div>
+                <div style="{{ a.vStyle }}">{{ a.v }}</div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="{{ acct.box }}">
+            <div style="font-weight:700;flex:none">{{ acct.mark }}</div>
+            <div style="flex:1">{{ acct.msg }}</div>
+          </div>
+          <sc-if value="{{ acct.showPick }}" hint-placeholder-val="{{ false }}">
+            <div onClick="{{ pickFromPay }}" style="margin-top:10px;height:40px;padding:0 16px;border-radius:10px;border:1px solid #dfe6ee;display:inline-flex;align-items:center;font-size:13px;font-weight:600;color:#1668c9;cursor:pointer" style-hover="background:#f2f6fa">Choose customer</div>
+          </sc-if>
+        </sc-if>
+      </div>
+
+      <div style="background:#0f1c2b;color:#ffffff;padding:22px;display:flex;flex-direction:column;min-height:0">
+        <div style="font-size:12px;color:#8fa3b6">Order #{{ orderNo }} &middot; {{ itemCount }} items</div>
+        <div style="display:grid;gap:8px;font-size:12.5px;color:#9fb2c4;margin-top:14px">
+          <sc-for list="{{ paySummary }}" as="r" hint-placeholder-count="3">
+            <div style="display:flex;gap:10px">
+              <div style="flex:1">{{ r.k }}</div>
+              <div style="{{ r.vStyle }}">{{ r.v }}</div>
+            </div>
+          </sc-for>
+        </div>
+        <div style="border-top:1px solid rgba(255,255,255,.12);margin-top:14px;padding-top:14px">
+          <div style="font-size:12px;color:#9fb2c4">{{ dueLabel }}</div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:36px;font-weight:600;letter-spacing:-0.03em;line-height:1.15">{{ dueValue }}</div>
+        </div>
+        <div style="{{ changeBox }}">
+          <div style="font-size:12px;opacity:.85">{{ changeLabel }}</div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:24px;font-weight:600;letter-spacing:-0.02em">{{ changeValue }}</div>
+        </div>
+        <div style="margin-top:auto;padding-top:18px;display:grid;gap:8px">
+          <div onClick="{{ complete }}" style="{{ completeStyle }}">{{ completeLabel }}</div>
+          <div style="font-size:11px;color:#6f8599;text-align:center">Enter completes &middot; Esc goes back</div>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ doneOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute;inset:0;background:rgba(9,22,35,.55);z-index:30"></div>
+    <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:480px;max-height:calc(100% - 40px);background:#ffffff;border-radius:18px;z-index:31;box-shadow:0 30px 80px -24px rgba(9,22,35,.7);display:flex;flex-direction:column;overflow:hidden">
+      <div style="padding:24px 24px 16px;text-align:center">
+        <div style="width:50px;height:50px;border-radius:50%;background:#2f9e63;color:#ffffff;display:grid;place-items:center;font-size:22px;margin:0 auto 12px">&#10003;</div>
+        <div style="font-size:18px;font-weight:700;letter-spacing:-0.015em">Sale #{{ done.no }} complete</div>
+        <div style="font-size:12.5px;color:#5d6b7d;margin-top:3px">{{ done.line }}</div>
+      </div>
+      <sc-if value="{{ done.showChange }}" hint-placeholder-val="{{ false }}">
+        <div style="margin:0 24px 14px;background:#e7f6ee;border:1px solid #bfe5d1;border-radius:12px;padding:12px 16px;display:flex;align-items:center">
+          <div style="font-size:13px;font-weight:600;color:#0f6b43;flex:1">Change to give</div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:26px;font-weight:600;color:#0f6b43;letter-spacing:-0.02em">{{ done.change }}</div>
+        </div>
+      </sc-if>
+      <div style="margin:0 24px;border:1px solid #e4eaf1;border-radius:12px;padding:14px 16px;overflow-y:auto;min-height:0;background:#fbfcfe">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#7d8b9c;margin-bottom:8px">{{ done.head }}</div>
+        <sc-for list="{{ done.lines }}" as="dl" hint-placeholder-count="3">
+          <div style="display:flex;gap:10px;padding:5px 0;font-size:12.5px;border-bottom:1px dashed #e4eaf1">
+            <div style="font-family:'IBM Plex Mono',monospace;color:#5d6b7d;min-width:60px">{{ dl.qty }}</div>
+            <div style="flex:1;min-width:0">{{ dl.name }}<div style="{{ dl.noteStyle }}">{{ dl.note }}</div></div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-weight:500">{{ dl.total }}</div>
+          </div>
+        </sc-for>
+        <div style="display:grid;gap:4px;margin-top:10px">
+          <sc-for list="{{ done.rows }}" as="dr" hint-placeholder-count="3">
+            <div style="{{ dr.style }}">
+              <div style="flex:1">{{ dr.k }}</div>
+              <div style="font-family:'IBM Plex Mono',monospace">{{ dr.v }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      <sc-if value="{{ done.kitchen }}" hint-placeholder-val="{{ false }}">
+        <div style="margin:12px 24px 0;font-size:12px;color:#14549e;background:#eaf1fb;border-radius:9px;padding:9px 12px">Ticket #{{ done.no }} sent to the kitchen board</div>
+      </sc-if>
+      <div style="padding:16px 24px 22px;display:grid;grid-template-columns:1fr 1fr 1.5fr;gap:8px">
+        <div onClick="{{ printReceipt }}" style="height:46px;border-radius:11px;border:1px solid #dfe6ee;display:grid;place-items:center;font-size:13px;font-weight:600;color:#4a5866;cursor:pointer" style-hover="background:#f2f6fa">Print</div>
+        <div onClick="{{ emailReceipt }}" style="height:46px;border-radius:11px;border:1px solid #dfe6ee;display:grid;place-items:center;font-size:13px;font-weight:600;color:#4a5866;cursor:pointer" style-hover="background:#f2f6fa">Email</div>
+        <div onClick="{{ newSale }}" style="height:46px;border-radius:11px;background:#1668c9;color:#ffffff;display:flex;align-items:center;justify-content:center;gap:9px;font-size:14px;font-weight:700;cursor:pointer" style-hover="background:#1257ab">New sale<span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;background:rgba(255,255,255,.2);border-radius:5px;padding:2px 6px">Enter</span></div>
+      </div>
+    </div>
+  </sc-if>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900},&quot;askWeight&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Behaviour&quot;},&quot;density&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Comfortable&quot;,&quot;Compact&quot;],&quot;default&quot;:&quot;Comfortable&quot;,&quot;tsType&quot;:&quot;'Comfortable' | 'Compact'&quot;,&quot;section&quot;:&quot;Layout&quot;}}"></script>
+<script src="js/pos.js"></script>
+</body>
+</html>

@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en" data-page="contacts">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contacts · Madinah Butchery ERP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<script src="js/loader.js"></script>
+<script src="js/support.js"></script>
+</head>
+<body>
+<x-dc>
+<div style="min-height:100vh;background:#eef2f6">
+
+  <sc-if value="{{ isContacts }}" hint-placeholder-val="{{ false }}">
+  <div data-screen-label="Contacts" style="height:100vh;min-height:720px;position:relative">
+    <div style="height:100%;overflow:auto">
+    <div style="min-width:1280px;display:flex;background:#eef2f6;height:100%;position:relative;overflow:hidden">
+
+      <div style="{{ sideStyle }}">
+        <div style="height:56px;display:flex;align-items:center;gap:10px;padding:0 14px;flex:none;border-bottom:1px solid rgba(255,255,255,.09)">
+          <div style="width:26px;height:26px;border-radius:7px;background:#4da3e8;color:#06283a;display:grid;place-items:center;font-weight:700;font-size:13px;flex:none">M</div>
+          <div style="{{ sideText }}">
+            <div style="font-size:13px;font-weight:600;color:#ffffff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Madinah Butchery</div>
+            <div style="font-size:10.5px;color:#89aec6">All locations</div>
+          </div>
+          <div style="{{ sideCaret }}">&#9662;</div>
+        </div>
+        <div style="{{ sideListStyle }}">
+          <sc-for list="{{ contactNav }}" as="n" hint-placeholder-count="18">
+            <div>
+              <div onClick="{{ n.onClick }}" title="{{ n.name }}" style="{{ n.style }}" style-hover="background:rgba(255,255,255,.07)">
+                <div style="{{ n.iconStyle }}">{{ n.key }}</div>
+                <div style="{{ n.nameStyle }}">{{ n.name }}</div>
+                <div style="{{ n.caretStyle }}">&#8250;</div>
+              </div>
+              <sc-if value="{{ n.open }}" hint-placeholder-val="{{ false }}">
+                <div style="margin:2px 0 6px 26px;border-left:1px solid rgba(255,255,255,.12);padding-left:10px;display:flex;flex-direction:column;gap:1px">
+                  <sc-for list="{{ n.children }}" as="c" hint-placeholder-count="2">
+                    <div onClick="{{ c.onClick }}" style="{{ c.style }}" style-hover="color:#ffffff">{{ c.name }}</div>
+                  </sc-for>
+                </div>
+              </sc-if>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <div style="flex:1;min-width:0;display:flex;flex-direction:column">
+        <div style="height:56px;flex:none;background:#ffffff;border-bottom:1px solid #dfe6ee;display:flex;align-items:center;gap:14px;padding:0 20px">
+          <div onClick="{{ toggleNav }}" title="{{ navTip }}" style="width:30px;height:30px;border-radius:7px;border:1px solid #dfe6ee;display:grid;place-items:center;cursor:pointer;color:#5d6b7d;font-size:13px;flex:none" style-hover="background:#f2f6fa;color:#1668c9">&#9776;</div>
+          <div style="flex:1;max-width:420px;position:relative">
+            <div style="position:absolute;left:11px;top:50%;transform:translateY(-50%);color:#9aa7b6;font-size:12px">&#9906;</div>
+            <input placeholder="Search products, invoices, contacts&hellip;" style="width:100%;height:34px;border:1px solid #dfe6ee;border-radius:8px;background:#f7fafc;padding:0 10px 0 30px;font-family:'Public Sans',sans-serif;font-size:13px;outline:none" style-focus="background:#ffffff;border-color:#1668c9" />
+          </div>
+          <div style="margin-left:auto;display:flex;align-items:center;gap:8px">
+            <div onClick="{{ goPos }}" style="height:32px;padding:0 12px;border-radius:8px;background:#1668c9;color:#ffffff;display:flex;align-items:center;font-size:12.5px;font-weight:600;cursor:pointer" style-hover="background:#1257ab">Open POS</div>
+            <div style="height:32px;padding:0 11px;border-radius:8px;border:1px solid #dfe6ee;display:flex;align-items:center;font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:#4a5866;cursor:pointer">29/09/2026</div>
+            <div style="width:32px;height:32px;border-radius:8px;border:1px solid #dfe6ee;display:grid;place-items:center;cursor:pointer;position:relative;color:#5d6b7d">&#9737;<div style="position:absolute;top:6px;right:6px;width:6px;height:6px;border-radius:50%;background:#d93a3a;border:1.5px solid #ffffff"></div></div>
+            <div style="display:flex;align-items:center;gap:8px;padding:3px 9px 3px 3px;border-radius:8px;border:1px solid #dfe6ee;cursor:pointer">
+              <div style="width:25px;height:25px;border-radius:6px;background:#0a3a52;color:#ffffff;display:grid;place-items:center;font-size:11px;font-weight:600">AM</div>
+              <div style="font-size:12.5px;font-weight:500">Aminul</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="flex:1;overflow-y:auto;min-height:0">
+
+          <sc-if value="{{ cList }}" hint-placeholder-val="{{ true }}">
+          <div>
+            <div style="padding:20px 24px 0;background:#ffffff;border-bottom:1px solid #dfe6ee">
+              <div style="display:flex;align-items:center;gap:7px;font-size:11.5px;color:#7d8b9c;margin-bottom:8px">
+                <span>Contacts</span><span style="color:#c2cedb">/</span><span style="color:#0f1c2b;font-weight:500">All contacts</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;gap:20px;flex-wrap:wrap">
+                <div>
+                  <h2 style="margin:0 0 3px;font-size:22px;font-weight:700;letter-spacing:-0.018em">Contacts</h2>
+                  <div style="font-size:12.5px;color:#5d6b7d">{{ contactSubtitle }}</div>
+                </div>
+                <div style="margin-left:auto;display:flex;gap:8px;align-items:center">
+                  <div style="height:34px;padding:0 13px;border-radius:8px;border:1px solid #dfe6ee;display:flex;align-items:center;font-size:12.5px;font-weight:500;color:#4a5866;cursor:pointer" style-hover="background:#f2f6fa">Import</div>
+                  <div onClick="{{ openContactForm }}" style="height:34px;padding:0 15px;border-radius:8px;background:#1668c9;color:#ffffff;display:flex;align-items:center;font-size:12.5px;font-weight:600;cursor:pointer" style-hover="background:#1257ab">+ Add contact</div>
+                </div>
+              </div>
+              <div style="display:flex;gap:2px;margin-top:16px">
+                <sc-for list="{{ typeTabs }}" as="t" hint-placeholder-count="4">
+                  <div onClick="{{ t.onClick }}" style="{{ t.style }}">{{ t.name }}<span style="{{ t.countStyle }}">{{ t.count }}</span></div>
+                </sc-for>
+              </div>
+            </div>
+
+            <div style="padding:20px 24px 32px">
+              <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px">
+                <sc-for list="{{ contactKpis }}" as="k" hint-placeholder-count="4">
+                  <div style="background:#ffffff;border:1px solid #dfe6ee;border-radius:12px;padding:14px 16px">
+                    <div style="font-size:11.5px;color:#7d8b9c;margin-bottom:7px">{{ k.label }}</div>
+                    <div style="{{ k.valueStyle }}">{{ k.value }}</div>
+                    <div style="font-size:11.5px;color:#7d8b9c;margin-top:5px">{{ k.sub }}</div>
+                  </div>
+                </sc-for>
+              </div>
+
+              <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:14px">
+                <div style="position:relative;width:250px">
+                  <div style="position:absolute;left:10px;top:50%;transform:translateY(-50%);color:#9aa7b6;font-size:12px">&#9906;</div>
+                  <input placeholder="Name, business, phone or email" style="width:100%;height:34px;border:1px solid #dfe6ee;border-radius:8px;background:#ffffff;padding:0 10px 0 29px;font-family:'Public Sans',sans-serif;font-size:12.5px;outline:none" style-focus="border-color:#1668c9" />
+                </div>
+                <div style="height:34px;padding:0 11px;border-radius:8px;border:1px solid #dfe6ee;background:#ffffff;display:flex;align-items:center;gap:20px;font-size:12.5px;color:#4a5866;cursor:pointer" style-hover="border-color:#c9d4e0">Group<span style="color:#9aa7b6;font-size:10px">&#9662;</span></div>
+                <div onClick="{{ toggleDueOnly }}" style="{{ dueOnlyStyle }}">Has balance due</div>
+                <div style="margin-left:auto;display:flex;align-items:center;gap:8px">
+                  <div style="height:34px;padding:0 12px;border-radius:8px;border:1px solid #dfe6ee;background:#ffffff;display:flex;align-items:center;font-size:12.5px;font-weight:500;color:#4a5866;cursor:pointer" style-hover="background:#f2f6fa">Export</div>
+                  <div style="height:34px;padding:0 12px;border-radius:8px;border:1px solid #dfe6ee;background:#ffffff;display:flex;align-items:center;font-size:12.5px;font-weight:500;color:#4a5866;cursor:pointer" style-hover="background:#f2f6fa">Columns</div>
+                </div>
+              </div>
+
+              <div style="background:#ffffff;border:1px solid #dfe6ee;border-radius:12px;overflow:hidden">
+                <div style="display:grid;grid-template-columns:36px 2.2fr 1fr 1.3fr 1fr 1fr 1fr 90px;gap:12px;padding:10px 16px;background:#f6f9fc;border-bottom:1px solid #dfe6ee;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.07em;text-transform:uppercase;color:#5d6b7d;align-items:center">
+                  <div><div style="width:15px;height:15px;border:1.5px solid #c2cedb;border-radius:4px"></div></div>
+                  <div>Contact</div><div>Type</div><div>Group</div>
+                  <div style="text-align:right">Total business</div><div style="text-align:right">Balance</div><div>Last activity</div><div></div>
+                </div>
+                <sc-for list="{{ contacts }}" as="c" hint-placeholder-count="9">
+                  <div style="display:grid;grid-template-columns:36px 2.2fr 1fr 1.3fr 1fr 1fr 1fr 90px;gap:12px;padding:11px 16px;border-bottom:1px solid #f0f4f8;align-items:center" style-hover="background:#f9fbfd">
+                    <div><div style="width:15px;height:15px;border:1.5px solid #c2cedb;border-radius:4px"></div></div>
+                    <div style="display:flex;align-items:center;gap:11px;min-width:0">
+                      <div style="{{ c.avatar }}">{{ c.initials }}</div>
+                      <div style="min-width:0">
+                        <div onClick="{{ cGoDetails }}" style="font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer;color:#1668c9">{{ c.name }}</div>
+                        <div style="font-size:11px;color:#8b98a8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ c.sub }}</div>
+                      </div>
+                    </div>
+                    <div><span style="{{ c.typeBadge }}">{{ c.type }}</span></div>
+                    <div style="font-size:12.5px;color:#4a5866;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ c.group }}</div>
+                    <div style="font-family:'IBM Plex Mono',monospace;font-size:12.5px;text-align:right;color:#4a5866">{{ c.business }}</div>
+                    <div style="text-align:right"><span style="{{ c.balStyle }}">{{ c.balance }}</span></div>
+                    <div style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:#5d6b7d">{{ c.last }}</div>
+                    <div style="display:flex;justify-content:flex-end;gap:5px">
+                      <div onClick="{{ openContactForm }}" style="width:26px;height:26px;border-radius:6px;border:1px solid #e4eaf1;display:grid;place-items:center;font-size:11px;color:#5d6b7d;cursor:pointer" style-hover="background:#f2f6fa;color:#1668c9">&#9998;</div>
+                      <div style="width:26px;height:26px;border-radius:6px;border:1px solid #e4eaf1;display:grid;place-items:center;font-size:13px;color:#5d6b7d;cursor:pointer" style-hover="background:#f2f6fa">&#8943;</div>
+                    </div>
+                  </div>
+                </sc-for>
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 16px;flex-wrap:wrap">
+                  <div style="font-size:12px;color:#7d8b9c">Showing {{ contactCount }} of 9</div>
+                  <div style="display:flex;gap:4px;align-items:center">
+                    <div style="height:29px;padding:0 10px;border-radius:7px;border:1px solid #dfe6ee;display:flex;align-items:center;font-size:12px;color:#9aa7b6">Prev</div>
+                    <div style="min-width:29px;height:29px;border-radius:7px;background:#1668c9;color:#ffffff;display:grid;place-items:center;font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600">1</div>
+                    <div style="height:29px;padding:0 10px;border-radius:7px;border:1px solid #dfe6ee;display:flex;align-items:center;font-size:12px;color:#9aa7b6">Next</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          </sc-if>
+
+          <sc-if value="{{ cDetails }}" hint-placeholder-val="{{ false }}">
+          <div>
+            <div style="padding:20px 24px 0;background:#ffffff;border-bottom:1px solid #dfe6ee">
+              <div style="display:flex;align-items:center;gap:7px;font-size:11.5px;color:#7d8b9c;margin-bottom:14px">
+                <span onClick="{{ cGoList }}" style="cursor:pointer;color:#1668c9">Contacts</span><span style="color:#c2cedb">/</span><span style="color:#0f1c2b;font-weight:500">Al Amin Catering</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;gap:16px;flex-wrap:wrap">
+                <div style="width:52px;height:52px;border-radius:12px;background:#0a3a52;color:#ffffff;display:grid;place-items:center;font-size:17px;font-weight:600;flex:none">AC</div>
+                <div style="min-width:0">
+                  <div style="display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:4px">
+                    <h2 style="margin:0;font-size:22px;font-weight:700;letter-spacing:-0.018em">Al Amin Catering</h2>
+                    <span style="background:#eaf1fb;color:#14549e;border-radius:5px;padding:3px 9px;font-size:11.5px;font-weight:600">Customer</span>
+                    <span style="background:#fdf1dd;color:#8a5300;border-radius:5px;padding:3px 9px;font-size:11.5px;font-weight:600">Wholesale</span>
+                  </div>
+                  <div style="font-size:12.5px;color:#5d6b7d">Ibrahim Khalil &middot; +61 413 220 887 &middot; accounts@alamincatering.com.au</div>
+                </div>
+                <div style="margin-left:auto;display:flex;gap:8px;align-items:center">
+                  <div style="height:34px;padding:0 13px;border-radius:8px;border:1px solid #dfe6ee;display:flex;align-items:center;font-size:12.5px;font-weight:500;color:#4a5866;cursor:pointer" style-hover="background:#f2f6fa">Statement</div>
+                  <div style="height:34px;padding:0 13px;border-radius:8px;border:1px solid #dfe6ee;display:flex;align-items:center;font-size:12.5px;font-weight:500;color:#4a5866;cursor:pointer" style-hover="background:#f2f6fa">New sale</div>
+                  <div onClick="{{ openContactForm }}" style="height:34px;padding:0 13px;border-radius:8px;border:1px solid #dfe6ee;display:flex;align-items:center;font-size:12.5px;font-weight:500;color:#4a5866;cursor:pointer" style-hover="background:#f2f6fa">Edit</div>
+                  <div style="height:34px;padding:0 15px;border-radius:8px;background:#1668c9;color:#ffffff;display:flex;align-items:center;font-size:12.5px;font-weight:600;cursor:pointer" style-hover="background:#1257ab">Receive payment</div>
+                </div>
+              </div>
+              <div style="display:flex;gap:2px;margin-top:16px">
+                <sc-for list="{{ cDetailTabs }}" as="t" hint-placeholder-count="3">
+                  <div onClick="{{ t.onClick }}" style="{{ t.style }}">{{ t.name }}</div>
+                </sc-for>
+              </div>
+            </div>
+
+            <div style="padding:20px 24px 32px;display:grid;grid-template-columns:1fr 320px;gap:16px;align-items:start">
+              <div style="display:grid;gap:14px">
+
+                <sc-if value="{{ cdTx }}" hint-placeholder-val="{{ true }}">
+                <div style="background:#ffffff;border:1px solid #dfe6ee;border-radius:12px;overflow:hidden">
+                  <div style="padding:14px 18px;border-bottom:1px solid #eaeff5;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+                    <div style="font-size:13px;font-weight:700">Transactions</div>
+                    <div style="margin-left:auto;height:30px;padding:0 11px;border-radius:7px;border:1px solid #dfe6ee;display:flex;align-items:center;font-family:'IBM Plex Mono',monospace;font-size:11px;color:#4a5866;cursor:pointer">Last 90 days</div>
+                  </div>
+                  <div style="display:grid;grid-template-columns:1.1fr 1fr 1fr 0.9fr 0.9fr;gap:12px;padding:9px 18px;background:#f6f9fc;border-bottom:1px solid #dfe6ee;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.07em;text-transform:uppercase;color:#5d6b7d">
+                    <div>Reference</div><div>Type</div><div style="text-align:right">Total</div><div style="text-align:right">Due</div><div style="text-align:right">Status</div>
+                  </div>
+                  <sc-for list="{{ cTx }}" as="t" hint-placeholder-count="7">
+                    <div style="display:grid;grid-template-columns:1.1fr 1fr 1fr 0.9fr 0.9fr;gap:12px;padding:11px 18px;border-bottom:1px solid #f0f4f8;align-items:center" style-hover="background:#f9fbfd">
+                      <div>
+                        <a href="#" style="font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:500">{{ t.ref }}</a>
+                        <div style="font-size:10.5px;color:#9aa7b6;margin-top:1px">{{ t.date }}</div>
+                      </div>
+                      <div style="font-size:12.5px;color:#4a5866">{{ t.kind }}</div>
+                      <div style="font-family:'IBM Plex Mono',monospace;font-size:12.5px;text-align:right;font-weight:500">{{ t.total }}</div>
+                      <div style="{{ t.dueStyle }}">{{ t.due }}</div>
+                      <div style="text-align:right"><span style="{{ t.badge }}">{{ t.status }}</span></div>
+                    </div>
+                  </sc-for>
+                </div>
+                </sc-if>
+
+                <sc-if value="{{ cdLedger }}" hint-placeholder-val="{{ false }}">
+                <div style="background:#ffffff;border:1px solid #dfe6ee;border-radius:12px;overflow:hidden">
+                  <div style="padding:14px 18px;border-bottom:1px solid #eaeff5;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+                    <div style="max-width:420px">
+                      <div style="font-size:13px;font-weight:700">Ledger</div>
+                      <div style="font-size:11.5px;color:#7d8b9c;margin-top:2px;line-height:1.5">Running balance across invoices, payments and credit notes.</div>
+                    </div>
+                    <div style="margin-left:auto;height:30px;padding:0 11px;border-radius:7px;border:1px solid #dfe6ee;display:flex;align-items:center;font-size:12px;font-weight:500;color:#4a5866;cursor:pointer" style-hover="background:#f2f6fa">Email statement</div>
+                  </div>
+                  <div style="display:grid;grid-template-columns:1fr 1.4fr 0.9fr 0.9fr 1fr;gap:12px;padding:9px 18px;background:#f6f9fc;border-bottom:1px solid #dfe6ee;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.07em;text-transform:uppercase;color:#5d6b7d">
+                    <div>Date</div><div>Detail</div><div style="text-align:right">Debit</div><div style="text-align:right">Credit</div><div style="text-align:right">Balance</div>
+                  </div>
+                  <sc-for list="{{ cLedger }}" as="l" hint-placeholder-count="7">
+                    <div style="display:grid;grid-template-columns:1fr 1.4fr 0.9fr 0.9fr 1fr;gap:12px;padding:10px 18px;border-bottom:1px solid #f0f4f8;align-items:center" style-hover="background:#f9fbfd">
+                      <div style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:#5d6b7d">{{ l.date }}</div>
+                      <div style="font-size:12.5px;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ l.detail }}</div>
+                      <div style="font-family:'IBM Plex Mono',monospace;font-size:12.5px;text-align:right;color:#4a5866">{{ l.debit }}</div>
+                      <div style="font-family:'IBM Plex Mono',monospace;font-size:12.5px;text-align:right;color:#0f6b43">{{ l.credit }}</div>
+                      <div style="font-family:'IBM Plex Mono',monospace;font-size:12.5px;text-align:right;font-weight:600">{{ l.bal }}</div>
+                    </div>
+                  </sc-for>
+                  <div style="display:grid;grid-template-columns:1fr 1.4fr 0.9fr 0.9fr 1fr;gap:12px;padding:12px 18px;background:#f6f9fc;align-items:center">
+                    <div></div>
+                    <div style="font-size:12.5px;font-weight:700">Closing balance</div>
+                    <div style="font-family:'IBM Plex Mono',monospace;font-size:12.5px;text-align:right;font-weight:600">8,940.20</div>
+                    <div style="font-family:'IBM Plex Mono',monospace;font-size:12.5px;text-align:right;font-weight:600;color:#0f6b43">7,097.75</div>
+                    <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;text-align:right;font-weight:700;color:#b02020">1,842.45</div>
+                  </div>
+                </div>
+                </sc-if>
+
+                <sc-if value="{{ cdDocs }}" hint-placeholder-val="{{ false }}">
+                <div style="background:#ffffff;border:1px solid #dfe6ee;border-radius:12px;overflow:hidden">
+                  <div style="padding:14px 18px;border-bottom:1px solid #eaeff5;display:flex;align-items:center;gap:12px">
+                    <div style="font-size:13px;font-weight:700">Documents &amp; addresses</div>
+                    <div style="margin-left:auto;height:30px;padding:0 11px;border-radius:7px;border:1px solid #dfe6ee;display:flex;align-items:center;font-size:12px;font-weight:500;color:#4a5866;cursor:pointer" style-hover="background:#f2f6fa">Upload</div>
+                  </div>
+                  <div style="padding:16px 18px;display:grid;grid-template-columns:1fr 1fr;gap:14px;border-bottom:1px solid #f0f4f8">
+                    <sc-for list="{{ cAddresses }}" as="ad" hint-placeholder-count="2">
+                      <div style="border:1px solid #e4eaf1;border-radius:10px;padding:13px 15px">
+                        <div style="display:flex;align-items:center;gap:8px;margin-bottom:7px">
+                          <div style="font-size:12px;font-weight:700">{{ ad.kind }}</div>
+                          <span style="{{ ad.tagStyle }}">{{ ad.tag }}</span>
+                        </div>
+                        <div style="font-size:12.5px;line-height:1.55;color:#4a5866">{{ ad.lines }}</div>
+                      </div>
+                    </sc-for>
+                  </div>
+                  <sc-for list="{{ cDocs }}" as="d" hint-placeholder-count="3">
+                    <div style="display:flex;align-items:center;gap:12px;padding:11px 18px;border-bottom:1px solid #f0f4f8">
+                      <div style="width:30px;height:30px;border-radius:7px;background:#eef2f6;display:grid;place-items:center;font-family:'IBM Plex Mono',monospace;font-size:8px;color:#8b98a8;flex:none">{{ d.ext }}</div>
+                      <div style="flex:1;min-width:0">
+                        <div style="font-size:12.5px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ d.name }}</div>
+                        <div style="font-size:11px;color:#8b98a8">{{ d.meta }}</div>
+                      </div>
+                      <div style="color:#9aa7b6;cursor:pointer;font-size:13px">&times;</div>
+                    </div>
+                  </sc-for>
+                </div>
+                </sc-if>
+              </div>
+
+              <div style="display:grid;gap:12px">
+                <div style="background:#ffffff;border:1px solid #dfe6ee;border-radius:12px;padding:16px 18px">
+                  <div style="font-size:11.5px;color:#7d8b9c;margin-bottom:7px">Balance due</div>
+                  <div style="font-family:'IBM Plex Mono',monospace;font-size:27px;font-weight:600;letter-spacing:-0.025em;color:#b02020;line-height:1">1,842.45</div>
+                  <div style="font-size:11.5px;color:#b02020;margin-top:6px">2 invoices overdue &middot; oldest 34 days</div>
+                  <div style="height:7px;border-radius:99px;background:#eef2f6;margin:14px 0 9px;overflow:hidden;display:flex">
+                    <div style="width:62%;background:#1668c9"></div>
+                    <div style="width:38%;background:#d93a3a"></div>
+                  </div>
+                  <div style="display:flex;gap:14px;font-size:11px;color:#5d6b7d">
+                    <div style="display:flex;align-items:center;gap:5px"><div style="width:7px;height:7px;border-radius:50%;background:#1668c9"></div>Within terms</div>
+                    <div style="display:flex;align-items:center;gap:5px"><div style="width:7px;height:7px;border-radius:50%;background:#d93a3a"></div>Overdue</div>
+                  </div>
+                </div>
+                <div style="background:#ffffff;border:1px solid #dfe6ee;border-radius:12px;padding:16px 18px">
+                  <div style="font-size:12.5px;font-weight:700;margin-bottom:13px">Account</div>
+                  <div style="display:grid;gap:11px">
+                    <sc-for list="{{ cMeta }}" as="m" hint-placeholder-count="7">
+                      <div>
+                        <div style="font-size:11px;color:#8b98a8;margin-bottom:2px">{{ m.k }}</div>
+                        <div style="{{ m.vStyle }}">{{ m.v }}</div>
+                      </div>
+                    </sc-for>
+                  </div>
+                </div>
+                <div style="background:#ffffff;border:1px solid #dfe6ee;border-radius:12px;padding:16px 18px">
+                  <div style="font-size:12.5px;font-weight:700;margin-bottom:12px">Lifetime</div>
+                  <div style="display:grid;gap:12px">
+                    <sc-for list="{{ cStats }}" as="s" hint-placeholder-count="4">
+                      <div style="display:flex;align-items:baseline;gap:10px">
+                        <div style="font-size:12.5px;color:#5d6b7d;flex:1">{{ s.k }}</div>
+                        <div style="font-family:'IBM Plex Mono',monospace;font-size:14px;font-weight:600">{{ s.v }}</div>
+                      </div>
+                    </sc-for>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          </sc-if>
+
+          <sc-if value="{{ cGroups }}" hint-placeholder-val="{{ false }}">
+          <div>
+            <div style="padding:20px 24px 16px;background:#ffffff;border-bottom:1px solid #dfe6ee">
+              <div style="display:flex;align-items:center;gap:7px;font-size:11.5px;color:#7d8b9c;margin-bottom:8px">
+                <span>Contacts</span><span style="color:#c2cedb">/</span><span style="color:#0f1c2b;font-weight:500">Customer groups</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;gap:20px;flex-wrap:wrap">
+                <div>
+                  <h2 style="margin:0 0 3px;font-size:22px;font-weight:700;letter-spacing:-0.018em">Customer groups</h2>
+                  <div style="font-size:12.5px;color:#5d6b7d">5 groups &middot; drive pricing, discount and payment terms</div>
+                </div>
+                <div style="margin-left:auto;height:34px;padding:0 15px;border-radius:8px;background:#1668c9;color:#ffffff;display:flex;align-items:center;font-size:12.5px;font-weight:600;cursor:pointer" style-hover="background:#1257ab">+ New group</div>
+              </div>
+            </div>
+            <div style="padding:20px 24px 32px">
+              <div style="background:#ffffff;border:1px solid #dfe6ee;border-radius:12px;overflow:hidden">
+                <div style="display:grid;grid-template-columns:1.6fr 1.2fr 0.9fr 0.9fr 1fr 1fr 80px;gap:12px;padding:10px 18px;background:#f6f9fc;border-bottom:1px solid #dfe6ee;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.07em;text-transform:uppercase;color:#5d6b7d">
+                  <div>Group</div><div>Price group</div><div style="text-align:right">Discount</div><div style="text-align:right">Terms</div><div style="text-align:right">Contacts</div><div style="text-align:right">Balance due</div><div></div>
+                </div>
+                <sc-for list="{{ groups }}" as="g" hint-placeholder-count="5">
+                  <div style="display:grid;grid-template-columns:1.6fr 1.2fr 0.9fr 0.9fr 1fr 1fr 80px;gap:12px;padding:12px 18px;border-bottom:1px solid #f0f4f8;align-items:center" style-hover="background:#f9fbfd">
+                    <div style="min-width:0">
+                      <div style="font-size:13px;font-weight:600">{{ g.name }}</div>
+                      <div style="font-size:11px;color:#8b98a8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ g.desc }}</div>
+                    </div>
+                    <div style="font-size:12.5px;color:#4a5866">{{ g.price }}</div>
+                    <div style="font-family:'IBM Plex Mono',monospace;font-size:12.5px;text-align:right">{{ g.discount }}</div>
+                    <div style="font-family:'IBM Plex Mono',monospace;font-size:12.5px;text-align:right;color:#4a5866">{{ g.terms }}</div>
+                    <div style="font-family:'IBM Plex Mono',monospace;font-size:12.5px;text-align:right">{{ g.count }}</div>
+                    <div style="text-align:right"><span style="{{ g.balStyle }}">{{ g.bal }}</span></div>
+                    <div style="display:flex;justify-content:flex-end;gap:5px">
+                      <div style="width:26px;height:26px;border-radius:6px;border:1px solid #e4eaf1;display:grid;place-items:center;font-size:11px;color:#5d6b7d;cursor:pointer" style-hover="background:#f2f6fa;color:#1668c9">&#9998;</div>
+                    </div>
+                  </div>
+                </sc-for>
+              </div>
+              <div style="display:flex;gap:10px;align-items:flex-start;background:#eaf1fb;border:1px solid #cfe0f5;border-radius:10px;padding:13px 15px;font-size:12.5px;color:#14549e;line-height:1.55;margin-top:14px;max-width:760px">
+                <div style="font-weight:700;flex:none">i</div>
+                <div>A group sets the selling price group, the default discount and the payment terms in one place. Assigning a contact to a group is what drives pricing at POS &mdash; there is no separate per-contact price list to maintain.</div>
+              </div>
+            </div>
+          </div>
+          </sc-if>
+
+        </div>
+      </div>
+
+      <sc-if value="{{ contactFormOpen }}" hint-placeholder-val="{{ false }}">
+        <div onClick="{{ closeContactForm }}" style="position:absolute;inset:0;background:rgba(9,22,35,.42);z-index:20"></div>
+        <div style="position:absolute;top:0;right:0;bottom:0;width:540px;background:#ffffff;z-index:21;box-shadow:-18px 0 40px -20px rgba(15,28,43,.4);display:flex;flex-direction:column">
+          <div style="flex:none;padding:18px 22px;border-bottom:1px solid #dfe6ee;display:flex;align-items:center;gap:14px">
+            <div>
+              <div style="font-size:16px;font-weight:700;letter-spacing:-0.015em">Add contact</div>
+              <div style="font-size:12px;color:#5d6b7d;margin-top:2px">One form for customers, suppliers and both</div>
+            </div>
+            <div onClick="{{ closeContactForm }}" style="margin-left:auto;width:30px;height:30px;border-radius:7px;border:1px solid #dfe6ee;display:grid;place-items:center;cursor:pointer;color:#5d6b7d;font-size:14px" style-hover="background:#f2f6fa">&times;</div>
+          </div>
+
+          <div style="flex:1;overflow-y:auto;padding:20px 22px">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.09em;text-transform:uppercase;color:#7d8b9c;margin-bottom:11px">Contact type</div>
+            <div style="display:flex;gap:7px;margin-bottom:9px">
+              <sc-for list="{{ ctypeChoices }}" as="ct" hint-placeholder-count="3">
+                <div onClick="{{ ct.onClick }}" style="{{ ct.style }}">{{ ct.name }}</div>
+              </sc-for>
+            </div>
+            <div style="font-size:11.5px;color:#7d8b9c;line-height:1.5;margin-bottom:24px">{{ ctypeHint }}</div>
+
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.09em;text-transform:uppercase;color:#7d8b9c;margin-bottom:12px">Identity</div>
+            <div style="display:grid;gap:14px;margin-bottom:24px">
+              <div>
+                <label style="display:block;font-size:12px;font-weight:600;margin-bottom:5px">Business name</label>
+                <input placeholder="Al Amin Catering" style="width:100%;height:36px;border:1px solid #dfe6ee;border-radius:8px;padding:0 11px;font-family:'Public Sans',sans-serif;font-size:13px;outline:none" style-focus="border-color:#1668c9" />
+                <div style="font-size:11.5px;color:#7d8b9c;margin-top:5px">Leave blank for an individual. One of business or contact name is required.</div>
+              </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+                <div>
+                  <label style="display:block;font-size:12px;font-weight:600;margin-bottom:5px">Contact name</label>
+                  <input placeholder="Ibrahim Khalil" style="width:100%;height:36px;border:1px solid #dfe6ee;border-radius:8px;padding:0 11px;font-family:'Public Sans',sans-serif;font-size:13px;outline:none" style-focus="border-color:#1668c9" />
+                </div>
+                <div>
+                  <label style="display:block;font-size:12px;font-weight:600;margin-bottom:5px">Mobile <span style="color:#d93a3a">*</span></label>
+                  <input placeholder="+61" style="width:100%;height:36px;border:1px solid #dfe6ee;border-radius:8px;padding:0 11px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;outline:none" style-focus="border-color:#1668c9" />
+                </div>
+              </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+                <div>
+                  <label style="display:block;font-size:12px;font-weight:600;margin-bottom:5px">Email</label>
+                  <input placeholder="name@business.com.au" style="width:100%;height:36px;border:1px solid #dfe6ee;border-radius:8px;padding:0 11px;font-family:'Public Sans',sans-serif;font-size:13px;outline:none" style-focus="border-color:#1668c9" />
+                </div>
+                <div>
+                  <label style="display:block;font-size:12px;font-weight:600;margin-bottom:5px">ABN</label>
+                  <input placeholder="11 digits" style="width:100%;height:36px;border:1px solid #dfe6ee;border-radius:8px;padding:0 11px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;outline:none" style-focus="border-color:#1668c9" />
+                </div>
+              </div>
+            </div>
+
+            <sc-if value="{{ showCustomerFields }}" hint-placeholder-val="{{ true }}">
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.09em;text-transform:uppercase;color:#7d8b9c;margin-bottom:12px">Customer terms</div>
+              <div style="display:grid;gap:14px;margin-bottom:24px">
+                <div>
+                  <label style="display:block;font-size:12px;font-weight:600;margin-bottom:5px">Customer group</label>
+                  <div style="height:36px;border:1px solid #dfe6ee;border-radius:8px;padding:0 11px;display:flex;align-items:center;justify-content:space-between;font-size:13px;cursor:pointer">Wholesale<span style="color:#9aa7b6;font-size:10px">&#9662;</span></div>
+                  <div style="font-size:11.5px;color:#7d8b9c;margin-top:5px">Sets price group, default discount and payment terms.</div>
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+                  <div>
+                    <label style="display:block;font-size:12px;font-weight:600;margin-bottom:5px">Credit limit</label>
+                    <input value="10,000.00" style="width:100%;height:36px;border:1px solid #dfe6ee;border-radius:8px;padding:0 11px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;text-align:right;outline:none" style-focus="border-color:#1668c9" />
+                  </div>
+                  <div>
+                    <label style="display:block;font-size:12px;font-weight:600;margin-bottom:5px">Opening balance</label>
+                    <input value="0.00" style="width:100%;height:36px;border:1px solid #dfe6ee;border-radius:8px;padding:0 11px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;text-align:right;outline:none" style-focus="border-color:#1668c9" />
+                  </div>
+                </div>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ showSupplierFields }}" hint-placeholder-val="{{ false }}">
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.09em;text-transform:uppercase;color:#7d8b9c;margin-bottom:12px">Supplier terms</div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:24px">
+                <div>
+                  <label style="display:block;font-size:12px;font-weight:600;margin-bottom:5px">Pay term</label>
+                  <div style="height:36px;border:1px solid #dfe6ee;border-radius:8px;padding:0 11px;display:flex;align-items:center;justify-content:space-between;font-size:13px;cursor:pointer">30 days<span style="color:#9aa7b6;font-size:10px">&#9662;</span></div>
+                </div>
+                <div>
+                  <label style="display:block;font-size:12px;font-weight:600;margin-bottom:5px">Advance balance</label>
+                  <input value="0.00" style="width:100%;height:36px;border:1px solid #dfe6ee;border-radius:8px;padding:0 11px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;text-align:right;outline:none" style-focus="border-color:#1668c9" />
+                </div>
+              </div>
+            </sc-if>
+
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.09em;text-transform:uppercase;color:#7d8b9c;margin-bottom:12px">Address</div>
+            <div style="display:grid;gap:14px">
+              <div>
+                <label style="display:block;font-size:12px;font-weight:600;margin-bottom:5px">Street</label>
+                <input placeholder="14 Haldon Street" style="width:100%;height:36px;border:1px solid #dfe6ee;border-radius:8px;padding:0 11px;font-family:'Public Sans',sans-serif;font-size:13px;outline:none" style-focus="border-color:#1668c9" />
+              </div>
+              <div style="display:grid;grid-template-columns:1.4fr 1fr 0.8fr;gap:14px">
+                <div>
+                  <label style="display:block;font-size:12px;font-weight:600;margin-bottom:5px">Suburb</label>
+                  <input placeholder="Lakemba" style="width:100%;height:36px;border:1px solid #dfe6ee;border-radius:8px;padding:0 11px;font-family:'Public Sans',sans-serif;font-size:13px;outline:none" style-focus="border-color:#1668c9" />
+                </div>
+                <div>
+                  <label style="display:block;font-size:12px;font-weight:600;margin-bottom:5px">State</label>
+                  <div style="height:36px;border:1px solid #dfe6ee;border-radius:8px;padding:0 11px;display:flex;align-items:center;justify-content:space-between;font-size:13px;cursor:pointer">NSW<span style="color:#9aa7b6;font-size:10px">&#9662;</span></div>
+                </div>
+                <div>
+                  <label style="display:block;font-size:12px;font-weight:600;margin-bottom:5px">Postcode</label>
+                  <input placeholder="2195" style="width:100%;height:36px;border:1px solid #dfe6ee;border-radius:8px;padding:0 11px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;outline:none" style-focus="border-color:#1668c9" />
+                </div>
+              </div>
+              <div style="display:flex;align-items:center;gap:10px;padding:11px 13px;border:1px solid #dfe6ee;border-radius:9px">
+                <div style="width:17px;height:17px;border-radius:5px;background:#1668c9;display:grid;place-items:center;color:#ffffff;font-size:11px;flex:none">&#10003;</div>
+                <div style="font-size:12.5px">Shipping address is the same as billing</div>
+              </div>
+            </div>
+          </div>
+
+          <div style="flex:none;padding:14px 22px;border-top:1px solid #dfe6ee;display:flex;align-items:center;gap:10px">
+            <div style="font-size:12px;color:#7d8b9c;flex:1">{{ ctypeFooter }}</div>
+            <div onClick="{{ closeContactForm }}" style="height:36px;padding:0 15px;border-radius:8px;border:1px solid #dfe6ee;display:flex;align-items:center;font-size:13px;font-weight:500;color:#4a5866;cursor:pointer" style-hover="background:#f2f6fa">Cancel</div>
+            <div onClick="{{ closeContactForm }}" style="height:36px;padding:0 15px;border-radius:8px;border:1px solid #dfe6ee;display:flex;align-items:center;font-size:13px;font-weight:600;color:#14549e;cursor:pointer" style-hover="background:#f2f6fa">Save &amp; add another</div>
+            <div onClick="{{ closeContactForm }}" style="height:36px;padding:0 17px;border-radius:8px;background:#1668c9;color:#ffffff;display:flex;align-items:center;font-size:13px;font-weight:600;cursor:pointer" style-hover="background:#1257ab">Save contact</div>
+          </div>
+        </div>
+      </sc-if>
+    </div>
+    </div>
+  </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1560,&quot;height&quot;:1040}}"></script>
+<script src="js/base.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

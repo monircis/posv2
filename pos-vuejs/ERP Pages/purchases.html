@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en" data-page="purchases">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Purchases · Madinah Butchery ERP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<script src="js/loader.js"></script>
+<script src="js/support.js"></script>
+</head>
+<body>
+<x-dc>
+<div style="min-height:100vh;background:#eef2f6">
+
+  <sc-if value="{{ isPurchases }}" hint-placeholder-val="{{ false }}">
+  <div data-screen-label="Purchases" style="height:100vh;min-height:720px;position:relative">
+    <div style="height:100%;overflow:auto">
+    <div style="min-width:1280px;display:flex;background:#eef2f6;height:100%;position:relative;overflow:hidden">
+
+      <div style="{{ sideStyle }}">
+        <div style="height:56px;display:flex;align-items:center;gap:10px;padding:0 14px;flex:none;border-bottom:1px solid rgba(255,255,255,.09)">
+          <div style="width:26px;height:26px;border-radius:7px;background:#4da3e8;color:#06283a;display:grid;place-items:center;font-weight:700;font-size:13px;flex:none">M</div>
+          <div style="{{ sideText }}">
+            <div style="font-size:13px;font-weight:600;color:#ffffff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Madinah Butchery</div>
+            <div style="font-size:10.5px;color:#89aec6">All locations</div>
+          </div>
+          <div style="{{ sideCaret }}">&#9662;</div>
+        </div>
+        <div style="{{ sideListStyle }}">
+          <sc-for list="{{ purchaseNav }}" as="n" hint-placeholder-count="18">
+            <div>
+              <div onClick="{{ n.onClick }}" title="{{ n.name }}" style="{{ n.style }}" style-hover="background:rgba(255,255,255,.07)">
+                <div style="{{ n.iconStyle }}">{{ n.key }}</div>
+                <div style="{{ n.nameStyle }}">{{ n.name }}</div>
+                <div style="{{ n.caretStyle }}">&#8250;</div>
+              </div>
+              <sc-if value="{{ n.open }}" hint-placeholder-val="{{ false }}">
+                <div style="margin:2px 0 6px 26px;border-left:1px solid rgba(255,255,255,.12);padding-left:10px;display:flex;flex-direction:column;gap:1px">
+                  <sc-for list="{{ n.children }}" as="c" hint-placeholder-count="2">
+                    <div onClick="{{ c.onClick }}" style="{{ c.style }}" style-hover="color:#ffffff">{{ c.name }}</div>
+                  </sc-for>
+                </div>
+              </sc-if>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <div style="flex:1;min-width:0;display:flex;flex-direction:column">
+        <div style="height:56px;flex:none;background:#ffffff;border-bottom:1px solid #dfe6ee;display:flex;align-items:center;gap:14px;padding:0 20px">
+          <div onClick="{{ toggleNav }}" title="{{ navTip }}" style="width:30px;height:30px;border-radius:7px;border:1px solid #dfe6ee;display:grid;place-items:center;cursor:pointer;color:#5d6b7d;font-size:13px;flex:none" style-hover="background:#f2f6fa;color:#1668c9">&#9776;</div>
+          <div style="flex:1;max-width:420px;position:relative">
+            <div style="position:absolute;left:11px;top:50%;transform:translateY(-50%);color:#9aa7b6;font-size:12px">&#9906;</div>
+            <input placeholder="Search products, invoices, contacts&hellip;" style="width:100%;height:34px;border:1px solid #dfe6ee;border-radius:8px;background:#f7fafc;padding:0 10px 0 30px;font-family:'Public Sans',sans-serif;font-size:13px;outline:none" style-focus="background:#ffffff;border-color:#1668c9" />
+          </div>
+          <div style="margin-left:auto;display:flex;align-items:center;gap:8px">
+            <div onClick="{{ goPos }}" style="height:32px;padding:0 12px;border-radius:8px;background:#1668c9;color:#ffffff;display:flex;align-items:center;font-size:12.5px;font-weight:600;cursor:pointer" style-hover="background:#1257ab">Open POS</div>
+            <div style="height:32px;padding:0 11px;border-radius:8px;border:1px solid #dfe6ee;display:flex;align-items:center;font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:#4a5866;cursor:pointer">29/09/2026</div>
+            <div style="width:32px;height:32px;border-radius:8px;border:1px solid #dfe6ee;display:grid;place-items:center;cursor:pointer;position:relative;color:#5d6b7d">&#9737;<div style="position:absolute;top:6px;right:6px;width:6px;height:6px;border-radius:50%;background:#d93a3a;border:1.5px solid #ffffff"></div></div>
+            <div style="display:flex;align-items:center;gap:8px;padding:3px 9px 3px 3px;border-radius:8px;border:1px solid #dfe6ee;cursor:pointer">
+              <div style="width:25px;height:25px;border-radius:6px;background:#0a3a52;color:#ffffff;display:grid;place-items:center;font-size:11px;font-weight:600">AM</div>
+              <div style="font-size:12.5px;font-weight:500">Aminul</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="flex:1;overflow-y:auto;min-height:0">
+
+          <sc-if value="{{ puList }}" hint-placeholder-val="{{ true }}">
+          <div>
+            <div style="padding:20px 24px 0;background:#ffffff;border-bottom:1px solid #dfe6ee">
+              <div style="display:flex;align-items:center;gap:7px;font-size:11.5px;color:#7d8b9c;margin-bottom:8px">
+                <span>Purchases</span><span style="color:#c2cedb">/</span><span style="color:#0f1c2b;font-weight:500">All purchases</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;gap:20px;flex-wrap:wrap">
+                <div>
+                  <h2 style="margin:0 0 3px;font-size:22px;font-weight:700;letter-spacing:-0.018em">Purchases</h2>
+                  <div style="font-size:12.5px;color:#5d6b7d">September 2026 &middot; 8 purchases &middot; 7,700.00 still owed to suppliers</div>
+                </div>
+                <div style="margin-left:auto;display:flex;gap:8px;align-items:center">
+                  <div onClick="{{ puGoReturns }}" style="height:34px;padding:0 13px;border-radius:8px;border:1px solid #dfe6ee;display:flex;align-items:center;font-size:12.5px;font-weight:500;color:#4a5866;cursor:pointer" style-hover="background:#f2f6fa">Returns</div>
+                  <div onClick="{{ puGoForm }}" style="height:34px;padding:0 15px;border-radius:8px;background:#1668c9;color:#ffffff;display:flex;align-items:center;font-size:12.5px;font-weight:600;cursor:pointer" style-hover="background:#1257ab">+ New purchase</div>
+                </div>
+              </div>
+              <div style="display:flex;gap:2px;margin-top:16px">
+                <sc-for list="{{ puStatusTabs }}" as="t" hint-placeholder-count="4">
+                  <div onClick="{{ t.onClick }}" style="{{ t.style }}">{{ t.name }}<span style="{{ t.countStyle }}">{{ t.count }}</span></div>
+                </sc-for>
+              </div>
+            </div>
+
+            <div style="padding:20px 24px 32px">
+              <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:14px">
+                <div style="position:relative;width:250px">
+                  <div style="position:absolute;left:10px;top:50%;transform:translateY(-50%);color:#9aa7b6;font-size:12px">&#9906;</div>
+                  <input placeholder="Reference or supplier" style="width:100%;height:34px;border:1px solid #dfe6ee;border-radius:8px;background:#ffffff;padding:0 10px 0 29px;font-family:'Public Sans',sans-serif;font-size:12.5px;outline:none" style-focus="border-color:#1668c9" />
+                </div>
+                <div style="height:34px;padding:0 11px;border-radius:8px;border:1px solid #dfe6ee;background:#ffffff;display:flex;align-items:center;gap:9px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:#4a5866;cursor:pointer">01/09/2026 <span style="color:#c2cedb">&rarr;</span> 29/09/2026</div>
+                <div style="height:34px;padding:0 11px;border-radius:8px;border:1px solid #dfe6ee;background:#ffffff;display:flex;align-items:center;gap:20px;font-size:12.5px;color:#4a5866;cursor:pointer">Supplier<span style="color:#9aa7b6;font-size:10px">&#9662;</span></div>
+                <div style="height:34px;padding:0 11px;border-radius:8px;border:1px solid #dfe6ee;background:#ffffff;display:flex;align-items:center;gap:20px;font-size:12.5px;color:#4a5866;cursor:pointer">Payment<span style="color:#9aa7b6;font-size:10px">&#9662;</span></div>
+                <div style="margin-left:auto;display:flex;align-items:center;gap:8px">
+                  <div style="height:34px;padding:0 12px;border-radius:8px;border:1px solid #dfe6ee;background:#ffffff;display:flex;align-items:center;font-size:12.5px;font-weight:500;color:#4a5866;cursor:pointer" style-hover="background:#f2f6fa">Export</div>
+                </div>
+              </div>
+
+              <div style="background:#ffffff;border:1px solid #dfe6ee;border-radius:12px;overflow:hidden">
+                <div style="display:grid;grid-template-columns:1.1fr 1.7fr 1fr 1fr 1fr 1fr 1fr 60px;gap:12px;padding:10px 16px;background:#f6f9fc;border-bottom:1px solid #dfe6ee;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.07em;text-transform:uppercase;color:#5d6b7d;align-items:center">
+                  <div>Reference</div><div>Supplier</div><div>Status</div><div>Payment</div>
+                  <div style="text-align:right">Total</div><div style="text-align:right">Due</div><div>Location</div><div></div>
+                </div>
+                <sc-for list="{{ puRows }}" as="r" hint-placeholder-count="8">
+                  <div style="display:grid;grid-template-columns:1.1fr 1.7fr 1fr 1fr 1fr 1fr 1fr 60px;gap:12px;padding:11px 16px;border-bottom:1px solid #f0f4f8;align-items:center" style-hover="background:#f9fbfd">
+                    <div>
+                      <div onClick="{{ puGoDetails }}" style="font-family:'IBM Plex Mono',monospace;font-size:12.5px;font-weight:500;color:#1668c9;cursor:pointer">{{ r.ref }}</div>
+                      <div style="font-size:10.5px;color:#9aa7b6;margin-top:1px">{{ r.date }}</div>
+                    </div>
+                    <div style="min-width:0">
+                      <div style="font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ r.supplier }}</div>
+                      <div style="font-size:11px;color:#8b98a8">{{ r.lines }}</div>
+                    </div>
+                    <div><span style="{{ r.statusBadge }}">{{ r.status }}</span></div>
+                    <div><span style="{{ r.payBadge }}">{{ r.pay }}</span></div>
+                    <div style="font-family:'IBM Plex Mono',monospace;font-size:12.5px;text-align:right;font-weight:500">{{ r.total }}</div>
+                    <div style="{{ r.dueStyle }}">{{ r.due }}</div>
+                    <div style="font-size:12.5px;color:#4a5866">{{ r.loc }}</div>
+                    <div style="display:flex;justify-content:flex-end">
+                      <div style="width:26px;height:26px;border-radius:6px;border:1px solid #e4eaf1;display:grid;place-items:center;font-size:13px;color:#5d6b7d;cursor:pointer" style-hover="background:#f2f6fa">&#8943;</div>
+                    </div>
+                  </div>
+                </sc-for>
+                <div style="display:grid;grid-template-columns:1.1fr 1.7fr 1fr 1fr 1fr 1fr 1fr 60px;gap:12px;padding:12px 16px;background:#f6f9fc;align-items:center">
+                  <div style="font-size:12px;color:#7d8b9c;grid-column:span 4">Showing {{ puCount }} &middot; totals for current filter</div>
+                  <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;text-align:right;font-weight:700">{{ puTotal }}</div>
+                  <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;text-align:right;font-weight:700;color:#b02020">{{ puDue }}</div>
+                  <div></div><div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          </sc-if>
+
+          <sc-if value="{{ puForm }}" hint-placeholder-val="{{ false }}">
+          <div>
+            <div style="padding:20px 24px 16px;background:#ffffff;border-bottom:1px solid #dfe6ee">
+              <div style="display:flex;align-items:center;gap:7px;font-size:11.5px;color:#7d8b9c;margin-bottom:8px">
+                <span onClick="{{ puGoList }}" style="cursor:pointer;color:#1668c9">Purchases</span><span style="color:#c2cedb">/</span><span style="color:#0f1c2b;font-weight:500">New purchase</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;gap:20px;flex-wrap:wrap">
+                <div>
+                  <h2 style="margin:0 0 3px;font-size:22px;font-weight:700;letter-spacing:-0.018em">New purchase</h2>
+                  <div style="font-size:12.5px;color:#5d6b7d">Line-item form &mdash; the same shell serves sales, transfers, adjustments, production and returns</div>
+                </div>
+                <div style="margin-left:auto;display:flex;gap:8px;align-items:center">
+                  <div onClick="{{ puGoList }}" style="height:34px;padding:0 13px;border-radius:8px;border:1px solid #dfe6ee;display:flex;align-items:center;font-size:12.5px;font-weight:500;color:#4a5866;cursor:pointer" style-hover="background:#f2f6fa">Cancel</div>
+                  <div style="height:34px;padding:0 13px;border-radius:8px;border:1px solid #dfe6ee;display:flex;align-items:center;font-size:12.5px;font-weight:600;color:#14549e;cursor:pointer" style-hover="background:#f2f6fa">Save as ordered</div>
+                  <div onClick="{{ puGoDetails }}" style="height:34px;padding:0 15px;border-radius:8px;background:#1668c9;color:#ffffff;display:flex;align-items:center;font-size:12.5px;font-weight:600;cursor:pointer" style-hover="background:#1257ab">Save &amp; receive stock</div>
+                </div>
+              </div>
+            </div>
+
+            <div style="padding:20px 24px 32px;display:grid;grid-template-columns:1fr 330px;gap:16px;align-items:start">
+              <div style="display:grid;gap:14px">
+                <div style="background:#ffffff;border:1px solid #dfe6ee;border-radius:12px;padding:17px 19px;display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:14px">
+                  <div>
+                    <label style="display:block;font-size:12px;font-weight:600;margin-bottom:5px">Supplier <span style="color:#d93a3a">*</span></label>
+                    <div style="height:36px;border:1px solid #dfe6ee;border-radius:8px;padding:0 11px;display:flex;align-items:center;justify-content:space-between;font-size:13px;cursor:pointer">Baraka Meats<span style="color:#9aa7b6;font-size:10px">&#9662;</span></div>
+                    <div style="font-size:11.5px;color:#b45309;margin-top:5px">Owed 6,420.00 &middot; 30-day terms</div>
+                  </div>
+                  <div>
+                    <label style="display:block;font-size:12px;font-weight:600;margin-bottom:5px">Reference</label>
+                    <input placeholder="PO-2043" style="width:100%;height:36px;border:1px solid #dfe6ee;border-radius:8px;padding:0 11px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;outline:none" style-focus="border-color:#1668c9" />
+                  </div>
+                  <div>
+                    <label style="display:block;font-size:12px;font-weight:600;margin-bottom:5px">Date</label>
+                    <div style="height:36px;border:1px solid #dfe6ee;border-radius:8px;padding:0 11px;display:flex;align-items:center;font-family:'IBM Plex Mono',monospace;font-size:12.5px">29/09/2026</div>
+                  </div>
+                  <div>
+                    <label style="display:block;font-size:12px;font-weight:600;margin-bottom:5px">Receive into</label>
+                    <div style="height:36px;border:1px solid #dfe6ee;border-radius:8px;padding:0 11px;display:flex;align-items:center;justify-content:space-between;font-size:13px;cursor:pointer">Main branch<span style="color:#9aa7b6;font-size:10px">&#9662;</span></div>
+                  </div>
+                </div>
+
+                <div style="background:#ffffff;border:1px solid #dfe6ee;border-radius:12px;overflow:hidden">
+                  <div style="padding:13px 16px;border-bottom:1px solid #eaeff5;display:flex;align-items:center;gap:10px">
+                    <div style="flex:1;position:relative">
+                      <div style="position:absolute;left:12px;top:50%;transform:translateY(-50%);color:#9aa7b6;font-size:13px">&#9906;</div>
+                      <input placeholder="Scan or search product to add a line" style="width:100%;height:40px;border:1px solid #1668c9;border-radius:9px;background:#f6faff;padding:0 12px 0 34px;font-family:'Public Sans',sans-serif;font-size:13px;outline:none" />
+                    </div>
+                    <div style="height:40px;padding:0 13px;border-radius:9px;border:1px solid #dfe6ee;display:flex;align-items:center;font-size:12.5px;font-weight:500;color:#4a5866;cursor:pointer;flex:none" style-hover="background:#f2f6fa">Reorder low stock</div>
+                  </div>
+                  <sc-for list="{{ puSuggest }}" as="sg" hint-placeholder-count="3">
+                    <div onClick="{{ sg.onClick }}" style="display:flex;align-items:center;gap:10px;padding:8px 16px;border-bottom:1px solid #f0f4f8;background:#fbfcfe;cursor:pointer" style-hover="background:#f0f6fd">
+                      <div style="font-size:12px;font-weight:600;color:#1668c9;flex:none">+</div>
+                      <div style="font-size:12.5px;flex:1">{{ sg.name }}</div>
+                      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#b45309">{{ sg.note }}</div>
+                      <div style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:#5d6b7d;min-width:60px;text-align:right">{{ sg.cost }}</div>
+                    </div>
+                  </sc-for>
+                  <div style="display:grid;grid-template-columns:28px 2.2fr 1.1fr 1fr 0.8fr 1fr 30px;gap:10px;padding:9px 16px;background:#f6f9fc;border-bottom:1px solid #dfe6ee;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.07em;text-transform:uppercase;color:#5d6b7d">
+                    <div>#</div><div>Product</div><div style="text-align:center">Qty</div><div style="text-align:right">Unit cost</div><div style="text-align:right">Disc %</div><div style="text-align:right">Line total</div><div></div>
+                  </div>
+                  <sc-for list="{{ puLines }}" as="l" hint-placeholder-count="4">
+                    <div style="display:grid;grid-template-columns:28px 2.2fr 1.1fr 1fr 0.8fr 1fr 30px;gap:10px;padding:9px 16px;border-bottom:1px solid #f0f4f8;align-items:center" style-hover="background:#f9fbfd">
+                      <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#9aa7b6">{{ l.n }}</div>
+                      <div style="min-width:0">
+                        <div style="font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ l.name }}</div>
+                        <div style="{{ l.hintStyle }}">{{ l.hint }}</div>
+                      </div>
+                      <div style="display:flex;align-items:center;border:1px solid #dfe6ee;border-radius:7px;overflow:hidden;height:32px">
+                        <div onClick="{{ l.dec }}" style="width:28px;height:100%;display:grid;place-items:center;font-size:14px;color:#5d6b7d;cursor:pointer;flex:none" style-hover="background:#f2f6fa;color:#1668c9">&minus;</div>
+                        <div style="flex:1;text-align:center;font-family:'IBM Plex Mono',monospace;font-size:12.5px;font-weight:600;border-left:1px solid #eaeff5;border-right:1px solid #eaeff5;height:100%;display:grid;place-items:center">{{ l.qty }}</div>
+                        <div onClick="{{ l.inc }}" style="width:28px;height:100%;display:grid;place-items:center;font-size:14px;color:#5d6b7d;cursor:pointer;flex:none" style-hover="background:#f2f6fa;color:#1668c9">+</div>
+                      </div>
+                      <div style="height:32px;border:1px solid #dfe6ee;border-radius:7px;padding:0 9px;display:flex;align-items:center;justify-content:flex-end;font-family:'IBM Plex Mono',monospace;font-size:12.5px">{{ l.cost }}</div>
+                      <div style="height:32px;border:1px solid #dfe6ee;border-radius:7px;padding:0 9px;display:flex;align-items:center;justify-content:flex-end;font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:#5d6b7d">{{ l.disc }}</div>
+                      <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;text-align:right;font-weight:600">{{ l.total }}</div>
+                      <div onClick="{{ l.rm }}" style="width:24px;height:24px;border-radius:6px;display:grid;place-items:center;color:#b3c0cf;cursor:pointer;font-size:13px" style-hover="background:#fdeaea;color:#b02020">&times;</div>
+                    </div>
+                  </sc-for>
+                  <div style="padding:10px 16px;font-size:11.5px;color:#7d8b9c;display:flex;gap:16px;flex-wrap:wrap">
+                    <span>Enter adds a line &middot; Tab moves across &middot; &minus;/+ adjust quantity</span>
+                    <span style="margin-left:auto;font-family:'IBM Plex Mono',monospace">{{ puLineCount }} lines &middot; {{ puQty }} units</span>
+                  </div>
+                </div>
+
+                <div style="background:#ffffff;border:1px solid #dfe6ee;border-radius:12px;padding:17px 19px;display:grid;grid-template-columns:1fr 1fr;gap:14px">
+                  <div>
+                    <label style="display:block;font-size:12px;font-weight:600;margin-bottom:5px">Notes</label>
+                    <textarea placeholder="Delivered chilled, checked by Omar" style="width:100%;height:72px;border:1px solid #dfe6ee;border-radius:8px;padding:9px 11px;font-family:'Public Sans',sans-serif;font-size:13px;outline:none;resize:none" style-focus="border-color:#1668c9"></textarea>
+                  </div>
+                  <div>
+                    <label style="display:block;font-size:12px;font-weight:600;margin-bottom:5px">Supplier invoice</label>
+                    <div style="border:1px dashed #cfdae6;border-radius:8px;height:72px;display:grid;place-items:center;text-align:center">
+                      <div>
+                        <div style="font-size:12.5px;font-weight:600">Drop PDF or photo</div>
+                        <div style="font-size:11px;color:#7d8b9c">Attached to the purchase and its journal</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div style="display:grid;gap:12px;position:sticky;top:0">
+                <div style="background:#ffffff;border:1px solid #dfe6ee;border-radius:12px;padding:16px 18px">
+                  <div style="font-size:12.5px;font-weight:700;margin-bottom:13px">Summary</div>
+                  <div style="display:grid;gap:9px">
+                    <div style="display:flex;align-items:baseline;gap:10px">
+                      <div style="font-size:12.5px;color:#5d6b7d;flex:1">Subtotal</div>
+                      <div style="font-family:'IBM Plex Mono',monospace;font-size:13px">{{ puSub }}</div>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:10px">
+                      <div style="font-size:12.5px;color:#5d6b7d;flex:1">Order discount</div>
+                      <div style="width:92px;height:30px;border:1px solid #dfe6ee;border-radius:7px;padding:0 8px;display:flex;align-items:center;justify-content:flex-end;font-family:'IBM Plex Mono',monospace;font-size:12px;color:#b02020">&minus;{{ puOrderDisc }}</div>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:10px">
+                      <div style="font-size:12.5px;color:#5d6b7d;flex:1">Freight &amp; charges</div>
+                      <div style="width:92px;height:30px;border:1px solid #dfe6ee;border-radius:7px;padding:0 8px;display:flex;align-items:center;justify-content:flex-end;font-family:'IBM Plex Mono',monospace;font-size:12px">{{ puFreight }}</div>
+                    </div>
+                    <div style="display:flex;align-items:baseline;gap:10px">
+                      <div style="font-size:12.5px;color:#5d6b7d;flex:1">GST 10% (claimable)</div>
+                      <div style="font-family:'IBM Plex Mono',monospace;font-size:13px">{{ puTax }}</div>
+                    </div>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;background:#0f1c2b;border-radius:10px;margin-top:14px">
+                    <div style="font-size:12.5px;font-weight:600;color:#cfdbe6;flex:1">Total</div>
+                    <div style="font-family:'IBM Plex Mono',monospace;font-size:22px;font-weight:600;color:#ffffff;letter-spacing:-0.02em">{{ puGrand }}</div>
+                  </div>
+                </div>
+
+                <div style="background:#ffffff;border:1px solid #dfe6ee;border-radius:12px;padding:16px 18px">
+                  <div style="font-size:12.5px;font-weight:700;margin-bottom:11px">Payment</div>
+                  <div style="display:flex;gap:6px;margin-bottom:12px">
+                    <sc-for list="{{ puPayChoices }}" as="pc" hint-placeholder-count="3">
+                      <div onClick="{{ pc.onClick }}" style="{{ pc.style }}">{{ pc.name }}</div>
+                    </sc-for>
+                  </div>
+                  <sc-if value="{{ puShowPayFields }}" hint-placeholder-val="{{ false }}">
+                    <div style="display:grid;gap:10px;margin-bottom:10px">
+                      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+                        <div>
+                          <label style="display:block;font-size:11.5px;font-weight:600;margin-bottom:4px">Amount</label>
+                          <div style="height:34px;border:1px solid #dfe6ee;border-radius:8px;padding:0 10px;display:flex;align-items:center;justify-content:flex-end;font-family:'IBM Plex Mono',monospace;font-size:12.5px">{{ puPaid }}</div>
+                        </div>
+                        <div>
+                          <label style="display:block;font-size:11.5px;font-weight:600;margin-bottom:4px">From account</label>
+                          <div style="height:34px;border:1px solid #dfe6ee;border-radius:8px;padding:0 10px;display:flex;align-items:center;justify-content:space-between;font-size:12.5px;cursor:pointer">CBA Business<span style="color:#9aa7b6;font-size:10px">&#9662;</span></div>
+                        </div>
+                      </div>
+                    </div>
+                  </sc-if>
+                  <div style="display:flex;align-items:baseline;gap:10px;padding-top:10px;border-top:1px solid #f0f4f8">
+                    <div style="font-size:12.5px;font-weight:600;flex:1">Due to supplier</div>
+                    <div style="{{ puBalanceStyle }}">{{ puBalance }}</div>
+                  </div>
+                  <div style="font-size:11.5px;color:#7d8b9c;margin-top:5px">{{ puDueHint }}</div>
+                </div>
+
+                <div style="background:#e7f6ee;border:1px solid #bfe5d1;border-radius:12px;padding:14px 16px">
+                  <div style="font-size:12px;font-weight:700;color:#0f6b43;margin-bottom:7px">On receive</div>
+                  <div style="font-size:12px;line-height:1.6;color:#0f6b43">+{{ puQty }} units into Main branch. Weighted average cost updates for {{ puLineCount }} products. A journal is drafted to Inventory / Accounts payable for review.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          </sc-if>
+
+          <sc-if value="{{ puDetails }}" hint-placeholder-val="{{ false }}">
+          <div>
+            <div style="padding:20px 24px 18px;background:#ffffff;border-bottom:1px solid #dfe6ee">
+              <div style="display:flex;align-items:center;gap:7px;font-size:11.5px;color:#7d8b9c;margin-bottom:14px">
+                <span onClick="{{ puGoList }}" style="cursor:pointer;color:#1668c9">Purchases</span><span style="color:#c2cedb">/</span><span style="color:#0f1c2b;font-weight:500">PO-2041</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;gap:16px;flex-wrap:wrap">
+                <div style="min-width:0">
+                  <div style="display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:4px">
+                    <h2 style="margin:0;font-family:'IBM Plex Mono',monospace;font-size:22px;font-weight:600;letter-spacing:-0.02em">PO-2041</h2>
+                    <span style="background:#e7f6ee;color:#0f6b43;border-radius:5px;padding:3px 9px;font-size:11.5px;font-weight:600">Received</span>
+                    <span style="background:#fdf1dd;color:#8a5300;border-radius:5px;padding:3px 9px;font-size:11.5px;font-weight:600">Partially paid</span>
+                  </div>
+                  <div style="font-size:12.5px;color:#5d6b7d">Baraka Meats &middot; 29/09/2026 &middot; received into Main branch by Omar Siddiq</div>
+                </div>
+                <div style="margin-left:auto;display:flex;gap:8px;align-items:center">
+                  <div style="height:34px;padding:0 13px;border-radius:8px;border:1px solid #dfe6ee;display:flex;align-items:center;font-size:12.5px;font-weight:500;color:#4a5866;cursor:pointer" style-hover="background:#f2f6fa">Print</div>
+                  <div onClick="{{ puGoReturn }}" style="height:34px;padding:0 13px;border-radius:8px;border:1px solid #dfe6ee;display:flex;align-items:center;font-size:12.5px;font-weight:500;color:#4a5866;cursor:pointer" style-hover="background:#f2f6fa">Return items</div>
+                  <div onClick="{{ puGoForm }}" style="height:34px;padding:0 13px;border-radius:8px;border:1px solid #dfe6ee;display:flex;align-items:center;font-size:12.5px;font-weight:500;color:#4a5866;cursor:pointer" style-hover="background:#f2f6fa">Edit</div>
+                  <div style="height:34px;padding:0 15px;border-radius:8px;background:#1668c9;color:#ffffff;display:flex;align-items:center;font-size:12.5px;font-weight:600;cursor:pointer" style-hover="background:#1257ab">Pay 2,420.00</div>
+                </div>
+              </div>
+
+              <div style="display:flex;align-items:center;gap:0;margin-top:18px;max-width:760px">
+                <sc-for list="{{ puSteps }}" as="st" hint-placeholder-count="4">
+                  <div style="display:flex;align-items:center;flex:1;min-width:0">
+                    <div style="display:flex;align-items:center;gap:8px;flex:none">
+                      <div style="{{ st.dot }}">{{ st.mark }}</div>
+                      <div>
+                        <div style="font-size:12px;font-weight:600">{{ st.name }}</div>
+                        <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#8b98a8">{{ st.when }}</div>
+                      </div>
+                    </div>
+                    <div style="{{ st.bar }}"></div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+
+            <div style="padding:20px 24px 32px;display:grid;grid-template-columns:1fr 320px;gap:16px;align-items:start">
+              <div style="display:grid;gap:14px">
+                <div style="background:#ffffff;border:1px solid #dfe6ee;border-radius:12px;overflow:hidden">
+                  <div style="padding:14px 18px;border-bottom:1px solid #eaeff5;font-size:13px;font-weight:700">Lines</div>
+                  <div style="display:grid;grid-template-columns:2fr 0.8fr 0.9fr 0.9fr 1fr;gap:12px;padding:9px 18px;background:#f6f9fc;border-bottom:1px solid #dfe6ee;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.07em;text-transform:uppercase;color:#5d6b7d">
+                    <div>Product</div><div style="text-align:right">Qty</div><div style="text-align:right">Unit cost</div><div style="text-align:right">Stock after</div><div style="text-align:right">Line total</div>
+                  </div>
+                  <sc-for list="{{ puDetailLines }}" as="dl" hint-placeholder-count="5">
+                    <div style="display:grid;grid-template-columns:2fr 0.8fr 0.9fr 0.9fr 1fr;gap:12px;padding:11px 18px;border-bottom:1px solid #f0f4f8;align-items:center">
+                      <div style="font-size:13px;font-weight:500">{{ dl.name }}</div>
+                      <div style="font-family:'IBM Plex Mono',monospace;font-size:12.5px;text-align:right">{{ dl.qty }}</div>
+                      <div style="font-family:'IBM Plex Mono',monospace;font-size:12.5px;text-align:right;color:#4a5866">{{ dl.cost }}</div>
+                      <div style="text-align:right"><span style="font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;border-radius:5px;padding:3px 7px;background:#e7f6ee;color:#0f6b43">{{ dl.after }}</span></div>
+                      <div style="font-family:'IBM Plex Mono',monospace;font-size:12.5px;text-align:right;font-weight:600">{{ dl.total }}</div>
+                    </div>
+                  </sc-for>
+                  <div style="padding:13px 18px;display:grid;gap:7px;background:#fbfcfe">
+                    <div style="display:flex;gap:10px;font-size:12.5px"><div style="flex:1;color:#5d6b7d">Subtotal</div><div style="font-family:'IBM Plex Mono',monospace">3,860.00</div></div>
+                    <div style="display:flex;gap:10px;font-size:12.5px"><div style="flex:1;color:#5d6b7d">Freight</div><div style="font-family:'IBM Plex Mono',monospace">180.00</div></div>
+                    <div style="display:flex;gap:10px;font-size:12.5px"><div style="flex:1;color:#5d6b7d">GST 10%</div><div style="font-family:'IBM Plex Mono',monospace">404.00</div></div>
+                    <div style="display:flex;gap:10px;font-size:14px;font-weight:700;padding-top:7px;border-top:1px solid #eaeff5"><div style="flex:1">Total</div><div style="font-family:'IBM Plex Mono',monospace">4,444.00</div></div>
+                  </div>
+                </div>
+
+                <div style="background:#ffffff;border:1px solid #dfe6ee;border-radius:12px;overflow:hidden">
+                  <div style="padding:14px 18px;border-bottom:1px solid #eaeff5;font-size:13px;font-weight:700">Journal</div>
+                  <div style="display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:12px;padding:9px 18px;background:#f6f9fc;border-bottom:1px solid #dfe6ee;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.07em;text-transform:uppercase;color:#5d6b7d">
+                    <div>Account</div><div style="text-align:right">Debit</div><div style="text-align:right">Credit</div>
+                  </div>
+                  <sc-for list="{{ puJournal }}" as="j" hint-placeholder-count="4">
+                    <div style="display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:12px;padding:10px 18px;border-bottom:1px solid #f0f4f8;align-items:center">
+                      <div style="font-size:12.5px"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#8b98a8;margin-right:8px">{{ j.code }}</span>{{ j.name }}</div>
+                      <div style="font-family:'IBM Plex Mono',monospace;font-size:12.5px;text-align:right">{{ j.dr }}</div>
+                      <div style="font-family:'IBM Plex Mono',monospace;font-size:12.5px;text-align:right">{{ j.cr }}</div>
+                    </div>
+                  </sc-for>
+                  <div style="padding:11px 18px;font-size:12px;color:#0f6b43;background:#f3fbf6">Posted 29/09 11:06 after review by Nadia Islam</div>
+                </div>
+              </div>
+
+              <div style="display:grid;gap:12px">
+                <div style="background:#ffffff;border:1px solid #dfe6ee;border-radius:12px;padding:16px 18px">
+                  <div style="font-size:11.5px;color:#7d8b9c;margin-bottom:7px">Due to supplier</div>
+                  <div style="font-family:'IBM Plex Mono',monospace;font-size:27px;font-weight:600;letter-spacing:-0.025em;color:#b02020;line-height:1">2,420.00</div>
+                  <div style="font-size:11.5px;color:#5d6b7d;margin-top:6px">Due 29/10/2026 &middot; 30-day terms</div>
+                  <div style="height:7px;border-radius:99px;background:#fdeaea;margin:14px 0 0;overflow:hidden">
+                    <div style="width:45.5%;height:100%;background:#2f9e63"></div>
+                  </div>
+                  <div style="display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#7d8b9c;margin-top:6px"><span>2,024.00 paid</span><span>4,444.00</span></div>
+                </div>
+                <div style="background:#ffffff;border:1px solid #dfe6ee;border-radius:12px;padding:16px 18px">
+                  <div style="font-size:12.5px;font-weight:700;margin-bottom:12px">Payments</div>
+                  <div style="display:grid;gap:11px">
+                    <sc-for list="{{ puPayments }}" as="pp" hint-placeholder-count="2">
+                      <div style="display:flex;align-items:baseline;gap:10px">
+                        <div style="flex:1;min-width:0">
+                          <div style="font-size:12.5px;font-weight:500">{{ pp.method }}</div>
+                          <div style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#8b98a8">{{ pp.meta }}</div>
+                        </div>
+                        <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600">{{ pp.amt }}</div>
+                      </div>
+                    </sc-for>
+                  </div>
+                </div>
+                <div style="background:#ffffff;border:1px solid #dfe6ee;border-radius:12px;padding:16px 18px">
+                  <div style="font-size:12.5px;font-weight:700;margin-bottom:10px">Attachments</div>
+                  <div style="display:flex;align-items:center;gap:10px;border:1px solid #e4eaf1;border-radius:9px;padding:9px 11px">
+                    <div style="width:30px;height:30px;border-radius:7px;background:#eef2f6;display:grid;place-items:center;font-family:'IBM Plex Mono',monospace;font-size:8px;color:#8b98a8;flex:none">PDF</div>
+                    <div style="flex:1;min-width:0">
+                      <div style="font-size:12.5px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">baraka-inv-88412.pdf</div>
+                      <div style="font-size:11px;color:#8b98a8">248 KB</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          </sc-if>
+
+          <sc-if value="{{ puReturns }}" hint-placeholder-val="{{ false }}">
+          <div>
+            <div style="padding:20px 24px 16px;background:#ffffff;border-bottom:1px solid #dfe6ee">
+              <div style="display:flex;align-items:center;gap:7px;font-size:11.5px;color:#7d8b9c;margin-bottom:8px">
+                <span onClick="{{ puGoList }}" style="cursor:pointer;color:#1668c9">Purchases</span><span style="color:#c2cedb">/</span><span style="color:#0f1c2b;font-weight:500">Returns</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;gap:20px;flex-wrap:wrap">
+                <div>
+                  <h2 style="margin:0 0 3px;font-size:22px;font-weight:700;letter-spacing:-0.018em">Purchase returns</h2>
+                  <div style="font-size:12.5px;color:#5d6b7d">September 2026 &middot; 4 returns &middot; 1,086.30 credited by suppliers</div>
+                </div>
+                <div style="margin-left:auto;display:flex;gap:8px;align-items:center">
+                  <div onClick="{{ puGoReturn }}" style="height:34px;padding:0 15px;border-radius:8px;background:#1668c9;color:#ffffff;display:flex;align-items:center;font-size:12.5px;font-weight:600;cursor:pointer" style-hover="background:#1257ab">+ New return</div>
+                </div>
+              </div>
+            </div>
+            <div style="padding:20px 24px 32px">
+              <div style="background:#ffffff;border:1px solid #dfe6ee;border-radius:12px;overflow:hidden">
+                <div style="display:grid;grid-template-columns:1.1fr 1fr 1.5fr 1.4fr 1fr 1fr 1fr;gap:12px;padding:10px 16px;background:#f6f9fc;border-bottom:1px solid #dfe6ee;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.07em;text-transform:uppercase;color:#5d6b7d">
+                  <div>Return</div><div>Against</div><div>Supplier</div><div>Reason</div><div>Settled as</div><div style="text-align:right">Credit</div><div>Status</div>
+                </div>
+                <sc-for list="{{ prRows }}" as="r" hint-placeholder-count="4">
+                  <div style="display:grid;grid-template-columns:1.1fr 1fr 1.5fr 1.4fr 1fr 1fr 1fr;gap:12px;padding:11px 16px;border-bottom:1px solid #f0f4f8;align-items:center" style-hover="background:#f9fbfd">
+                    <div>
+                      <div style="font-family:'IBM Plex Mono',monospace;font-size:12.5px;font-weight:500;color:#1668c9">{{ r.ref }}</div>
+                      <div style="font-size:10.5px;color:#9aa7b6;margin-top:1px">{{ r.date }}</div>
+                    </div>
+                    <div onClick="{{ puGoDetails }}" style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#1668c9;cursor:pointer">{{ r.po }}</div>
+                    <div style="font-size:13px;font-weight:500">{{ r.supplier }}</div>
+                    <div style="font-size:12.5px;color:#4a5866">{{ r.reason }}</div>
+                    <div style="font-size:12.5px;color:#4a5866">{{ r.settle }}</div>
+                    <div style="font-family:'IBM Plex Mono',monospace;font-size:12.5px;text-align:right;font-weight:600">{{ r.credit }}</div>
+                    <div><span style="{{ r.badge }}">{{ r.status }}</span></div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+          </sc-if>
+
+          <sc-if value="{{ puReturn }}" hint-placeholder-val="{{ false }}">
+          <div>
+            <div style="padding:20px 24px 16px;background:#ffffff;border-bottom:1px solid #dfe6ee">
+              <div style="display:flex;align-items:center;gap:7px;font-size:11.5px;color:#7d8b9c;margin-bottom:8px">
+                <span onClick="{{ puGoDetails }}" style="cursor:pointer;color:#1668c9">PO-2041</span><span style="color:#c2cedb">/</span><span style="color:#0f1c2b;font-weight:500">Return items</span>
+              </div>
+              <div style="display:flex;align-items:flex-start;gap:20px;flex-wrap:wrap">
+                <div>
+                  <h2 style="margin:0 0 3px;font-size:22px;font-weight:700;letter-spacing:-0.018em">Return to Baraka Meats</h2>
+                  <div style="font-size:12.5px;color:#5d6b7d">Against PO-2041 &middot; received 29/09/2026 &middot; lines and costs locked to the original purchase</div>
+                </div>
+                <div style="margin-left:auto;display:flex;gap:8px;align-items:center">
+                  <div onClick="{{ puGoDetails }}" style="height:34px;padding:0 13px;border-radius:8px;border:1px solid #dfe6ee;display:flex;align-items:center;font-size:12.5px;font-weight:500;color:#4a5866;cursor:pointer" style-hover="background:#f2f6fa">Cancel</div>
+                  <div style="height:34px;padding:0 13px;border-radius:8px;border:1px solid #dfe6ee;display:flex;align-items:center;font-size:12.5px;font-weight:600;color:#14549e;cursor:pointer" style-hover="background:#f2f6fa">Save draft</div>
+                  <div onClick="{{ puGoReturns }}" style="{{ retSubmitStyle }}">{{ retSubmitLabel }}</div>
+                </div>
+              </div>
+            </div>
+
+            <div style="padding:20px 24px 32px;display:grid;grid-template-columns:1fr 330px;gap:16px;align-items:start">
+              <div style="display:grid;gap:14px">
+                <div style="background:#ffffff;border:1px solid #dfe6ee;border-radius:12px;padding:17px 19px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px">
+                  <div>
+                    <label style="display:block;font-size:12px;font-weight:600;margin-bottom:5px">Return reference</label>
+                    <div style="height:36px;border:1px solid #dfe6ee;border-radius:8px;padding:0 11px;display:flex;align-items:center;font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:#5d6b7d">PR-0019</div>
+                  </div>
+                  <div>
+                    <label style="display:block;font-size:12px;font-weight:600;margin-bottom:5px">Date</label>
+                    <div style="height:36px;border:1px solid #dfe6ee;border-radius:8px;padding:0 11px;display:flex;align-items:center;font-family:'IBM Plex Mono',monospace;font-size:12.5px">29/09/2026</div>
+                  </div>
+                  <div>
+                    <label style="display:block;font-size:12px;font-weight:600;margin-bottom:5px">Take stock from</label>
+                    <div style="height:36px;border:1px solid #dfe6ee;border-radius:8px;padding:0 11px;display:flex;align-items:center;justify-content:space-between;font-size:13px;cursor:pointer">Main branch<span style="color:#9aa7b6;font-size:10px">&#9662;</span></div>
+                  </div>
+                </div>
+
+                <div style="background:#ffffff;border:1px solid #dfe6ee;border-radius:12px;overflow:hidden">
+                  <div style="padding:14px 16px;border-bottom:1px solid #eaeff5;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+                    <div style="max-width:480px">
+                      <div style="font-size:13px;font-weight:700">What's going back</div>
+                      <div style="font-size:11.5px;color:#7d8b9c;margin-top:2px;line-height:1.5">Every line from the purchase is listed at zero. Raise the quantity on the lines you're returning. You can't return more than was received, and the reason is recorded on each line.</div>
+                    </div>
+                    <div onClick="{{ retAll }}" style="margin-left:auto;height:30px;padding:0 11px;border-radius:7px;border:1px solid #dfe6ee;display:flex;align-items:center;font-size:12px;font-weight:500;color:#4a5866;cursor:pointer" style-hover="background:#f2f6fa">Return everything</div>
+                    <div onClick="{{ retClear }}" style="height:30px;padding:0 11px;border-radius:7px;border:1px solid #dfe6ee;display:flex;align-items:center;font-size:12px;font-weight:500;color:#4a5866;cursor:pointer" style-hover="background:#f2f6fa">Clear</div>
+                  </div>
+                  <div style="display:grid;grid-template-columns:1.7fr 0.8fr 1.15fr 1.3fr 0.8fr 0.9fr;gap:10px;padding:9px 16px;background:#f6f9fc;border-bottom:1px solid #dfe6ee;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.07em;text-transform:uppercase;color:#5d6b7d">
+                    <div>Product</div><div style="text-align:right">Received</div><div style="text-align:center">Return qty</div><div>Reason</div><div style="text-align:right">Unit cost</div><div style="text-align:right">Credit</div>
+                  </div>
+                  <sc-for list="{{ retLines }}" as="l" hint-placeholder-count="5">
+                    <div style="{{ l.rowStyle }}">
+                      <div style="min-width:0">
+                        <div style="font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ l.name }}</div>
+                        <div style="font-size:10.5px;color:#9aa7b6">{{ l.onHand }}</div>
+                      </div>
+                      <div style="font-family:'IBM Plex Mono',monospace;font-size:12.5px;text-align:right;color:#5d6b7d">{{ l.received }}</div>
+                      <div style="display:flex;align-items:center;border:1px solid #dfe6ee;border-radius:7px;overflow:hidden;height:32px;background:#ffffff">
+                        <div onClick="{{ l.dec }}" style="width:28px;height:100%;display:grid;place-items:center;font-size:14px;color:#5d6b7d;cursor:pointer;flex:none" style-hover="background:#f2f6fa;color:#1668c9">&minus;</div>
+                        <div style="{{ l.qtyStyle }}">{{ l.qty }}</div>
+                        <div onClick="{{ l.inc }}" style="{{ l.incStyle }}" style-hover="background:#f2f6fa;color:#1668c9">+</div>
+                      </div>
+                      <div onClick="{{ l.cycle }}" style="{{ l.reasonStyle }}">{{ l.reason }}<span style="color:#9aa7b6;font-size:10px">&#9662;</span></div>
+                      <div style="font-family:'IBM Plex Mono',monospace;font-size:12.5px;text-align:right;color:#4a5866">{{ l.cost }}</div>
+                      <div style="{{ l.creditStyle }}">{{ l.credit }}</div>
+                    </div>
+                  </sc-for>
+                  <div style="padding:10px 16px;font-size:11.5px;color:#7d8b9c;display:flex;gap:16px;flex-wrap:wrap">
+                    <span>Click a reason to change it</span>
+                    <span style="margin-left:auto;font-family:'IBM Plex Mono',monospace">{{ retLineCount }} of 5 lines &middot; {{ retQty }} kg returning</span>
+                  </div>
+                </div>
+
+                <div style="background:#ffffff;border:1px solid #dfe6ee;border-radius:12px;padding:17px 19px;display:grid;grid-template-columns:1fr 1fr;gap:14px">
+                  <div>
+                    <label style="display:block;font-size:12px;font-weight:600;margin-bottom:5px">Notes to supplier</label>
+                    <textarea placeholder="Rump arrived above 5&deg;C, logged at 11:02 by Omar" style="width:100%;height:72px;border:1px solid #dfe6ee;border-radius:8px;padding:9px 11px;font-family:'Public Sans',sans-serif;font-size:13px;outline:none;resize:none" style-focus="border-color:#1668c9"></textarea>
+                  </div>
+                  <div>
+                    <label style="display:block;font-size:12px;font-weight:600;margin-bottom:5px">Evidence</label>
+                    <div style="border:1px dashed #cfdae6;border-radius:8px;height:72px;display:grid;place-items:center;text-align:center">
+                      <div>
+                        <div style="font-size:12.5px;font-weight:600">Drop photos or temperature log</div>
+                        <div style="font-size:11px;color:#7d8b9c">Sent with the return note</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div style="display:grid;gap:12px">
+                <div style="background:#ffffff;border:1px solid #dfe6ee;border-radius:12px;padding:16px 18px">
+                  <div style="font-size:12.5px;font-weight:700;margin-bottom:13px">Credit</div>
+                  <div style="display:grid;gap:9px">
+                    <div style="display:flex;align-items:baseline;gap:10px">
+                      <div style="font-size:12.5px;color:#5d6b7d;flex:1">Goods returned</div>
+                      <div style="font-family:'IBM Plex Mono',monospace;font-size:13px">{{ retSub }}</div>
+                    </div>
+                    <div style="display:flex;align-items:baseline;gap:10px">
+                      <div style="font-size:12.5px;color:#5d6b7d;flex:1">GST reversed</div>
+                      <div style="font-family:'IBM Plex Mono',monospace;font-size:13px">{{ retTax }}</div>
+                    </div>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;background:#0f1c2b;border-radius:10px;margin-top:14px">
+                    <div style="font-size:12.5px;font-weight:600;color:#cfdbe6;flex:1">Total credit</div>
+                    <div style="font-family:'IBM Plex Mono',monospace;font-size:22px;font-weight:600;color:#ffffff;letter-spacing:-0.02em">{{ retTotal }}</div>
+                  </div>
+                </div>
+
+                <div style="background:#ffffff;border:1px solid #dfe6ee;border-radius:12px;padding:16px 18px">
+                  <div style="font-size:12.5px;font-weight:700;margin-bottom:11px">Settle as</div>
+                  <div style="display:grid;gap:7px;margin-bottom:12px">
+                    <sc-for list="{{ retSettle }}" as="s" hint-placeholder-count="3">
+                      <div onClick="{{ s.onClick }}" style="{{ s.style }}">
+                        <div style="{{ s.radio }}"><div style="{{ s.inner }}"></div></div>
+                        <div style="flex:1;min-width:0">
+                          <div style="font-size:12.5px;font-weight:600">{{ s.name }}</div>
+                          <div style="font-size:11.5px;color:#7d8b9c;line-height:1.45;margin-top:1px">{{ s.desc }}</div>
+                        </div>
+                      </div>
+                    </sc-for>
+                  </div>
+                  <div style="display:flex;align-items:baseline;gap:10px;padding-top:10px;border-top:1px solid #f0f4f8">
+                    <div style="font-size:12.5px;font-weight:600;flex:1">{{ retAfterLabel }}</div>
+                    <div style="font-family:'IBM Plex Mono',monospace;font-size:16px;font-weight:700">{{ retAfter }}</div>
+                  </div>
+                  <div style="font-size:11.5px;color:#7d8b9c;margin-top:5px">{{ retAfterHint }}</div>
+                </div>
+
+                <div style="{{ retImpactBox }}">
+                  <div style="font-size:12px;font-weight:700;margin-bottom:7px">On submit</div>
+                  <div style="font-size:12px;line-height:1.6">{{ retImpact }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          </sc-if>
+
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1560,&quot;height&quot;:1040}}"></script>
+<script src="js/base.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

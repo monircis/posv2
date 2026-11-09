@@ -1,0 +1,4 @@
+/* POS terminal: full-height dark page */
+html,body{height:100%}
+body>div,body>div>div,x-dc{height:100%}
+body{margin:0;background:#0f1c2b;font-family:'Public Sans',system-ui,sans-serif;color:#0f1c2b;-webkit-font-smoothing:antialiased}

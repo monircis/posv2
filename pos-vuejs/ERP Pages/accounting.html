@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en" data-page="accounting">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Accounting · Madinah Butchery ERP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<script src="js/loader.js"></script>
+<script src="js/support.js"></script>
+</head>
+<body>
+<x-dc>
+<div style="min-height:100vh;background:#eef2f6">
+
+  <sc-if value="{{ isAccounting }}" hint-placeholder-val="{{ false }}">
+  <div data-screen-label="Accounting" style="height:100vh;min-height:720px;position:relative">
+    <div style="height:100%;overflow:auto">
+<div style="min-width:1280px;height:100%;position:relative;display:flex;flex-direction:column">
+<div data-screen-label="Accounting" style="height:100%;min-height:820px;min-width:1280px;display:flex;background:#eef2f6;position:relative;overflow:hidden;font-family:'Public Sans',system-ui,sans-serif;color:#0f1c2b">
+  <div style="{{ sideStyle }}">
+    <div style="height:56px;display:flex;align-items:center;gap:10px;padding:0 14px;flex:none;border-bottom:1px solid rgba(255,255,255,.09)">
+      <div style="width:26px;height:26px;border-radius:7px;background:#4da3e8;color:#06283a;display:grid;place-items:center;font-weight:700;font-size:13px;flex:none">M</div>
+      <div style="{{ sideText }}">
+        <div style="font-size:13px;font-weight:600;color:#ffffff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Madinah Butchery</div>
+        <div style="font-size:10.5px;color:#89aec6">All locations</div>
+      </div>
+      <div style="{{ sideCaret }}">&#9662;</div>
+    </div>
+    <div style="{{ sideListStyle }}">
+      <sc-for list="{{ ac_nav }}" as="n" hint-placeholder-count="18">
+        <div>
+          <div onClick="{{ n.onClick }}" title="{{ n.name }}" style="{{ n.style }}" style-hover="background:rgba(255,255,255,.07)">
+          <div style="{{ n.iconStyle }}">{{ n.key }}</div>
+          <div style="{{ n.nameStyle }}">{{ n.name }}</div>
+          <div style="{{ n.caretStyle }}">&#8250;</div>
+        </div>
+          <sc-if value="{{ n.open }}" hint-placeholder-val="{{ false }}">
+            <div style="margin:2px 0 6px 26px;border-left:1px solid rgba(255,255,255,.12);padding-left:10px;display:flex;flex-direction:column;gap:1px">
+              <sc-for list="{{ n.children }}" as="c" hint-placeholder-count="2">
+                <div onClick="{{ c.onClick }}" style="{{ c.style }}" style-hover="color:#ffffff">{{ c.name }}</div>
+              </sc-for>
+            </div>
+          </sc-if>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+  <div style="flex:1;min-width:0;display:flex;flex-direction:column">
+    <div style="height:56px;flex:none;background:#ffffff;border-bottom:1px solid #dfe6ee;display:flex;align-items:center;gap:14px;padding:0 20px">
+      <div onClick="{{ toggleNav }}" title="{{ navTip }}" style="width:30px;height:30px;border-radius:7px;border:1px solid #dfe6ee;display:grid;place-items:center;cursor:pointer;color:#5d6b7d;font-size:13px;flex:none" style-hover="background:#f2f6fa;color:#1668c9">&#9776;</div>
+      <div style="flex:1;max-width:420px;position:relative">
+        <div style="position:absolute;left:11px;top:50%;transform:translateY(-50%);color:#9aa7b6;font-size:12px">&#9906;</div>
+        <input placeholder="Search products, invoices, contacts&hellip;" style="width:100%;height:34px;border:1px solid #dfe6ee;border-radius:8px;background:#f7fafc;padding:0 10px 0 30px;font-family:'Public Sans',sans-serif;font-size:13px;outline:none" style-focus="background:#ffffff;border-color:#1668c9" />
+      </div>
+      <div style="margin-left:auto;display:flex;align-items:center;gap:8px">
+        <div onClick="{{ goPos }}" style="height:32px;padding:0 12px;border-radius:8px;background:#1668c9;color:#ffffff;display:flex;align-items:center;font-size:12.5px;font-weight:600;cursor:pointer" style-hover="background:#1257ab">Open POS</div>
+        <div style="height:32px;padding:0 11px;border-radius:8px;border:1px solid #dfe6ee;display:flex;align-items:center;font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:#4a5866">29/09/2026</div>
+        <div style="width:32px;height:32px;border-radius:8px;border:1px solid #dfe6ee;display:grid;place-items:center;position:relative;color:#5d6b7d">&#9737;<div style="position:absolute;top:6px;right:6px;width:6px;height:6px;border-radius:50%;background:#d93a3a;border:1.5px solid #ffffff"></div></div>
+        <div style="display:flex;align-items:center;gap:8px;padding:3px 9px 3px 3px;border-radius:8px;border:1px solid #dfe6ee">
+          <div style="width:25px;height:25px;border-radius:6px;background:#0a3a52;color:#ffffff;display:grid;place-items:center;font-size:11px;font-weight:600">AM</div>
+          <div style="font-size:12.5px;font-weight:500">Aminul</div>
+        </div>
+      </div>
+    </div>
+    <div style="flex:1;overflow-y:auto;min-height:0">
+      <sc-if value="{{ ac_isCoa }}" hint-placeholder-val="{{ true }}">
+      <div>
+        <div style="padding:20px 24px 0;background:#ffffff;border-bottom:1px solid #dfe6ee">
+          <div style="display:flex;align-items:center;gap:7px;font-size:11.5px;color:#7d8b9c;margin-bottom:8px">
+            <span>Accounting</span><span style="color:#c2cedb">/</span><span style="color:#0f1c2b;font-weight:500">Chart of accounts</span>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:20px;flex-wrap:wrap">
+            <div>
+              <h2 style="margin:0 0 3px;font-size:22px;font-weight:700;letter-spacing:-0.018em">Chart of accounts</h2>
+              <div style="font-size:12.5px;color:#5d6b7d">{{ ac_coaSub }}</div>
+            </div>
+            <div style="margin-left:auto;display:flex;gap:8px;align-items:center"><div onClick="{{ ac_exportCoa }}" style="height:34px;padding:0 13px;border-radius:8px;border:1px solid #dfe6ee;display:flex;align-items:center;font-size:12.5px;font-weight:500;color:#4a5866;cursor:pointer;background:#ffffff" style-hover="background:#f2f6fa">Export</div><div onClick="{{ ac_openAddAcct }}" style="height:34px;padding:0 15px;border-radius:8px;background:#1668c9;color:#ffffff;display:flex;align-items:center;font-size:12.5px;font-weight:600;cursor:pointer" style-hover="background:#1257ab">+ Add account</div></div>
+          </div>
+          <div style="display:flex;gap:2px;margin-top:16px">
+            <sc-for list="{{ ac_subTabs }}" as="t" hint-placeholder-count="4">
+              <div onClick="{{ t.onClick }}" style="{{ t.style }}">{{ t.name }}<span style="{{ t.countStyle }}">{{ t.count }}</span></div>
+            </sc-for>
+          </div>
+        </div>
+        <div style="padding:20px 24px 32px">
+          <div style="display:flex;gap:8px;align-items:center;margin-bottom:14px;flex-wrap:wrap">
+            <div style="display:flex;gap:3px;background:#e4eaf1;padding:3px;border-radius:9px">
+              <sc-for list="{{ ac_typeTabs }}" as="t" hint-placeholder-count="7">
+                <div onClick="{{ t.onClick }}" style="{{ t.style }}">{{ t.name }}</div>
+              </sc-for>
+            </div>
+            <div style="position:relative;width:230px;margin-left:auto">
+              <div style="position:absolute;left:10px;top:50%;transform:translateY(-50%);color:#9aa7b6;font-size:12px">&#9906;</div>
+              <input value="{{ ac_cq }}" onChange="{{ ac_onCq }}" placeholder="Code or account name" style="width:100%;height:34px;border:1px solid #dfe6ee;border-radius:8px;background:#ffffff;padding:0 10px 0 29px;font-family:'Public Sans',sans-serif;font-size:12.5px;outline:none" style-focus="border-color:#1668c9" />
+            </div>
+          </div>
+          <div style="background:#ffffff;border:1px solid #dfe6ee;border-radius:12px;overflow:hidden">
+            <div style="display:grid;grid-template-columns:0.8fr 2.4fr 1fr 0.8fr 1.1fr;gap:12px;padding:10px 16px;background:#f6f9fc;border-bottom:1px solid #dfe6ee;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.07em;text-transform:uppercase;color:#5d6b7d;align-items:center">
+              <div>Code</div><div>Account</div><div>Default tax</div><div style="text-align:right">Entries</div><div style="text-align:right">Balance</div>
+            </div>
+            <sc-for list="{{ ac_groups }}" as="g" hint-placeholder-count="6">
+              <div>
+                <div style="display:flex;align-items:center;gap:10px;padding:10px 16px;background:#fbfcfe;border-bottom:1px solid #eef2f6">
+                  <div style="{{ g.dot }}"></div>
+                  <div style="font-size:12.5px;font-weight:700;flex:1">{{ g.name }}</div>
+                  <div style="font-size:11px;color:#8b98a8">{{ g.note }}</div>
+                  <div style="font-family:'IBM Plex Mono',monospace;font-size:12.5px;font-weight:700;width:120px;text-align:right">{{ g.total }}</div>
+                </div>
+                <sc-for list="{{ g.rows }}" as="r" hint-placeholder-count="4">
+                  <div onClick="{{ r.open }}" style="display:grid;grid-template-columns:0.8fr 2.4fr 1fr 0.8fr 1.1fr;gap:12px;padding:9px 16px;border-bottom:1px solid #f0f4f8;align-items:center;cursor:pointer" style-hover="background:#f6faff">
+                    <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#5d6b7d">{{ r.code }}</div>
+                    <div style="min-width:0;display:flex;align-items:center;gap:8px">
+                      <div style="font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ r.name }}</div>
+                      <span style="{{ r.tagStyle }}">{{ r.tag }}</span>
+                    </div>
+                    <div style="font-size:12px;color:#7d8b9c">{{ r.tax }}</div>
+                    <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;text-align:right;color:#7d8b9c">{{ r.count }}</div>
+                    <div style="{{ r.balStyle }}">{{ r.bal }}</div>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+      </sc-if>
+
+      <sc-if value="{{ ac_isJournals }}" hint-placeholder-val="{{ false }}">
+      <div>
+        <div style="padding:20px 24px 0;background:#ffffff;border-bottom:1px solid #dfe6ee">
+          <div style="display:flex;align-items:center;gap:7px;font-size:11.5px;color:#7d8b9c;margin-bottom:8px">
+            <span>Accounting</span><span style="color:#c2cedb">/</span><span style="color:#0f1c2b;font-weight:500">Journal entries</span>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:20px;flex-wrap:wrap">
+            <div>
+              <h2 style="margin:0 0 3px;font-size:22px;font-weight:700;letter-spacing:-0.018em">Journal entries</h2>
+              <div style="font-size:12.5px;color:#5d6b7d">{{ ac_jSub }}</div>
+            </div>
+            <div style="margin-left:auto;display:flex;gap:8px;align-items:center"><div onClick="{{ ac_exportJ }}" style="height:34px;padding:0 13px;border-radius:8px;border:1px solid #dfe6ee;display:flex;align-items:center;font-size:12.5px;font-weight:500;color:#4a5866;cursor:pointer;background:#ffffff" style-hover="background:#f2f6fa">Export</div><div onClick="{{ ac_newJournal }}" style="height:34px;padding:0 15px;border-radius:8px;background:#1668c9;color:#ffffff;display:flex;align-items:center;font-size:12.5px;font-weight:600;cursor:pointer" style-hover="background:#1257ab">+ Manual journal</div></div>
+          </div>
+          <div style="display:flex;gap:2px;margin-top:16px">
+            <sc-for list="{{ ac_subTabs }}" as="t" hint-placeholder-count="4">
+              <div onClick="{{ t.onClick }}" style="{{ t.style }}">{{ t.name }}<span style="{{ t.countStyle }}">{{ t.count }}</span></div>
+            </sc-for>
+          </div>
+        </div>
+        <div style="padding:20px 24px 32px">
+          <div style="display:flex;gap:8px;align-items:center;margin-bottom:14px;flex-wrap:wrap">
+            <div style="display:flex;gap:3px;background:#e4eaf1;padding:3px;border-radius:9px">
+              <sc-for list="{{ ac_srcTabs }}" as="t" hint-placeholder-count="7">
+                <div onClick="{{ t.onClick }}" style="{{ t.style }}">{{ t.name }}</div>
+              </sc-for>
+            </div>
+            <div style="position:relative;width:230px;margin-left:auto">
+              <div style="position:absolute;left:10px;top:50%;transform:translateY(-50%);color:#9aa7b6;font-size:12px">&#9906;</div>
+              <input value="{{ ac_jq }}" onChange="{{ ac_onJq }}" placeholder="Number, reference or narration" style="width:100%;height:34px;border:1px solid #dfe6ee;border-radius:8px;background:#ffffff;padding:0 10px 0 29px;font-family:'Public Sans',sans-serif;font-size:12.5px;outline:none" style-focus="border-color:#1668c9" />
+            </div>
+          </div>
+          <div style="background:#ffffff;border:1px solid #dfe6ee;border-radius:12px;overflow:hidden">
+            <div style="display:grid;grid-template-columns:0.8fr 0.8fr 0.9fr 2.4fr 1fr 1fr 0.9fr;gap:12px;padding:10px 16px;background:#f6f9fc;border-bottom:1px solid #dfe6ee;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.07em;text-transform:uppercase;color:#5d6b7d;align-items:center">
+              <div>Journal</div><div>Date</div><div>Source</div><div>Narration</div><div>Reference</div><div style="text-align:right">Amount</div><div>Status</div>
+            </div>
+            <sc-for list="{{ ac_journals }}" as="j" hint-placeholder-count="10">
+              <div>
+                <div onClick="{{ j.toggle }}" style="{{ j.rowStyle }}" style-hover="background:#f6faff">
+                  <div style="font-family:'IBM Plex Mono',monospace;font-size:12.5px;font-weight:500;color:#1668c9">{{ j.no }}</div>
+                  <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#4a5866">{{ j.date }}</div>
+                  <div><span style="{{ j.srcBadge }}">{{ j.src }}</span></div>
+                  <div style="font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ j.desc }}</div>
+                  <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#5d6b7d">{{ j.ref }}</div>
+                  <div style="font-family:'IBM Plex Mono',monospace;font-size:12.5px;text-align:right;font-weight:600">{{ j.amount }}</div>
+                  <div><span style="{{ j.stBadge }}">{{ j.status }}</span></div>
+                </div>
+                <sc-if value="{{ j.open }}" hint-placeholder-val="{{ false }}">
+                  <div style="padding:4px 16px 14px 16px;background:#f6faff;border-bottom:1px solid #dfe6ee">
+                    <div style="background:#ffffff;border:1px solid #dfe6ee;border-radius:10px;overflow:hidden">
+                      <div style="display:grid;grid-template-columns:0.8fr 2.2fr 1fr 1fr;gap:12px;padding:8px 14px;border-bottom:1px solid #eef2f6;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.07em;text-transform:uppercase;color:#5d6b7d">
+                        <div>Code</div><div>Account</div><div style="text-align:right">Debit</div><div style="text-align:right">Credit</div>
+                      </div>
+                      <sc-for list="{{ j.lines }}" as="l" hint-placeholder-count="3">
+                        <div style="display:grid;grid-template-columns:0.8fr 2.2fr 1fr 1fr;gap:12px;padding:7px 14px;border-bottom:1px solid #f4f7fa;font-size:12.5px">
+                          <div style="font-family:'IBM Plex Mono',monospace;color:#5d6b7d">{{ l.code }}</div>
+                          <div style="{{ l.nameStyle }}">{{ l.name }}</div>
+                          <div style="font-family:'IBM Plex Mono',monospace;text-align:right">{{ l.dr }}</div>
+                          <div style="font-family:'IBM Plex Mono',monospace;text-align:right">{{ l.cr }}</div>
+                        </div>
+                      </sc-for>
+                      <div style="display:flex;align-items:center;gap:8px;padding:9px 14px;background:#fbfcfe">
+                        <div style="font-size:11.5px;color:#7d8b9c;flex:1">{{ j.note }}</div>
+                        <sc-for list="{{ j.actions }}" as="a" hint-placeholder-count="1">
+                          <div onClick="{{ a.onClick }}" style="{{ a.style }}">{{ a.label }}</div>
+                        </sc-for>
+                      </div>
+                    </div>
+                  </div>
+                </sc-if>
+              </div>
+            </sc-for>
+            <sc-if value="{{ ac_noJ }}" hint-placeholder-val="{{ false }}">
+              <div style="padding:40px 20px;text-align:center;font-size:12.5px;color:#7d8b9c">No journals match.</div>
+            </sc-if>
+          </div>
+        </div>
+      </div>
+      </sc-if>
+
+      <sc-if value="{{ ac_isForm }}" hint-placeholder-val="{{ false }}">
+      <div>
+        <div style="padding:20px 24px 16px;background:#ffffff;border-bottom:1px solid #dfe6ee">
+          <div style="display:flex;align-items:center;gap:7px;font-size:11.5px;color:#7d8b9c;margin-bottom:8px">
+            <span onClick="{{ ac_goJournals }}" style="cursor:pointer;color:#1668c9">Journal entries</span><span style="color:#c2cedb">/</span><span style="color:#0f1c2b;font-weight:500">{{ ac_fCrumb }}</span>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:20px;flex-wrap:wrap">
+            <div>
+              <h2 style="margin:0 0 3px;font-size:22px;font-weight:700;letter-spacing:-0.018em">{{ ac_fTitle }}</h2>
+              <div style="font-size:12.5px;color:#5d6b7d">For entries no module creates: depreciation, accruals, owner drawings, corrections. Debits must equal credits.</div>
+            </div>
+            <div style="margin-left:auto;display:flex;gap:8px;align-items:center">
+              <div onClick="{{ ac_goJournals }}" style="height:34px;padding:0 13px;border-radius:8px;border:1px solid #dfe6ee;display:flex;align-items:center;font-size:12.5px;font-weight:500;color:#4a5866;cursor:pointer;background:#ffffff" style-hover="background:#f2f6fa">Cancel</div>
+              <div onClick="{{ ac_saveDraft }}" style="height:34px;padding:0 13px;border-radius:8px;border:1px solid #dfe6ee;display:flex;align-items:center;font-size:12.5px;font-weight:500;color:#4a5866;cursor:pointer;background:#ffffff;font-weight:600;color:#14549e" style-hover="background:#f2f6fa">Save draft</div>
+              <div onClick="{{ ac_postJ }}" style="{{ ac_postStyle }}">Post journal</div>
+            </div>
+          </div>
+        </div>
+        <div style="padding:20px 24px 32px;display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:16px;align-items:start">
+          <div style="display:grid;gap:14px">
+            <div style="background:#ffffff;border:1px solid #dfe6ee;border-radius:12px;padding:17px 19px;display:grid;grid-template-columns:1fr 1fr 2fr;gap:14px">
+              <div>
+                <label style="display:block;font-size:12px;font-weight:600;margin-bottom:5px">Date</label>
+                <input value="{{ ac_fDate }}" onChange="{{ ac_onFDate }}" style="{{ ac_fDateStyle }}" />
+              </div>
+              <div>
+                <label style="display:block;font-size:12px;font-weight:600;margin-bottom:5px">Reference</label>
+                <input value="{{ ac_fRef }}" onChange="{{ ac_onFRef }}" placeholder="Optional" style="width:100%;height:36px;border:1px solid #dfe6ee;border-radius:8px;padding:0 11px;font-family:'Public Sans',sans-serif;font-size:13px;outline:none;background:#ffffff;font-family:'IBM Plex Mono',monospace;font-size:12.5px" style-focus="border-color:#1668c9" />
+              </div>
+              <div>
+                <label style="display:block;font-size:12px;font-weight:600;margin-bottom:5px">Narration <span style="color:#d93a3a">*</span></label>
+                <input value="{{ ac_fDesc }}" onChange="{{ ac_onFDesc }}" placeholder="e.g. Depreciation for September" style="width:100%;height:36px;border:1px solid #dfe6ee;border-radius:8px;padding:0 11px;font-family:'Public Sans',sans-serif;font-size:13px;outline:none;background:#ffffff" style-focus="border-color:#1668c9" />
+              </div>
+            </div>
+            <div style="background:#ffffff;border:1px solid #dfe6ee;border-radius:12px;overflow:hidden">
+              <div style="padding:11px 16px;border-bottom:1px solid #eaeff5;display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+                <div style="font-size:12px;color:#7d8b9c;margin-right:4px">Start from:</div>
+                <sc-for list="{{ ac_templates }}" as="t" hint-placeholder-count="3">
+                  <div onClick="{{ t.onClick }}" style="height:28px;padding:0 10px;border-radius:7px;border:1px solid #dfe6ee;display:flex;align-items:center;font-size:12px;color:#4a5866;cursor:pointer" style-hover="border-color:#1668c9;color:#1668c9">{{ t.name }}</div>
+                </sc-for>
+              </div>
+              <div style="display:grid;grid-template-columns:24px minmax(0,2fr) minmax(0,1.6fr) 1fr 1fr 28px;gap:10px;padding:9px 16px;background:#f6f9fc;border-bottom:1px solid #dfe6ee;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.07em;text-transform:uppercase;color:#5d6b7d">
+                <div>#</div><div>Account</div><div>Line description</div><div style="text-align:right">Debit</div><div style="text-align:right">Credit</div><div></div>
+              </div>
+              <sc-for list="{{ ac_fLines }}" as="l" hint-placeholder-count="2">
+                <div style="display:grid;grid-template-columns:24px minmax(0,2fr) minmax(0,1.6fr) 1fr 1fr 28px;gap:10px;padding:8px 16px;border-bottom:1px solid #f0f4f8;align-items:center">
+                  <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#9aa7b6">{{ l.n }}</div>
+                  <select value="{{ l.code }}" onChange="{{ l.onCode }}" style="{{ l.selStyle }}">
+                    <option value="">Choose account</option>
+                    <sc-for list="{{ ac_acctOpts }}" as="o" hint-placeholder-count="20"><option value="{{ o.code }}">{{ o.label }}</option></sc-for>
+                  </select>
+                  <input value="{{ l.desc }}" onChange="{{ l.onDesc }}" placeholder="Optional" style="width:100%;height:36px;border:1px solid #dfe6ee;border-radius:8px;padding:0 11px;font-family:'Public Sans',sans-serif;font-size:13px;outline:none;background:#ffffff;height:32px;font-size:12.5px" style-focus="border-color:#1668c9" />
+                  <input value="{{ l.dr }}" onChange="{{ l.onDr }}" placeholder="0.00" style="width:100%;height:36px;border:1px solid #dfe6ee;border-radius:8px;padding:0 11px;font-family:'Public Sans',sans-serif;font-size:13px;outline:none;background:#ffffff;height:32px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;text-align:right" style-focus="border-color:#1668c9" />
+                  <input value="{{ l.cr }}" onChange="{{ l.onCr }}" placeholder="0.00" style="width:100%;height:36px;border:1px solid #dfe6ee;border-radius:8px;padding:0 11px;font-family:'Public Sans',sans-serif;font-size:13px;outline:none;background:#ffffff;height:32px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;text-align:right" style-focus="border-color:#1668c9" />
+                  <div onClick="{{ l.remove }}" style="width:26px;height:26px;border-radius:6px;display:grid;place-items:center;color:#b3c0cf;cursor:pointer;font-size:14px" style-hover="background:#fdeaea;color:#b02020">&times;</div>
+                </div>
+              </sc-for>
+              <div style="display:grid;grid-template-columns:24px minmax(0,2fr) minmax(0,1.6fr) 1fr 1fr 28px;gap:10px;padding:10px 16px;background:#fbfcfe;align-items:center">
+                <div></div>
+                <div onClick="{{ ac_addLine }}" style="font-size:12.5px;font-weight:600;color:#1668c9;cursor:pointer">+ Add line</div>
+                <div style="font-size:12px;color:#7d8b9c;text-align:right">Totals</div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:700;text-align:right">{{ ac_fDr }}</div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:700;text-align:right">{{ ac_fCr }}</div>
+                <div></div>
+              </div>
+            </div>
+          </div>
+          <div style="display:grid;gap:14px;position:sticky;top:20px">
+            <div style="{{ ac_balBox }}">
+              <div style="font-size:12px;font-weight:600">{{ ac_balLabel }}</div>
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:24px;font-weight:600;letter-spacing:-0.02em;margin-top:3px">{{ ac_balValue }}</div>
+              <div style="font-size:11.5px;margin-top:4px;opacity:.85">{{ ac_balHint }}</div>
+            </div>
+            <sc-if value="{{ ac_fHasErr }}" hint-placeholder-val="{{ false }}">
+              <div style="background:#fdeaea;border:1px solid #f3cfcf;border-radius:12px;padding:12px 15px;display:grid;gap:5px">
+                <sc-for list="{{ ac_fErrs }}" as="e" hint-placeholder-count="1">
+                  <div style="font-size:12px;color:#b02020;display:flex;gap:7px"><span style="font-weight:700">&times;</span>{{ e.msg }}</div>
+                </sc-for>
+              </div>
+            </sc-if>
+          </div>
+        </div>
+      </div>
+      </sc-if>
+
+      <sc-if value="{{ ac_isStatements }}" hint-placeholder-val="{{ false }}">
+      <div>
+        <div style="padding:20px 24px 0;background:#ffffff;border-bottom:1px solid #dfe6ee">
+          <div style="display:flex;align-items:center;gap:7px;font-size:11.5px;color:#7d8b9c;margin-bottom:8px">
+            <span>Accounting</span><span style="color:#c2cedb">/</span><span style="color:#0f1c2b;font-weight:500">Statements</span>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:20px;flex-wrap:wrap">
+            <div>
+              <h2 style="margin:0 0 3px;font-size:22px;font-weight:700;letter-spacing:-0.018em">Financial statements</h2>
+              <div style="font-size:12.5px;color:#5d6b7d">September 2026 &middot; posted journals only &middot; drafts excluded</div>
+            </div>
+            <div style="margin-left:auto;display:flex;gap:8px;align-items:center"><div onClick="{{ ac_printSt }}" style="height:34px;padding:0 13px;border-radius:8px;border:1px solid #dfe6ee;display:flex;align-items:center;font-size:12.5px;font-weight:500;color:#4a5866;cursor:pointer;background:#ffffff" style-hover="background:#f2f6fa">Print</div><div onClick="{{ ac_exportSt }}" style="height:34px;padding:0 13px;border-radius:8px;border:1px solid #dfe6ee;display:flex;align-items:center;font-size:12.5px;font-weight:500;color:#4a5866;cursor:pointer;background:#ffffff" style-hover="background:#f2f6fa">Export PDF</div></div>
+          </div>
+          <div style="display:flex;gap:2px;margin-top:16px">
+            <sc-for list="{{ ac_subTabs }}" as="t" hint-placeholder-count="4">
+              <div onClick="{{ t.onClick }}" style="{{ t.style }}">{{ t.name }}<span style="{{ t.countStyle }}">{{ t.count }}</span></div>
+            </sc-for>
+          </div>
+        </div>
+        <div style="padding:20px 24px 32px">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px">
+            <div style="display:flex;gap:3px;background:#e4eaf1;padding:3px;border-radius:9px">
+              <sc-for list="{{ ac_stTabs }}" as="t" hint-placeholder-count="3">
+                <div onClick="{{ t.onClick }}" style="{{ t.style }}">{{ t.name }}</div>
+              </sc-for>
+            </div>
+            <div style="{{ ac_stCheck }}">{{ ac_stCheckText }}</div>
+          </div>
+          <div style="max-width:860px;background:#ffffff;border:1px solid #dfe6ee;border-radius:12px;padding:8px 0 4px">
+            <sc-for list="{{ ac_stRows }}" as="r" hint-placeholder-count="14">
+              <div onClick="{{ r.onClick }}" style="{{ r.style }}">
+                <div style="flex:1;min-width:0;display:flex;align-items:baseline;gap:10px">
+                  <div style="{{ r.codeStyle }}">{{ r.code }}</div>
+                  <div>{{ r.label }}</div>
+                </div>
+                <div style="{{ r.aStyle }}">{{ r.a }}</div>
+                <div style="{{ r.bStyle }}">{{ r.b }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+      </sc-if>
+
+      <sc-if value="{{ ac_isClose }}" hint-placeholder-val="{{ false }}">
+      <div>
+        <div style="padding:20px 24px 0;background:#ffffff;border-bottom:1px solid #dfe6ee">
+          <div style="display:flex;align-items:center;gap:7px;font-size:11.5px;color:#7d8b9c;margin-bottom:8px">
+            <span>Accounting</span><span style="color:#c2cedb">/</span><span style="color:#0f1c2b;font-weight:500">Period close</span>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:20px;flex-wrap:wrap">
+            <div>
+              <h2 style="margin:0 0 3px;font-size:22px;font-weight:700;letter-spacing:-0.018em">Period close</h2>
+              <div style="font-size:12.5px;color:#5d6b7d">Locking a month stops anyone posting or editing entries dated in it</div>
+            </div>
+            <div style="margin-left:auto;display:flex;gap:8px;align-items:center"></div>
+          </div>
+          <div style="display:flex;gap:2px;margin-top:16px">
+            <sc-for list="{{ ac_subTabs }}" as="t" hint-placeholder-count="4">
+              <div onClick="{{ t.onClick }}" style="{{ t.style }}">{{ t.name }}<span style="{{ t.countStyle }}">{{ t.count }}</span></div>
+            </sc-for>
+          </div>
+        </div>
+        <div style="padding:20px 24px 32px;display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:16px;align-items:start">
+          <div style="background:#ffffff;border:1px solid #dfe6ee;border-radius:12px;overflow:hidden">
+            <sc-for list="{{ ac_periods }}" as="p" hint-placeholder-count="3">
+              <div style="display:flex;align-items:center;gap:14px;padding:15px 18px;border-bottom:1px solid #f0f4f8">
+                <div style="{{ p.dot }}">{{ p.mark }}</div>
+                <div style="flex:1">
+                  <div style="font-size:14px;font-weight:600">{{ p.name }}</div>
+                  <div style="font-size:12px;color:#7d8b9c;margin-top:1px">{{ p.meta }}</div>
+                </div>
+                <span style="{{ p.badge }}">{{ p.status }}</span>
+                <div onClick="{{ p.onAction }}" style="{{ p.actStyle }}">{{ p.action }}</div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="background:#ffffff;border:1px solid #dfe6ee;border-radius:12px;padding:17px 19px">
+            <div style="font-size:13px;font-weight:700;margin-bottom:3px">Before locking September</div>
+            <div style="font-size:11.5px;color:#7d8b9c;margin-bottom:14px">All four must be done</div>
+            <div style="display:grid;gap:11px">
+              <sc-for list="{{ ac_checks }}" as="c" hint-placeholder-count="4">
+                <div onClick="{{ c.onClick }}" style="{{ c.rowStyle }}">
+                  <div style="{{ c.box }}">{{ c.mark }}</div>
+                  <div style="flex:1">
+                    <div style="font-size:12.5px;font-weight:600">{{ c.name }}</div>
+                    <div style="{{ c.noteStyle }}">{{ c.note }}</div>
+                  </div>
+                </div>
+              </sc-for>
+            </div>
+            <div onClick="{{ ac_lockSep }}" style="{{ ac_lockStyle }}">{{ ac_lockLabel }}</div>
+          </div>
+        </div>
+      </div>
+      </sc-if>
+    </div>
+  </div>
+
+  <sc-if value="{{ ac_ledgerOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ ac_closeAll }}" style="position:absolute;inset:0;background:rgba(9,22,35,.42);z-index:30"></div>
+    <div style="position:absolute;top:0;right:0;bottom:0;width:560px;background:#ffffff;z-index:31;display:flex;flex-direction:column;box-shadow:-20px 0 50px -24px rgba(9,22,35,.6)">
+      <div style="padding:18px 22px;border-bottom:1px solid #eaeff5;display:flex;align-items:flex-start;gap:12px">
+        <div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:#7d8b9c">{{ ac_lg.code }} &middot; {{ ac_lg.type }}</div>
+          <div style="font-size:17px;font-weight:700;margin-top:2px">{{ ac_lg.name }}</div>
+        </div>
+        <div style="margin-left:auto;text-align:right">
+          <div style="font-size:11px;color:#7d8b9c">Balance</div>
+          <div style="font-family:'IBM Plex Mono',monospace;font-size:18px;font-weight:600">{{ ac_lg.bal }}</div>
+        </div>
+        <div onClick="{{ ac_closeAll }}" style="width:32px;height:32px;border-radius:8px;border:1px solid #dfe6ee;display:grid;place-items:center;cursor:pointer;color:#5d6b7d;font-size:15px;flex:none" style-hover="background:#f2f6fa">&times;</div>
+      </div>
+      <div style="display:grid;grid-template-columns:0.7fr 0.8fr 2fr 0.9fr 0.9fr 1fr;gap:10px;padding:9px 22px;background:#f6f9fc;border-bottom:1px solid #dfe6ee;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.07em;text-transform:uppercase;color:#5d6b7d">
+        <div>Date</div><div>Journal</div><div>Narration</div><div style="text-align:right">Debit</div><div style="text-align:right">Credit</div><div style="text-align:right">Balance</div>
+      </div>
+      <div style="flex:1;overflow-y:auto">
+        <sc-for list="{{ ac_lg.rows }}" as="r" hint-placeholder-count="6">
+          <div style="{{ r.style }}">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:#4a5866">{{ r.date }}</div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:#1668c9">{{ r.no }}</div>
+            <div style="font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ r.desc }}</div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;text-align:right">{{ r.dr }}</div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;text-align:right">{{ r.cr }}</div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;text-align:right;font-weight:600">{{ r.bal }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ ac_acctFormOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ ac_closeAll }}" style="position:absolute;inset:0;background:rgba(9,22,35,.42);z-index:30"></div>
+    <div style="position:absolute;top:0;right:0;bottom:0;width:440px;background:#ffffff;z-index:31;display:flex;flex-direction:column;box-shadow:-20px 0 50px -24px rgba(9,22,35,.6)">
+      <div style="padding:18px 22px;border-bottom:1px solid #eaeff5;display:flex;align-items:center;gap:12px">
+        <div style="font-size:16px;font-weight:700">Add account</div>
+        <div onClick="{{ ac_closeAll }}" style="margin-left:auto;width:32px;height:32px;border-radius:8px;border:1px solid #dfe6ee;display:grid;place-items:center;cursor:pointer;color:#5d6b7d;font-size:15px" style-hover="background:#f2f6fa">&times;</div>
+      </div>
+      <div style="flex:1;overflow-y:auto;padding:18px 22px;display:grid;gap:15px;align-content:start">
+        <div>
+          <label style="display:block;font-size:12px;font-weight:600;margin-bottom:5px">Type</label>
+          <select value="{{ ac_nType }}" onChange="{{ ac_onNType }}" style="width:100%;height:36px;border:1px solid #dfe6ee;border-radius:8px;padding:0 11px;font-family:'Public Sans',sans-serif;font-size:13px;outline:none;background:#ffffff;cursor:pointer;padding:0 8px">
+            <sc-for list="{{ ac_typeOpts }}" as="o" hint-placeholder-count="6"><option value="{{ o.id }}">{{ o.name }}</option></sc-for>
+          </select>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 2fr;gap:12px">
+          <div>
+            <label style="display:block;font-size:12px;font-weight:600;margin-bottom:5px">Code</label>
+            <input value="{{ ac_nCode }}" onChange="{{ ac_onNCode }}" style="width:100%;height:36px;border:1px solid #dfe6ee;border-radius:8px;padding:0 11px;font-family:'Public Sans',sans-serif;font-size:13px;outline:none;background:#ffffff;font-family:'IBM Plex Mono',monospace;font-size:12.5px" style-focus="border-color:#1668c9" />
+          </div>
+          <div>
+            <label style="display:block;font-size:12px;font-weight:600;margin-bottom:5px">Name <span style="color:#d93a3a">*</span></label>
+            <input value="{{ ac_nName }}" onChange="{{ ac_onNName }}" placeholder="e.g. Insurance" style="width:100%;height:36px;border:1px solid #dfe6ee;border-radius:8px;padding:0 11px;font-family:'Public Sans',sans-serif;font-size:13px;outline:none;background:#ffffff" style-focus="border-color:#1668c9" />
+          </div>
+        </div>
+        <div>
+          <label style="display:block;font-size:12px;font-weight:600;margin-bottom:5px">Default tax</label>
+          <select value="{{ ac_nTax }}" onChange="{{ ac_onNTax }}" style="width:100%;height:36px;border:1px solid #dfe6ee;border-radius:8px;padding:0 11px;font-family:'Public Sans',sans-serif;font-size:13px;outline:none;background:#ffffff;cursor:pointer;padding:0 8px">
+            <option value="GST 10%">GST 10%</option><option value="GST free">GST free</option><option value="BAS excluded">BAS excluded</option>
+          </select>
+        </div>
+        <div style="font-size:11.5px;color:#7d8b9c;line-height:1.5">{{ ac_nHint }}</div>
+        <sc-if value="{{ ac_nHasErr }}" hint-placeholder-val="{{ false }}">
+          <div style="background:#fdeaea;border:1px solid #f3cfcf;border-radius:10px;padding:10px 13px;font-size:12px;color:#b02020">{{ ac_nErr }}</div>
+        </sc-if>
+      </div>
+      <div style="padding:14px 22px;border-top:1px solid #eaeff5;display:flex;gap:8px;justify-content:flex-end">
+        <div onClick="{{ ac_closeAll }}" style="height:34px;padding:0 13px;border-radius:8px;border:1px solid #dfe6ee;display:flex;align-items:center;font-size:12.5px;font-weight:500;color:#4a5866;cursor:pointer;background:#ffffff" style-hover="background:#f2f6fa">Cancel</div>
+        <div onClick="{{ ac_saveNewAcct }}" style="height:34px;padding:0 15px;border-radius:8px;background:#1668c9;color:#ffffff;display:flex;align-items:center;font-size:12.5px;font-weight:600;cursor:pointer" style-hover="background:#1257ab">Add account</div>
+      </div>
+    </div>
+  </sc-if>
+
+  <div style="position:absolute;left:50%;bottom:20px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:6px;z-index:40;pointer-events:none">
+    <sc-for list="{{ ac_toasts }}" as="t" hint-placeholder-count="0">
+      <div style="background:#0f1c2b;color:#ffffff;border-radius:10px;padding:10px 15px;font-size:13px;display:flex;align-items:center;gap:10px;box-shadow:0 14px 30px -12px rgba(9,22,35,.6);white-space:nowrap">
+        <div style="{{ t.dot }}"></div>{{ t.msg }}
+      </div>
+    </sc-for>
+  </div>
+</div>
+</div>
+    </div>
+  </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1560,&quot;height&quot;:1040}}"></script>
+<script src="js/base.js"></script>
+<script src="js/modules/accounting.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

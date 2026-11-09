@@ -1,0 +1,135 @@
+[
+ {
+  "id": "saus",
+  "name": "Beef Sausages",
+  "unit": "kg",
+  "out": 20,
+  "price": 16.9,
+  "lines": [
+   [
+    "bm",
+    18
+   ],
+   [
+    "cas",
+    60
+   ],
+   [
+    "sp",
+    4
+   ],
+   [
+    "rb",
+    1.5
+   ],
+   [
+    "tr",
+    20
+   ]
+  ]
+ },
+ {
+  "id": "kofta",
+  "name": "Lamb Kofta",
+  "unit": "kg",
+  "out": 10,
+  "price": 24.9,
+  "lines": [
+   [
+    "lm",
+    9
+   ],
+   [
+    "on",
+    1
+   ],
+   [
+    "pa",
+    3
+   ],
+   [
+    "sp",
+    2
+   ],
+   [
+    "tr",
+    10
+   ]
+  ]
+ },
+ {
+  "id": "mari",
+  "name": "Marinated Chicken Thigh",
+  "unit": "kg",
+  "out": 15,
+  "price": 14.5,
+  "lines": [
+   [
+    "ct",
+    14.5
+   ],
+   [
+    "ma",
+    2
+   ],
+   [
+    "sp",
+    2
+   ],
+   [
+    "tr",
+    15
+   ]
+  ]
+ },
+ {
+  "id": "patty",
+  "name": "Beef Burger Patties",
+  "unit": "ea",
+  "out": 100,
+  "price": 2.2,
+  "lines": [
+   [
+    "bm",
+    11
+   ],
+   [
+    "on",
+    0.8
+   ],
+   [
+    "rb",
+    0.6
+   ],
+   [
+    "sp",
+    1
+   ],
+   [
+    "tr",
+    25
+   ]
+  ]
+ },
+ {
+  "id": "mince",
+  "name": "Spiced Lamb Mince",
+  "unit": "kg",
+  "out": 8,
+  "price": 22.9,
+  "lines": [
+   [
+    "lm",
+    8
+   ],
+   [
+    "sp",
+    2
+   ],
+   [
+    "tr",
+    8
+   ]
+  ]
+ }
+]

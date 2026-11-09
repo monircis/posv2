@@ -1,0 +1,10 @@
+/* Shared styles for every ERP page */
+/* Theme colours (Blue). Settings > Appearance swaps them, see erp/theme.js */
+:root{--c-primary:#1668c9;--c-primary-hover:#1257ab;--c-primary-soft:#eaf1fb;--c-primary-text:#14549e;--c-primary-tint:#f6faff;--c-chart:#9cc6ea;--c-sidebar:#0a3a52;--c-accent:#4da3e8}
+*{box-sizing:border-box}
+html,body,#app{height:100%}
+body{margin:0;background:#eef2f6;font-family:'Public Sans',system-ui,sans-serif;color:#0f1c2b;-webkit-font-smoothing:antialiased}
+a{color:var(--c-primary);text-decoration:none}
+a:hover{color:var(--c-primary-hover);text-decoration:underline}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-thumb{background:#c2cedb;border-radius:8px;border:2px solid transparent;background-clip:content-box}

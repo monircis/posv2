@@ -1,0 +1,502 @@
+[
+ {
+  "no": "JN-0421",
+  "date": "30/09",
+  "src": "manual",
+  "desc": "Depreciation · September",
+  "ref": "DEP-09",
+  "status": "draft",
+  "lines": [
+   {
+    "code": "6-1900",
+    "dr": 1066.67,
+    "cr": 0
+   },
+   {
+    "code": "1-1510",
+    "dr": 0,
+    "cr": 1066.67
+   }
+  ]
+ },
+ {
+  "no": "JN-0420",
+  "date": "29/09",
+  "src": "manual",
+  "desc": "Accrue September wages",
+  "ref": "ACR-09",
+  "status": "posted",
+  "lines": [
+   {
+    "code": "6-1200",
+    "dr": 4200,
+    "cr": 0
+   },
+   {
+    "code": "2-1500",
+    "dr": 0,
+    "cr": 3400
+   },
+   {
+    "code": "2-1400",
+    "dr": 0,
+    "cr": 800
+   }
+  ]
+ },
+ {
+  "no": "JN-0419",
+  "date": "28/09",
+  "src": "expense",
+  "desc": "Fuel · Ampol Chullora",
+  "ref": "EX-1092",
+  "status": "posted",
+  "lines": [
+   {
+    "code": "6-1400",
+    "dr": 87.64,
+    "cr": 0
+   },
+   {
+    "code": "2-1310",
+    "dr": 8.76,
+    "cr": 0
+   },
+   {
+    "code": "2-1200",
+    "dr": 0,
+    "cr": 96.4
+   }
+  ]
+ },
+ {
+  "no": "JN-0418",
+  "date": "28/09",
+  "src": "transfer",
+  "desc": "Banked Friday takings",
+  "ref": "TF-0088",
+  "status": "posted",
+  "lines": [
+   {
+    "code": "1-1200",
+    "dr": 3200,
+    "cr": 0
+   },
+   {
+    "code": "1-1100",
+    "dr": 0,
+    "cr": 3200
+   }
+  ]
+ },
+ {
+  "no": "JN-0417",
+  "date": "28/09",
+  "src": "stock",
+  "desc": "Stock adjustment · spoilage",
+  "ref": "SA-0231",
+  "status": "posted",
+  "lines": [
+   {
+    "code": "5-1100",
+    "dr": 85.8,
+    "cr": 0
+   },
+   {
+    "code": "1-1400",
+    "dr": 0,
+    "cr": 85.8
+   }
+  ]
+ },
+ {
+  "no": "JN-0416",
+  "date": "27/09",
+  "src": "expense",
+  "desc": "Ausgrid · unpaid bill",
+  "ref": "EX-1091",
+  "status": "posted",
+  "lines": [
+   {
+    "code": "6-1100",
+    "dr": 1167.82,
+    "cr": 0
+   },
+   {
+    "code": "2-1310",
+    "dr": 116.78,
+    "cr": 0
+   },
+   {
+    "code": "2-1100",
+    "dr": 0,
+    "cr": 1284.6
+   }
+  ]
+ },
+ {
+  "no": "JN-0415",
+  "date": "27/09",
+  "src": "purchase",
+  "desc": "Supplier payment · Baraka Meats",
+  "ref": "PY-0410",
+  "status": "posted",
+  "lines": [
+   {
+    "code": "2-1100",
+    "dr": 6420,
+    "cr": 0
+   },
+   {
+    "code": "1-1200",
+    "dr": 0,
+    "cr": 6420
+   }
+  ]
+ },
+ {
+  "no": "JN-0414",
+  "date": "27/09",
+  "src": "purchase",
+  "desc": "Baraka Meats",
+  "ref": "PU-2041",
+  "status": "posted",
+  "lines": [
+   {
+    "code": "1-1400",
+    "dr": 5836.36,
+    "cr": 0
+   },
+   {
+    "code": "2-1310",
+    "dr": 583.64,
+    "cr": 0
+   },
+   {
+    "code": "2-1100",
+    "dr": 0,
+    "cr": 6420
+   }
+  ]
+ },
+ {
+  "no": "JN-0413",
+  "date": "25/09",
+  "src": "expense",
+  "desc": "Casual wages · week 39",
+  "ref": "EX-1089",
+  "status": "posted",
+  "lines": [
+   {
+    "code": "6-1200",
+    "dr": 1560,
+    "cr": 0
+   },
+   {
+    "code": "1-1200",
+    "dr": 0,
+    "cr": 1560
+   }
+  ]
+ },
+ {
+  "no": "JN-0412",
+  "date": "24/09",
+  "src": "transfer",
+  "desc": "GST set-aside",
+  "ref": "TF-0086",
+  "status": "posted",
+  "lines": [
+   {
+    "code": "1-1210",
+    "dr": 2500,
+    "cr": 0
+   },
+   {
+    "code": "1-1200",
+    "dr": 0,
+    "cr": 2500
+   }
+  ]
+ },
+ {
+  "no": "JN-0411",
+  "date": "21/09",
+  "src": "stock",
+  "desc": "Cost of goods sold, week 38",
+  "ref": "COGS-W38",
+  "status": "posted",
+  "lines": [
+   {
+    "code": "5-1000",
+    "dr": 11800,
+    "cr": 0
+   },
+   {
+    "code": "1-1400",
+    "dr": 0,
+    "cr": 11800
+   }
+  ]
+ },
+ {
+  "no": "JN-0410",
+  "date": "21/09",
+  "src": "sale",
+  "desc": "POS sales, week 38",
+  "ref": "Z-W38",
+  "status": "posted",
+  "lines": [
+   {
+    "code": "1-1100",
+    "dr": 9900,
+    "cr": 0
+   },
+   {
+    "code": "1-1200",
+    "dr": 15400,
+    "cr": 0
+   },
+   {
+    "code": "4-1000",
+    "dr": 0,
+    "cr": 18100
+   },
+   {
+    "code": "4-1200",
+    "dr": 0,
+    "cr": 4900
+   },
+   {
+    "code": "2-1300",
+    "dr": 0,
+    "cr": 2300
+   }
+  ]
+ },
+ {
+  "no": "JN-0409",
+  "date": "18/09",
+  "src": "sale",
+  "desc": "Wholesale invoice · Al Amin Catering",
+  "ref": "INV-3310",
+  "status": "posted",
+  "lines": [
+   {
+    "code": "1-1300",
+    "dr": 4540.8,
+    "cr": 0
+   },
+   {
+    "code": "4-1100",
+    "dr": 0,
+    "cr": 4128
+   },
+   {
+    "code": "2-1300",
+    "dr": 0,
+    "cr": 412.8
+   }
+  ]
+ },
+ {
+  "no": "JN-0408",
+  "date": "15/09",
+  "src": "expense",
+  "desc": "Merchant fees · CBA",
+  "ref": "EX-1085",
+  "status": "posted",
+  "lines": [
+   {
+    "code": "6-1800",
+    "dr": 84.12,
+    "cr": 0
+   },
+   {
+    "code": "1-1200",
+    "dr": 0,
+    "cr": 84.12
+   }
+  ]
+ },
+ {
+  "no": "JN-0407",
+  "date": "14/09",
+  "src": "stock",
+  "desc": "Cost of goods sold, week 37",
+  "ref": "COGS-W37",
+  "status": "posted",
+  "lines": [
+   {
+    "code": "5-1000",
+    "dr": 12300,
+    "cr": 0
+   },
+   {
+    "code": "1-1400",
+    "dr": 0,
+    "cr": 12300
+   }
+  ]
+ },
+ {
+  "no": "JN-0406",
+  "date": "14/09",
+  "src": "sale",
+  "desc": "POS sales, week 37",
+  "ref": "Z-W37",
+  "status": "posted",
+  "lines": [
+   {
+    "code": "1-1100",
+    "dr": 10600,
+    "cr": 0
+   },
+   {
+    "code": "1-1200",
+    "dr": 15800,
+    "cr": 0
+   },
+   {
+    "code": "4-1000",
+    "dr": 0,
+    "cr": 18900
+   },
+   {
+    "code": "4-1200",
+    "dr": 0,
+    "cr": 5100
+   },
+   {
+    "code": "2-1300",
+    "dr": 0,
+    "cr": 2400
+   }
+  ]
+ },
+ {
+  "no": "JN-0405",
+  "date": "12/09",
+  "src": "transfer",
+  "desc": "Amex repayment",
+  "ref": "TF-0080",
+  "status": "posted",
+  "lines": [
+   {
+    "code": "2-1200",
+    "dr": 2400,
+    "cr": 0
+   },
+   {
+    "code": "1-1200",
+    "dr": 0,
+    "cr": 2400
+   }
+  ]
+ },
+ {
+  "no": "JN-0404",
+  "date": "08/09",
+  "src": "purchase",
+  "desc": "Halal Spice Co",
+  "ref": "PU-2031",
+  "status": "posted",
+  "lines": [
+   {
+    "code": "1-1400",
+    "dr": 781.82,
+    "cr": 0
+   },
+   {
+    "code": "2-1310",
+    "dr": 78.18,
+    "cr": 0
+   },
+   {
+    "code": "2-1200",
+    "dr": 0,
+    "cr": 860
+   }
+  ]
+ },
+ {
+  "no": "JN-0403",
+  "date": "07/09",
+  "src": "stock",
+  "desc": "Cost of goods sold, week 36",
+  "ref": "COGS-W36",
+  "status": "posted",
+  "lines": [
+   {
+    "code": "5-1000",
+    "dr": 11200,
+    "cr": 0
+   },
+   {
+    "code": "1-1400",
+    "dr": 0,
+    "cr": 11200
+   }
+  ]
+ },
+ {
+  "no": "JN-0402",
+  "date": "07/09",
+  "src": "sale",
+  "desc": "POS sales, week 36",
+  "ref": "Z-W36",
+  "status": "posted",
+  "lines": [
+   {
+    "code": "1-1100",
+    "dr": 9800,
+    "cr": 0
+   },
+   {
+    "code": "1-1200",
+    "dr": 14200,
+    "cr": 0
+   },
+   {
+    "code": "4-1000",
+    "dr": 0,
+    "cr": 17200
+   },
+   {
+    "code": "4-1200",
+    "dr": 0,
+    "cr": 4618.18
+   },
+   {
+    "code": "2-1300",
+    "dr": 0,
+    "cr": 2181.82
+   }
+  ]
+ },
+ {
+  "no": "JN-0401",
+  "date": "01/09",
+  "src": "expense",
+  "desc": "Rent · Haldon Properties",
+  "ref": "EX-1083",
+  "status": "posted",
+  "lines": [
+   {
+    "code": "6-1000",
+    "dr": 5636.36,
+    "cr": 0
+   },
+   {
+    "code": "2-1310",
+    "dr": 563.64,
+    "cr": 0
+   },
+   {
+    "code": "1-1200",
+    "dr": 0,
+    "cr": 6200
+   }
+  ]
+ }
+]

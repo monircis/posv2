@@ -1,0 +1,182 @@
+[
+ {
+  "ref": "SA-0231",
+  "date": "2026-09-28",
+  "loc": "main",
+  "type": "dec",
+  "by": "Aminul",
+  "approved": "—",
+  "notes": "Cool room 2 alarm overnight. Temperature log in the shared drive.",
+  "lines": [
+   {
+    "pid": 1,
+    "before": 62,
+    "delta": -6,
+    "reason": "Spoilage"
+   },
+   {
+    "pid": 8,
+    "before": 52,
+    "delta": -4.5,
+    "reason": "Spoilage"
+   },
+   {
+    "pid": 13,
+    "before": 6,
+    "delta": -2,
+    "reason": "Damaged"
+   }
+  ],
+  "reversed_by": ""
+ },
+ {
+  "ref": "SA-0230",
+  "date": "2026-09-27",
+  "loc": "bank",
+  "type": "count",
+  "by": "Karim",
+  "approved": "Sara Rahman",
+  "notes": "Monthly count, Bankstown.",
+  "lines": [
+   {
+    "pid": 2,
+    "before": 5.2,
+    "delta": -1.2,
+    "reason": "Count shortfall"
+   },
+   {
+    "pid": 5,
+    "before": 10.4,
+    "delta": 0.6,
+    "reason": "Found in count"
+   },
+   {
+    "pid": 9,
+    "before": 21.8,
+    "delta": -0.8,
+    "reason": "Count shortfall"
+   },
+   {
+    "pid": 12,
+    "before": 13,
+    "delta": 1,
+    "reason": "Found in count"
+   }
+  ],
+  "reversed_by": ""
+ },
+ {
+  "ref": "SA-0229",
+  "date": "2026-09-25",
+  "loc": "main",
+  "type": "inc",
+  "by": "Aminul",
+  "approved": "—",
+  "notes": "",
+  "lines": [
+   {
+    "pid": 11,
+    "before": 40,
+    "delta": 4,
+    "reason": "Supplier bonus"
+   }
+  ],
+  "reversed_by": ""
+ },
+ {
+  "ref": "SA-0228",
+  "date": "2026-09-22",
+  "loc": "cold",
+  "type": "dec",
+  "by": "Sara",
+  "approved": "Sara Rahman",
+  "notes": "Freezer burn on bottom shelf stock.",
+  "lines": [
+   {
+    "pid": 3,
+    "before": 70,
+    "delta": -8,
+    "reason": "Spoilage"
+   },
+   {
+    "pid": 4,
+    "before": 46,
+    "delta": -6,
+    "reason": "Damaged"
+   },
+   {
+    "pid": 6,
+    "before": 52,
+    "delta": -6,
+    "reason": "Trim & waste"
+   },
+   {
+    "pid": 10,
+    "before": 40,
+    "delta": -6,
+    "reason": "Spoilage"
+   }
+  ],
+  "reversed_by": ""
+ },
+ {
+  "ref": "SA-0227",
+  "date": "2026-09-18",
+  "loc": "main",
+  "type": "dec",
+  "by": "Aminul",
+  "approved": "—",
+  "notes": "",
+  "lines": [
+   {
+    "pid": 1,
+    "before": 58,
+    "delta": -2.5,
+    "reason": "Trim & waste"
+   },
+   {
+    "pid": 2,
+    "before": 44,
+    "delta": -1,
+    "reason": "Staff meal"
+   }
+  ],
+  "reversed_by": ""
+ },
+ {
+  "ref": "SA-0226",
+  "date": "2026-09-14",
+  "loc": "bank",
+  "type": "inc",
+  "by": "Karim",
+  "approved": "—",
+  "notes": "Customer returned unopened.",
+  "lines": [
+   {
+    "pid": 11,
+    "before": 6,
+    "delta": 2,
+    "reason": "Returned to shelf"
+   }
+  ],
+  "reversed_by": ""
+ },
+ {
+  "ref": "SA-0225",
+  "date": "2026-09-08",
+  "loc": "main",
+  "type": "dec",
+  "by": "Aminul",
+  "approved": "—",
+  "notes": "",
+  "lines": [
+   {
+    "pid": 12,
+    "before": 64,
+    "delta": -4,
+    "reason": "Missing"
+   }
+  ],
+  "reversed_by": ""
+ }
+]

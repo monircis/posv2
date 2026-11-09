@@ -1,0 +1,197 @@
+[
+ {
+  "location": "main",
+  "sku": "6603",
+  "qty": 54
+ },
+ {
+  "location": "main",
+  "sku": "6600",
+  "qty": 41
+ },
+ {
+  "location": "main",
+  "sku": "6595",
+  "qty": 0
+ },
+ {
+  "location": "main",
+  "sku": "6598",
+  "qty": 18
+ },
+ {
+  "location": "main",
+  "sku": "6622",
+  "qty": 27
+ },
+ {
+  "location": "main",
+  "sku": "6621",
+  "qty": 3
+ },
+ {
+  "location": "main",
+  "sku": "6624",
+  "qty": 12
+ },
+ {
+  "location": "main",
+  "sku": "6642",
+  "qty": 46
+ },
+ {
+  "location": "main",
+  "sku": "6641",
+  "qty": 9
+ },
+ {
+  "location": "main",
+  "sku": "6631",
+  "qty": 12
+ },
+ {
+  "location": "main",
+  "sku": "7102",
+  "qty": 44
+ },
+ {
+  "location": "main",
+  "sku": "7120",
+  "qty": 60
+ },
+ {
+  "location": "main",
+  "sku": "7131",
+  "qty": 4
+ },
+ {
+  "location": "bank",
+  "sku": "6603",
+  "qty": 6
+ },
+ {
+  "location": "bank",
+  "sku": "6600",
+  "qty": 4
+ },
+ {
+  "location": "bank",
+  "sku": "6595",
+  "qty": 2
+ },
+ {
+  "location": "bank",
+  "sku": "6598",
+  "qty": 0
+ },
+ {
+  "location": "bank",
+  "sku": "6622",
+  "qty": 11
+ },
+ {
+  "location": "bank",
+  "sku": "6621",
+  "qty": 5
+ },
+ {
+  "location": "bank",
+  "sku": "6624",
+  "qty": 3
+ },
+ {
+  "location": "bank",
+  "sku": "6642",
+  "qty": 7
+ },
+ {
+  "location": "bank",
+  "sku": "6641",
+  "qty": 21
+ },
+ {
+  "location": "bank",
+  "sku": "6631",
+  "qty": 1
+ },
+ {
+  "location": "bank",
+  "sku": "7102",
+  "qty": 8
+ },
+ {
+  "location": "bank",
+  "sku": "7120",
+  "qty": 14
+ },
+ {
+  "location": "bank",
+  "sku": "7131",
+  "qty": 18
+ },
+ {
+  "location": "cold",
+  "sku": "6603",
+  "qty": 180
+ },
+ {
+  "location": "cold",
+  "sku": "6600",
+  "qty": 95
+ },
+ {
+  "location": "cold",
+  "sku": "6595",
+  "qty": 62
+ },
+ {
+  "location": "cold",
+  "sku": "6598",
+  "qty": 40
+ },
+ {
+  "location": "cold",
+  "sku": "6622",
+  "qty": 88
+ },
+ {
+  "location": "cold",
+  "sku": "6621",
+  "qty": 46
+ },
+ {
+  "location": "cold",
+  "sku": "6624",
+  "qty": 70
+ },
+ {
+  "location": "cold",
+  "sku": "6642",
+  "qty": 140
+ },
+ {
+  "location": "cold",
+  "sku": "6641",
+  "qty": 120
+ },
+ {
+  "location": "cold",
+  "sku": "6631",
+  "qty": 34
+ },
+ {
+  "location": "cold",
+  "sku": "7102",
+  "qty": 120
+ },
+ {
+  "location": "cold",
+  "sku": "7120",
+  "qty": 0
+ },
+ {
+  "location": "cold",
+  "sku": "7131",
+  "qty": 0
+ }
+]

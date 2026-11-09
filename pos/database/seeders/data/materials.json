@@ -1,0 +1,79 @@
+[
+ {
+  "code": "bm",
+  "name": "Beef Mince",
+  "unit": "kg",
+  "cost": 7.2,
+  "stock": 180
+ },
+ {
+  "code": "bc",
+  "name": "Beef Chuck",
+  "unit": "kg",
+  "cost": 11.4,
+  "stock": 60
+ },
+ {
+  "code": "lm",
+  "name": "Lamb Shoulder",
+  "unit": "kg",
+  "cost": 13.1,
+  "stock": 46
+ },
+ {
+  "code": "ct",
+  "name": "Chicken Thigh",
+  "unit": "kg",
+  "cost": 5.9,
+  "stock": 120
+ },
+ {
+  "code": "cas",
+  "name": "Sausage casing",
+  "unit": "m",
+  "cost": 0.42,
+  "stock": 900
+ },
+ {
+  "code": "sp",
+  "name": "Spice Mix 200g",
+  "unit": "ea",
+  "cost": 3.1,
+  "stock": 60
+ },
+ {
+  "code": "on",
+  "name": "Onion",
+  "unit": "kg",
+  "cost": 1.8,
+  "stock": 25
+ },
+ {
+  "code": "pa",
+  "name": "Parsley",
+  "unit": "bunch",
+  "cost": 1.5,
+  "stock": 20
+ },
+ {
+  "code": "ma",
+  "name": "Marinade base",
+  "unit": "L",
+  "cost": 4.2,
+  "stock": 14
+ },
+ {
+  "code": "rb",
+  "name": "Breadcrumb",
+  "unit": "kg",
+  "cost": 2.6,
+  "stock": 12
+ },
+ {
+  "code": "tr",
+  "name": "Trays & film",
+  "unit": "ea",
+  "cost": 0.35,
+  "stock": 600
+ }
+]

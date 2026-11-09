@@ -1,0 +1,46 @@
+[
+ {
+  "ref": "PR-0018",
+  "date": "2026-09-27",
+  "purchase_ref": "PO-2038",
+  "supplier": "Baraka Meats",
+  "reason": "Temperature breach",
+  "settlement": "Reduced owed",
+  "credit": 462,
+  "status": "Credited",
+  "lines": null
+ },
+ {
+  "ref": "PR-0017",
+  "date": "2026-09-23",
+  "purchase_ref": "PO-2036",
+  "supplier": "Baraka Meats",
+  "reason": "Damaged",
+  "settlement": "Supplier credit",
+  "credit": 218.4,
+  "status": "Credited",
+  "lines": null
+ },
+ {
+  "ref": "PR-0016",
+  "date": "2026-09-19",
+  "purchase_ref": "PO-2035",
+  "supplier": "Fresh Produce Co",
+  "reason": "Short dated",
+  "settlement": "Refund",
+  "credit": 96.9,
+  "status": "Awaiting refund",
+  "lines": null
+ },
+ {
+  "ref": "PR-0015",
+  "date": "2026-09-12",
+  "purchase_ref": "PO-2034",
+  "supplier": "Sydney Halal Supply",
+  "reason": "Wrong item",
+  "settlement": "Refund",
+  "credit": 309,
+  "status": "Credited",
+  "lines": null
+ }
+]

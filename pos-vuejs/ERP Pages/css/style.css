@@ -1,0 +1,7 @@
+/* Shared styles for every ERP page */
+*{box-sizing:border-box}
+body{margin:0;background:#eef2f6;font-family:'Public Sans',system-ui,sans-serif;color:#0f1c2b;-webkit-font-smoothing:antialiased}
+a{color:#1668c9;text-decoration:none}
+a:hover{color:#0f4d97;text-decoration:underline}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-thumb{background:#c2cedb;border-radius:8px;border:2px solid transparent;background-clip:content-box}

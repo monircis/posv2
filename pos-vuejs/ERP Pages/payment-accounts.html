@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en" data-page="accounts">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Payment Accounts · Madinah Butchery ERP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<script src="js/loader.js"></script>
+<script src="js/support.js"></script>
+</head>
+<body>
+<x-dc>
+<div style="min-height:100vh;background:#eef2f6">
+
+  <sc-if value="{{ isAccounts }}" hint-placeholder-val="{{ false }}">
+  <div data-screen-label="Payment Accounts" style="height:100vh;min-height:720px;position:relative">
+    <div style="height:100%;overflow:auto">
+<div style="min-width:1280px;height:100%;position:relative;display:flex;flex-direction:column">
+<div data-screen-label="Payment Accounts" style="height:100%;min-height:820px;min-width:1280px;display:flex;background:#eef2f6;position:relative;overflow:hidden;font-family:'Public Sans',system-ui,sans-serif;color:#0f1c2b">
+  <div style="{{ sideStyle }}">
+    <div style="height:56px;display:flex;align-items:center;gap:10px;padding:0 14px;flex:none;border-bottom:1px solid rgba(255,255,255,.09)">
+      <div style="width:26px;height:26px;border-radius:7px;background:#4da3e8;color:#06283a;display:grid;place-items:center;font-weight:700;font-size:13px;flex:none">M</div>
+      <div style="{{ sideText }}">
+        <div style="font-size:13px;font-weight:600;color:#ffffff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Madinah Butchery</div>
+        <div style="font-size:10.5px;color:#89aec6">All locations</div>
+      </div>
+      <div style="{{ sideCaret }}">&#9662;</div>
+    </div>
+    <div style="{{ sideListStyle }}">
+      <sc-for list="{{ pa_nav }}" as="n" hint-placeholder-count="18">
+        <div>
+          <div onClick="{{ n.onClick }}" title="{{ n.name }}" style="{{ n.style }}" style-hover="background:rgba(255,255,255,.07)">
+          <div style="{{ n.iconStyle }}">{{ n.key }}</div>
+          <div style="{{ n.nameStyle }}">{{ n.name }}</div>
+          <div style="{{ n.caretStyle }}">&#8250;</div>
+        </div>
+          <sc-if value="{{ n.open }}" hint-placeholder-val="{{ false }}">
+            <div style="margin:2px 0 6px 26px;border-left:1px solid rgba(255,255,255,.12);padding-left:10px;display:flex;flex-direction:column;gap:1px">
+              <sc-for list="{{ n.children }}" as="c" hint-placeholder-count="2">
+                <div onClick="{{ c.onClick }}" style="{{ c.style }}" style-hover="color:#ffffff">{{ c.name }}</div>
+              </sc-for>
+            </div>
+          </sc-if>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+  <div style="flex:1;min-width:0;display:flex;flex-direction:column">
+    <div style="height:56px;flex:none;background:#ffffff;border-bottom:1px solid #dfe6ee;display:flex;align-items:center;gap:14px;padding:0 20px">
+      <div onClick="{{ toggleNav }}" title="{{ navTip }}" style="width:30px;height:30px;border-radius:7px;border:1px solid #dfe6ee;display:grid;place-items:center;cursor:pointer;color:#5d6b7d;font-size:13px;flex:none" style-hover="background:#f2f6fa;color:#1668c9">&#9776;</div>
+      <div style="flex:1;max-width:420px;position:relative">
+        <div style="position:absolute;left:11px;top:50%;transform:translateY(-50%);color:#9aa7b6;font-size:12px">&#9906;</div>
+        <input placeholder="Search products, invoices, contacts&hellip;" style="width:100%;height:34px;border:1px solid #dfe6ee;border-radius:8px;background:#f7fafc;padding:0 10px 0 30px;font-family:'Public Sans',sans-serif;font-size:13px;outline:none" style-focus="background:#ffffff;border-color:#1668c9" />
+      </div>
+      <div style="margin-left:auto;display:flex;align-items:center;gap:8px">
+        <div onClick="{{ goPos }}" style="height:32px;padding:0 12px;border-radius:8px;background:#1668c9;color:#ffffff;display:flex;align-items:center;font-size:12.5px;font-weight:600;cursor:pointer" style-hover="background:#1257ab">Open POS</div>
+        <div style="height:32px;padding:0 11px;border-radius:8px;border:1px solid #dfe6ee;display:flex;align-items:center;font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:#4a5866">29/09/2026</div>
+        <div style="width:32px;height:32px;border-radius:8px;border:1px solid #dfe6ee;display:grid;place-items:center;position:relative;color:#5d6b7d">&#9737;<div style="position:absolute;top:6px;right:6px;width:6px;height:6px;border-radius:50%;background:#d93a3a;border:1.5px solid #ffffff"></div></div>
+        <div style="display:flex;align-items:center;gap:8px;padding:3px 9px 3px 3px;border-radius:8px;border:1px solid #dfe6ee">
+          <div style="width:25px;height:25px;border-radius:6px;background:#0a3a52;color:#ffffff;display:grid;place-items:center;font-size:11px;font-weight:600">AM</div>
+          <div style="font-size:12.5px;font-weight:500">Aminul</div>
+        </div>
+      </div>
+    </div>
+    <div style="flex:1;overflow-y:auto;min-height:0">
+      <sc-if value="{{ pa_isList }}" hint-placeholder-val="{{ true }}">
+      <div>
+        <div style="padding:20px 24px 18px;background:#ffffff;border-bottom:1px solid #dfe6ee">
+          <div style="display:flex;align-items:center;gap:7px;font-size:11.5px;color:#7d8b9c;margin-bottom:8px">
+            <span>Payment accounts</span><span style="color:#c2cedb">/</span><span style="color:#0f1c2b;font-weight:500">All accounts</span>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:20px;flex-wrap:wrap">
+            <div>
+              <h2 style="margin:0 0 3px;font-size:22px;font-weight:700;letter-spacing:-0.018em">Payment accounts</h2>
+              <div style="font-size:12.5px;color:#5d6b7d">{{ pa_listSub }}</div>
+            </div>
+            <div style="margin-left:auto;display:flex;gap:8px;align-items:center">
+              <div onClick="{{ pa_openTransfer }}" style="height:34px;padding:0 13px;border-radius:8px;border:1px solid #dfe6ee;display:flex;align-items:center;font-size:12.5px;font-weight:500;color:#4a5866;cursor:pointer;background:#ffffff;font-weight:600;color:#14549e" style-hover="background:#f2f6fa">Transfer funds</div>
+              <div onClick="{{ pa_openAdd }}" style="height:34px;padding:0 15px;border-radius:8px;background:#1668c9;color:#ffffff;display:flex;align-items:center;font-size:12.5px;font-weight:600;cursor:pointer" style-hover="background:#1257ab">+ Add account</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="padding:20px 24px 32px">
+          <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:16px">
+            <sc-for list="{{ pa_totals }}" as="t" hint-placeholder-count="3">
+              <div style="background:#ffffff;border:1px solid #dfe6ee;border-radius:12px;padding:15px 17px">
+                <div style="font-size:11.5px;color:#7d8b9c">{{ t.k }}</div>
+                <div style="{{ t.vStyle }}">{{ t.v }}</div>
+                <div style="font-size:11.5px;color:#8b98a8;margin-top:2px">{{ t.sub }}</div>
+              </div>
+            </sc-for>
+          </div>
+
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+            <div style="display:flex;gap:3px;background:#e4eaf1;padding:3px;border-radius:9px">
+              <sc-for list="{{ pa_typeTabs }}" as="t" hint-placeholder-count="5">
+                <div onClick="{{ t.onClick }}" style="{{ t.style }}">{{ t.name }}</div>
+              </sc-for>
+            </div>
+            <div onClick="{{ pa_toggleClosed }}" style="margin-left:auto;display:flex;align-items:center;gap:8px;cursor:pointer">
+              <div style="{{ pa_closedSwitch }}"><div style="{{ pa_closedKnob }}"></div></div>
+              <div style="font-size:12.5px;color:#4a5866">Show closed accounts</div>
+            </div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px">
+            <sc-for list="{{ pa_cards }}" as="c" hint-placeholder-count="5">
+              <div onClick="{{ c.open }}" style="{{ c.style }}" style-hover="border-color:#1668c9;box-shadow:0 8px 20px -14px rgba(22,104,201,.5)">
+                <div style="display:flex;align-items:flex-start;gap:11px">
+                  <div style="{{ c.iconStyle }}">{{ c.icon }}</div>
+                  <div style="flex:1;min-width:0">
+                    <div style="display:flex;align-items:center;gap:7px">
+                      <div style="font-size:14px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ c.name }}</div>
+                      <span style="{{ c.tagStyle }}">{{ c.tag }}</span>
+                    </div>
+                    <div style="font-size:11.5px;color:#7d8b9c;margin-top:1px">{{ c.sub }}</div>
+                  </div>
+                </div>
+                <div style="margin-top:16px">
+                  <div style="font-size:11px;color:#7d8b9c">{{ c.balLabel }}</div>
+                  <div style="{{ c.balStyle }}">{{ c.bal }}</div>
+                </div>
+                <sc-if value="{{ c.hasLimit }}" hint-placeholder-val="{{ false }}">
+                  <div style="margin-top:8px">
+                    <div style="height:5px;border-radius:99px;background:#eef2f6;overflow:hidden"><div style="{{ c.limitBar }}"></div></div>
+                    <div style="font-size:11px;color:#7d8b9c;margin-top:4px">{{ c.limitText }}</div>
+                  </div>
+                </sc-if>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px;padding-top:12px;border-top:1px solid #eef2f6">
+                  <div>
+                    <div style="font-size:10.5px;color:#7d8b9c">In this month</div>
+                    <div style="font-family:'IBM Plex Mono',monospace;font-size:12.5px;font-weight:600;color:#0f6b43">+{{ c.inM }}</div>
+                  </div>
+                  <div>
+                    <div style="font-size:10.5px;color:#7d8b9c">Out this month</div>
+                    <div style="font-family:'IBM Plex Mono',monospace;font-size:12.5px;font-weight:600;color:#b02020">&minus;{{ c.outM }}</div>
+                  </div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+      </sc-if>
+
+      <sc-if value="{{ pa_isDetails }}" hint-placeholder-val="{{ false }}">
+      <div>
+        <div style="padding:20px 24px 0;background:#ffffff;border-bottom:1px solid #dfe6ee">
+          <div style="display:flex;align-items:center;gap:7px;font-size:11.5px;color:#7d8b9c;margin-bottom:8px">
+            <span onClick="{{ pa_goList }}" style="cursor:pointer;color:#1668c9">Payment accounts</span><span style="color:#c2cedb">/</span><span style="color:#0f1c2b;font-weight:500">{{ pa_d.name }}</span>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:20px;flex-wrap:wrap">
+            <div style="display:flex;gap:12px;align-items:center">
+              <div style="{{ pa_d.iconStyle }}">{{ pa_d.icon }}</div>
+              <div>
+                <div style="display:flex;align-items:center;gap:9px;margin-bottom:2px">
+                  <h2 style="margin:0;font-size:22px;font-weight:700;letter-spacing:-0.018em">{{ pa_d.name }}</h2>
+                  <span style="{{ pa_d.tagStyle }}">{{ pa_d.tag }}</span>
+                </div>
+                <div style="font-size:12.5px;color:#5d6b7d">{{ pa_d.sub }}</div>
+              </div>
+            </div>
+            <div style="margin-left:auto;display:flex;gap:8px;align-items:center">
+              <div onClick="{{ pa_exportLedger }}" style="height:34px;padding:0 13px;border-radius:8px;border:1px solid #dfe6ee;display:flex;align-items:center;font-size:12.5px;font-weight:500;color:#4a5866;cursor:pointer;background:#ffffff" style-hover="background:#f2f6fa">Export</div>
+              <div onClick="{{ pa_editThis }}" style="height:34px;padding:0 13px;border-radius:8px;border:1px solid #dfe6ee;display:flex;align-items:center;font-size:12.5px;font-weight:500;color:#4a5866;cursor:pointer;background:#ffffff;font-weight:600;color:#14549e" style-hover="background:#f2f6fa">Edit</div>
+              <div onClick="{{ pa_transferFromThis }}" style="height:34px;padding:0 15px;border-radius:8px;background:#1668c9;color:#ffffff;display:flex;align-items:center;font-size:12.5px;font-weight:600;cursor:pointer" style-hover="background:#1257ab">Transfer funds</div>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:1.3fr repeat(3,minmax(0,1fr));gap:0;margin-top:18px;border-top:1px solid #eef2f6">
+            <div style="padding:14px 18px 14px 0">
+              <div style="font-size:11.5px;color:#7d8b9c">{{ pa_d.balLabel }}</div>
+              <div style="{{ pa_d.balStyle }}">{{ pa_d.bal }}</div>
+            </div>
+            <sc-for list="{{ pa_d.stats }}" as="s" hint-placeholder-count="3">
+              <div style="padding:14px 18px;border-left:1px solid #eef2f6">
+                <div style="font-size:11.5px;color:#7d8b9c">{{ s.k }}</div>
+                <div style="{{ s.vStyle }}">{{ s.v }}</div>
+                <div style="font-size:11px;color:#9aa7b6;margin-top:1px">{{ s.n }}</div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="display:flex;gap:2px;margin-top:4px">
+            <sc-for list="{{ pa_ledgerTabs }}" as="t" hint-placeholder-count="4">
+              <div onClick="{{ t.onClick }}" style="{{ t.style }}">{{ t.name }}<span style="{{ t.countStyle }}">{{ t.count }}</span></div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="padding:20px 24px 32px">
+          <div style="display:flex;gap:8px;align-items:center;margin-bottom:12px">
+            <div style="position:relative;width:260px">
+              <div style="position:absolute;left:10px;top:50%;transform:translateY(-50%);color:#9aa7b6;font-size:12px">&#9906;</div>
+              <input value="{{ pa_lq }}" onChange="{{ pa_onLq }}" placeholder="Description or reference" style="width:100%;height:34px;border:1px solid #dfe6ee;border-radius:8px;background:#ffffff;padding:0 10px 0 29px;font-family:'Public Sans',sans-serif;font-size:12.5px;outline:none" style-focus="border-color:#1668c9" />
+            </div>
+            <div style="height:34px;padding:0 11px;border-radius:8px;border:1px solid #dfe6ee;background:#ffffff;display:flex;align-items:center;gap:9px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:#4a5866">01/09/2026 <span style="color:#c2cedb">&rarr;</span> 29/09/2026</div>
+          </div>
+          <div style="background:#ffffff;border:1px solid #dfe6ee;border-radius:12px;overflow:hidden">
+            <div style="display:grid;grid-template-columns:0.8fr 2.2fr 1fr 1fr 1fr 1fr 1.1fr;gap:12px;padding:10px 16px;background:#f6f9fc;border-bottom:1px solid #dfe6ee;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.07em;text-transform:uppercase;color:#5d6b7d;align-items:center">
+              <div>Date</div><div>Description</div><div>Reference</div><div>Type</div><div style="text-align:right">Money in</div><div style="text-align:right">Money out</div><div style="text-align:right">Balance</div>
+            </div>
+            <sc-for list="{{ pa_ledger }}" as="l" hint-placeholder-count="10">
+              <div style="display:grid;grid-template-columns:0.8fr 2.2fr 1fr 1fr 1fr 1fr 1.1fr;gap:12px;padding:10px 16px;border-bottom:1px solid #f0f4f8;align-items:center" style-hover="background:#f9fbfd">
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#4a5866">{{ l.date }}</div>
+                <div style="min-width:0">
+                  <div style="font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ l.desc }}</div>
+                  <div style="font-size:11px;color:#8b98a8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ l.party }}</div>
+                </div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#1668c9">{{ l.ref }}</div>
+                <div><span style="{{ l.badge }}">{{ l.type }}</span></div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:12.5px;text-align:right;color:#0f6b43;font-weight:500">{{ l.inAmt }}</div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:12.5px;text-align:right;color:#b02020;font-weight:500">{{ l.outAmt }}</div>
+                <div style="{{ l.balStyle }}">{{ l.bal }}</div>
+              </div>
+            </sc-for>
+            <sc-if value="{{ pa_noLedger }}" hint-placeholder-val="{{ false }}">
+              <div style="padding:40px 20px;text-align:center;font-size:12.5px;color:#7d8b9c">No transactions match.</div>
+            </sc-if>
+            <div style="display:grid;grid-template-columns:0.8fr 2.2fr 1fr 1fr 1fr 1fr 1.1fr;gap:12px;padding:12px 16px;background:#f6f9fc;align-items:center">
+              <div style="font-size:12px;color:#7d8b9c;grid-column:span 4">{{ pa_ledgerFoot }}</div>
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;text-align:right;font-weight:700;color:#0f6b43">{{ pa_ledgerIn }}</div>
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:13px;text-align:right;font-weight:700;color:#b02020">{{ pa_ledgerOut }}</div>
+              <div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </sc-if>
+    </div>
+  </div>
+
+  <sc-if value="{{ pa_drawerOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ pa_closeAll }}" style="position:absolute;inset:0;background:rgba(9,22,35,.42);z-index:30"></div>
+    <div style="position:absolute;top:0;right:0;bottom:0;width:460px;background:#ffffff;z-index:31;display:flex;flex-direction:column;box-shadow:-20px 0 50px -24px rgba(9,22,35,.6)">
+      <div style="padding:18px 22px;border-bottom:1px solid #eaeff5;display:flex;align-items:center;gap:12px">
+        <div>
+          <div style="font-size:16px;font-weight:700">{{ pa_fTitle }}</div>
+          <div style="font-size:12px;color:#5d6b7d;margin-top:2px">One form for add and edit</div>
+        </div>
+        <div onClick="{{ pa_closeAll }}" style="margin-left:auto;width:32px;height:32px;border-radius:8px;border:1px solid #dfe6ee;display:grid;place-items:center;cursor:pointer;color:#5d6b7d;font-size:15px" style-hover="background:#f2f6fa">&times;</div>
+      </div>
+      <div style="flex:1;overflow-y:auto;padding:18px 22px;display:grid;gap:16px;align-content:start">
+        <div>
+          <label style="display:block;font-size:12px;font-weight:600;margin-bottom:5px">Account type</label>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px">
+            <sc-for list="{{ pa_fTypes }}" as="t" hint-placeholder-count="4">
+              <div onClick="{{ t.onClick }}" style="{{ t.style }}">
+                <div style="{{ t.iconStyle }}">{{ t.icon }}</div>
+                <div style="font-size:12px;font-weight:600">{{ t.name }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        <div>
+          <label style="display:block;font-size:12px;font-weight:600;margin-bottom:5px">Account name <span style="color:#d93a3a">*</span></label>
+          <input value="{{ pa_fName }}" onChange="{{ pa_onName }}" placeholder="{{ pa_fNamePh }}" style="width:100%;height:36px;border:1px solid #dfe6ee;border-radius:8px;padding:0 11px;font-family:'Public Sans',sans-serif;font-size:13px;outline:none;background:#ffffff" style-focus="border-color:#1668c9" />
+        </div>
+        <sc-if value="{{ pa_fIsBank }}" hint-placeholder-val="{{ false }}">
+          <div style="display:grid;grid-template-columns:1fr 1.4fr;gap:12px">
+            <div>
+              <label style="display:block;font-size:12px;font-weight:600;margin-bottom:5px">BSB</label>
+              <input value="{{ pa_fBsb }}" onChange="{{ pa_onBsb }}" placeholder="062-000" style="width:100%;height:36px;border:1px solid #dfe6ee;border-radius:8px;padding:0 11px;font-family:'Public Sans',sans-serif;font-size:13px;outline:none;background:#ffffff;font-family:'IBM Plex Mono',monospace" style-focus="border-color:#1668c9" />
+            </div>
+            <div>
+              <label style="display:block;font-size:12px;font-weight:600;margin-bottom:5px">Account number</label>
+              <input value="{{ pa_fNum }}" onChange="{{ pa_onNum }}" placeholder="1234 5678" style="width:100%;height:36px;border:1px solid #dfe6ee;border-radius:8px;padding:0 11px;font-family:'Public Sans',sans-serif;font-size:13px;outline:none;background:#ffffff;font-family:'IBM Plex Mono',monospace" style-focus="border-color:#1668c9" />
+            </div>
+          </div>
+        </sc-if>
+        <sc-if value="{{ pa_fIsCard }}" hint-placeholder-val="{{ false }}">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+            <div>
+              <label style="display:block;font-size:12px;font-weight:600;margin-bottom:5px">Last 4 digits</label>
+              <input value="{{ pa_fNum }}" onChange="{{ pa_onNum }}" placeholder="1004" style="width:100%;height:36px;border:1px solid #dfe6ee;border-radius:8px;padding:0 11px;font-family:'Public Sans',sans-serif;font-size:13px;outline:none;background:#ffffff;font-family:'IBM Plex Mono',monospace" style-focus="border-color:#1668c9" />
+            </div>
+            <div>
+              <label style="display:block;font-size:12px;font-weight:600;margin-bottom:5px">Credit limit</label>
+              <input value="{{ pa_fLimit }}" onChange="{{ pa_onLimit }}" placeholder="0.00" style="width:100%;height:36px;border:1px solid #dfe6ee;border-radius:8px;padding:0 11px;font-family:'Public Sans',sans-serif;font-size:13px;outline:none;background:#ffffff;font-family:'IBM Plex Mono',monospace;text-align:right" style-focus="border-color:#1668c9" />
+            </div>
+          </div>
+        </sc-if>
+        <sc-if value="{{ pa_fIsCash }}" hint-placeholder-val="{{ false }}">
+          <div>
+            <label style="display:block;font-size:12px;font-weight:600;margin-bottom:5px">Location</label>
+            <select value="{{ pa_fLoc }}" onChange="{{ pa_onLoc }}" style="width:100%;height:36px;border:1px solid #dfe6ee;border-radius:8px;padding:0 11px;font-family:'Public Sans',sans-serif;font-size:13px;outline:none;background:#ffffff;cursor:pointer;padding:0 8px">
+              <sc-for list="{{ pa_locOpts }}" as="o" hint-placeholder-count="3"><option value="{{ o.id }}">{{ o.name }}</option></sc-for>
+            </select>
+          </div>
+        </sc-if>
+        <sc-if value="{{ pa_fIsNew }}" hint-placeholder-val="{{ true }}">
+          <div>
+            <label style="display:block;font-size:12px;font-weight:600;margin-bottom:5px">Opening balance</label>
+            <input value="{{ pa_fOpen }}" onChange="{{ pa_onOpen }}" placeholder="0.00" style="width:100%;height:36px;border:1px solid #dfe6ee;border-radius:8px;padding:0 11px;font-family:'Public Sans',sans-serif;font-size:13px;outline:none;background:#ffffff;font-family:'IBM Plex Mono',monospace;text-align:right" style-focus="border-color:#1668c9" />
+            <div style="font-size:11.5px;color:#7d8b9c;margin-top:5px">{{ pa_fOpenHint }}</div>
+          </div>
+        </sc-if>
+        <div>
+          <label style="display:block;font-size:12px;font-weight:600;margin-bottom:5px">Use this account by default for</label>
+          <div style="display:grid;gap:7px">
+            <sc-for list="{{ pa_fDefaults }}" as="d" hint-placeholder-count="4">
+              <div onClick="{{ d.onClick }}" style="display:flex;align-items:center;gap:10px;cursor:pointer">
+                <div style="{{ d.box }}">{{ d.mark }}</div>
+                <div style="flex:1">
+                  <div style="font-size:12.5px">{{ d.name }}</div>
+                  <div style="{{ d.noteStyle }}">{{ d.note }}</div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        <sc-if value="{{ pa_fIsEdit }}" hint-placeholder-val="{{ false }}">
+          <div onClick="{{ pa_toggleActive }}" style="display:flex;align-items:center;gap:10px;cursor:pointer;border-top:1px solid #eef2f6;padding-top:14px">
+            <div style="{{ pa_activeSwitch }}"><div style="{{ pa_activeKnob }}"></div></div>
+            <div style="flex:1">
+              <div style="font-size:12.5px;font-weight:600">{{ pa_activeLabel }}</div>
+              <div style="font-size:11.5px;color:#7d8b9c">Closed accounts keep their history but can't take new payments</div>
+            </div>
+          </div>
+        </sc-if>
+        <sc-if value="{{ pa_fHasErr }}" hint-placeholder-val="{{ false }}">
+          <div style="background:#fdeaea;border:1px solid #f3cfcf;border-radius:10px;padding:10px 13px;font-size:12px;color:#b02020">{{ pa_fErr }}</div>
+        </sc-if>
+      </div>
+      <div style="padding:14px 22px;border-top:1px solid #eaeff5;display:flex;gap:8px;justify-content:flex-end">
+        <div onClick="{{ pa_closeAll }}" style="height:34px;padding:0 13px;border-radius:8px;border:1px solid #dfe6ee;display:flex;align-items:center;font-size:12.5px;font-weight:500;color:#4a5866;cursor:pointer;background:#ffffff" style-hover="background:#f2f6fa">Cancel</div>
+        <div onClick="{{ pa_saveAcct }}" style="height:34px;padding:0 15px;border-radius:8px;background:#1668c9;color:#ffffff;display:flex;align-items:center;font-size:12.5px;font-weight:600;cursor:pointer" style-hover="background:#1257ab">{{ pa_fSave }}</div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ pa_xferOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ pa_closeAll }}" style="position:absolute;inset:0;background:rgba(9,22,35,.48);z-index:30"></div>
+    <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:520px;background:#ffffff;border-radius:16px;z-index:31;box-shadow:0 30px 80px -24px rgba(9,22,35,.65);padding:22px">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+        <div>
+          <div style="font-size:17px;font-weight:700">Transfer funds</div>
+          <div style="font-size:12px;color:#5d6b7d;margin-top:2px">Moves money between your own accounts. Not income or expense.</div>
+        </div>
+        <div onClick="{{ pa_closeAll }}" style="margin-left:auto;width:32px;height:32px;border-radius:8px;border:1px solid #dfe6ee;display:grid;place-items:center;cursor:pointer;color:#5d6b7d;font-size:15px;flex:none" style-hover="background:#f2f6fa">&times;</div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 34px 1fr;gap:8px;align-items:end">
+        <div>
+          <label style="display:block;font-size:12px;font-weight:600;margin-bottom:5px">From</label>
+          <select value="{{ pa_xFrom }}" onChange="{{ pa_onXFrom }}" style="width:100%;height:36px;border:1px solid #dfe6ee;border-radius:8px;padding:0 11px;font-family:'Public Sans',sans-serif;font-size:13px;outline:none;background:#ffffff;cursor:pointer;padding:0 8px">
+            <sc-for list="{{ pa_openAccts }}" as="o" hint-placeholder-count="4"><option value="{{ o.id }}">{{ o.name }}</option></sc-for>
+          </select>
+        </div>
+        <div onClick="{{ pa_xSwap }}" style="height:36px;border-radius:8px;border:1px solid #dfe6ee;display:grid;place-items:center;cursor:pointer;color:#5d6b7d;font-size:14px" style-hover="background:#f2f6fa;color:#1668c9">&#8646;</div>
+        <div>
+          <label style="display:block;font-size:12px;font-weight:600;margin-bottom:5px">To</label>
+          <select value="{{ pa_xTo }}" onChange="{{ pa_onXTo }}" style="width:100%;height:36px;border:1px solid #dfe6ee;border-radius:8px;padding:0 11px;font-family:'Public Sans',sans-serif;font-size:13px;outline:none;background:#ffffff;cursor:pointer;padding:0 8px">
+            <sc-for list="{{ pa_openAccts }}" as="o" hint-placeholder-count="4"><option value="{{ o.id }}">{{ o.name }}</option></sc-for>
+          </select>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px">
+        <sc-for list="{{ pa_xPreview }}" as="p" hint-placeholder-count="2">
+          <div style="{{ p.box }}">
+            <div style="font-size:11px;font-weight:600">{{ p.k }}</div>
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:12.5px;margin-top:3px">{{ p.now }} <span style="opacity:.6">&rarr;</span> <b>{{ p.after }}</b></div>
+          </div>
+        </sc-for>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px">
+        <div>
+          <label style="display:block;font-size:12px;font-weight:600;margin-bottom:5px">Amount</label>
+          <input value="{{ pa_xAmt }}" onChange="{{ pa_onXAmt }}" placeholder="0.00" style="width:100%;height:42px;border:1.5px solid #1668c9;border-radius:9px;padding:0 12px;font-family:'IBM Plex Mono',monospace;font-size:17px;font-weight:600;outline:none;text-align:right;background:#f6faff" />
+        </div>
+        <div>
+          <label style="display:block;font-size:12px;font-weight:600;margin-bottom:5px">Date</label>
+          <div style="height:42px;border:1px solid #dfe6ee;border-radius:9px;padding:0 12px;display:flex;align-items:center;font-family:'IBM Plex Mono',monospace;font-size:12.5px">29/09/2026</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+        <sc-for list="{{ pa_xQuick }}" as="q" hint-placeholder-count="3">
+          <div onClick="{{ q.onClick }}" style="height:28px;padding:0 10px;border-radius:7px;border:1px solid #dfe6ee;display:flex;align-items:center;font-size:12px;color:#4a5866;cursor:pointer" style-hover="border-color:#1668c9;color:#1668c9">{{ q.label }}</div>
+        </sc-for>
+      </div>
+      <div style="margin-top:12px">
+        <label style="display:block;font-size:12px;font-weight:600;margin-bottom:5px">Note</label>
+        <input value="{{ pa_xNote }}" onChange="{{ pa_onXNote }}" placeholder="e.g. Banking Friday takings" style="width:100%;height:36px;border:1px solid #dfe6ee;border-radius:8px;padding:0 11px;font-family:'Public Sans',sans-serif;font-size:13px;outline:none;background:#ffffff" style-focus="border-color:#1668c9" />
+      </div>
+      <sc-if value="{{ pa_xHasErr }}" hint-placeholder-val="{{ false }}">
+        <div style="margin-top:12px;background:#fdeaea;border:1px solid #f3cfcf;border-radius:10px;padding:10px 13px;font-size:12px;color:#b02020">{{ pa_xErr }}</div>
+      </sc-if>
+      <div style="display:flex;gap:9px;justify-content:flex-end;margin-top:18px">
+        <div onClick="{{ pa_closeAll }}" style="height:40px;padding:0 16px;border-radius:9px;border:1px solid #dfe6ee;display:flex;align-items:center;font-size:13px;font-weight:600;color:#4a5866;cursor:pointer" style-hover="background:#f2f6fa">Cancel</div>
+        <div onClick="{{ pa_doTransfer }}" style="{{ pa_xBtnStyle }}">{{ pa_xBtn }}</div>
+      </div>
+    </div>
+  </sc-if>
+
+  <div style="position:absolute;left:50%;bottom:20px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:6px;z-index:40;pointer-events:none">
+    <sc-for list="{{ pa_toasts }}" as="t" hint-placeholder-count="0">
+      <div style="background:#0f1c2b;color:#ffffff;border-radius:10px;padding:10px 15px;font-size:13px;display:flex;align-items:center;gap:10px;box-shadow:0 14px 30px -12px rgba(9,22,35,.6);white-space:nowrap">
+        <div style="{{ t.dot }}"></div>{{ t.msg }}
+      </div>
+    </sc-for>
+  </div>
+</div>
+</div>
+    </div>
+  </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1560,&quot;height&quot;:1040}}"></script>
+<script src="js/base.js"></script>
+<script src="js/modules/accounts.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

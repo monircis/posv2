@@ -1,0 +1,266 @@
+[
+ {
+  "code": "1-1100",
+  "name": "Cash drawers",
+  "type": "asset",
+  "open": 1200,
+  "tax": "BAS excluded",
+  "tag": "Payment account"
+ },
+ {
+  "code": "1-1200",
+  "name": "CBA Business",
+  "type": "asset",
+  "open": 32000,
+  "tax": "BAS excluded",
+  "tag": "Payment account"
+ },
+ {
+  "code": "1-1210",
+  "name": "Tax saver",
+  "type": "asset",
+  "open": 9950,
+  "tax": "BAS excluded",
+  "tag": "Payment account"
+ },
+ {
+  "code": "1-1300",
+  "name": "Accounts receivable",
+  "type": "asset",
+  "open": 6480,
+  "tax": "BAS excluded",
+  "tag": "System"
+ },
+ {
+  "code": "1-1400",
+  "name": "Inventory",
+  "type": "asset",
+  "open": 38400,
+  "tax": "BAS excluded",
+  "tag": "System"
+ },
+ {
+  "code": "1-1500",
+  "name": "Shop equipment",
+  "type": "asset",
+  "open": 64000,
+  "tax": "GST 10%",
+  "tag": ""
+ },
+ {
+  "code": "1-1510",
+  "name": "Accumulated depreciation",
+  "type": "asset",
+  "open": -12800,
+  "tax": "BAS excluded",
+  "tag": "Contra"
+ },
+ {
+  "code": "2-1100",
+  "name": "Accounts payable",
+  "type": "liability",
+  "open": 9200,
+  "tax": "BAS excluded",
+  "tag": "System"
+ },
+ {
+  "code": "2-1200",
+  "name": "Amex Business",
+  "type": "liability",
+  "open": 2600,
+  "tax": "BAS excluded",
+  "tag": "Payment account"
+ },
+ {
+  "code": "2-1300",
+  "name": "GST collected",
+  "type": "liability",
+  "open": 5100,
+  "tax": "BAS excluded",
+  "tag": "System"
+ },
+ {
+  "code": "2-1310",
+  "name": "GST paid",
+  "type": "liability",
+  "open": -1900,
+  "tax": "BAS excluded",
+  "tag": "System"
+ },
+ {
+  "code": "2-1400",
+  "name": "PAYG withholding",
+  "type": "liability",
+  "open": 1400,
+  "tax": "BAS excluded",
+  "tag": ""
+ },
+ {
+  "code": "2-1500",
+  "name": "Wages payable",
+  "type": "liability",
+  "open": 0,
+  "tax": "BAS excluded",
+  "tag": ""
+ },
+ {
+  "code": "2-2000",
+  "name": "Equipment loan",
+  "type": "liability",
+  "open": 28000,
+  "tax": "BAS excluded",
+  "tag": ""
+ },
+ {
+  "code": "3-1000",
+  "name": "Owner’s capital",
+  "type": "equity",
+  "open": 50000,
+  "tax": "BAS excluded",
+  "tag": ""
+ },
+ {
+  "code": "3-2000",
+  "name": "Retained earnings",
+  "type": "equity",
+  "open": 0,
+  "tax": "BAS excluded",
+  "tag": "System"
+ },
+ {
+  "code": "3-3000",
+  "name": "Owner drawings",
+  "type": "equity",
+  "open": -4000,
+  "tax": "BAS excluded",
+  "tag": ""
+ },
+ {
+  "code": "4-1000",
+  "name": "Sales · retail",
+  "type": "income",
+  "open": 0,
+  "tax": "GST 10%",
+  "tag": ""
+ },
+ {
+  "code": "4-1100",
+  "name": "Sales · wholesale",
+  "type": "income",
+  "open": 0,
+  "tax": "GST 10%",
+  "tag": ""
+ },
+ {
+  "code": "4-1200",
+  "name": "Sales · grill & kitchen",
+  "type": "income",
+  "open": 0,
+  "tax": "GST 10%",
+  "tag": ""
+ },
+ {
+  "code": "4-9000",
+  "name": "Stock gain",
+  "type": "income",
+  "open": 0,
+  "tax": "BAS excluded",
+  "tag": ""
+ },
+ {
+  "code": "5-1000",
+  "name": "Cost of goods sold",
+  "type": "cogs",
+  "open": 0,
+  "tax": "BAS excluded",
+  "tag": "System"
+ },
+ {
+  "code": "5-1100",
+  "name": "Stock write-off",
+  "type": "cogs",
+  "open": 0,
+  "tax": "BAS excluded",
+  "tag": "System"
+ },
+ {
+  "code": "6-1000",
+  "name": "Rent",
+  "type": "expense",
+  "open": 0,
+  "tax": "GST 10%",
+  "tag": ""
+ },
+ {
+  "code": "6-1100",
+  "name": "Utilities",
+  "type": "expense",
+  "open": 0,
+  "tax": "GST 10%",
+  "tag": ""
+ },
+ {
+  "code": "6-1200",
+  "name": "Wages",
+  "type": "expense",
+  "open": 0,
+  "tax": "BAS excluded",
+  "tag": ""
+ },
+ {
+  "code": "6-1300",
+  "name": "Packaging",
+  "type": "expense",
+  "open": 0,
+  "tax": "GST 10%",
+  "tag": ""
+ },
+ {
+  "code": "6-1400",
+  "name": "Fuel & delivery",
+  "type": "expense",
+  "open": 0,
+  "tax": "GST 10%",
+  "tag": ""
+ },
+ {
+  "code": "6-1500",
+  "name": "Repairs",
+  "type": "expense",
+  "open": 0,
+  "tax": "GST 10%",
+  "tag": ""
+ },
+ {
+  "code": "6-1600",
+  "name": "Marketing",
+  "type": "expense",
+  "open": 0,
+  "tax": "GST 10%",
+  "tag": ""
+ },
+ {
+  "code": "6-1700",
+  "name": "Cleaning",
+  "type": "expense",
+  "open": 0,
+  "tax": "GST 10%",
+  "tag": ""
+ },
+ {
+  "code": "6-1800",
+  "name": "Bank & merchant fees",
+  "type": "expense",
+  "open": 0,
+  "tax": "GST free",
+  "tag": ""
+ },
+ {
+  "code": "6-1900",
+  "name": "Depreciation",
+  "type": "expense",
+  "open": 0,
+  "tax": "BAS excluded",
+  "tag": ""
+ }
+]

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en" data-page="mfg">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Manufacturing · Madinah Butchery ERP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<script src="js/loader.js"></script>
+<script src="js/support.js"></script>
+</head>
+<body>
+<x-dc>
+<div style="min-height:100vh;background:#eef2f6">
+
+  <sc-if value="{{ isMfg }}" hint-placeholder-val="{{ false }}">
+  <div data-screen-label="Manufacturing" style="height:100vh;min-height:720px;position:relative">
+    <div style="height:100%;overflow:auto">
+<div style="min-width:1280px;height:100%;position:relative;display:flex;flex-direction:column">
+<div data-screen-label="Manufacturing" style="height:100%;min-height:820px;min-width:1280px;display:flex;background:#eef2f6;position:relative;overflow:hidden;font-family:'Public Sans',system-ui,sans-serif;color:#0f1c2b">
+  <div style="{{ sideStyle }}">
+    <div style="height:56px;display:flex;align-items:center;gap:10px;padding:0 14px;flex:none;border-bottom:1px solid rgba(255,255,255,.09)">
+      <div style="width:26px;height:26px;border-radius:7px;background:#4da3e8;color:#06283a;display:grid;place-items:center;font-weight:700;font-size:13px;flex:none">M</div>
+      <div style="{{ sideText }}">
+        <div style="font-size:13px;font-weight:600;color:#ffffff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Madinah Butchery</div>
+        <div style="font-size:10.5px;color:#89aec6">All locations</div>
+      </div>
+      <div style="{{ sideCaret }}">&#9662;</div>
+    </div>
+    <div style="{{ sideListStyle }}">
+      <sc-for list="{{ mf_nav }}" as="n" hint-placeholder-count="18">
+        <div>
+          <div onClick="{{ n.onClick }}" title="{{ n.name }}" style="{{ n.style }}" style-hover="background:rgba(255,255,255,.07)">
+          <div style="{{ n.iconStyle }}">{{ n.key }}</div>
+          <div style="{{ n.nameStyle }}">{{ n.name }}</div>
+          <div style="{{ n.caretStyle }}">&#8250;</div>
+        </div>
+          <sc-if value="{{ n.open }}" hint-placeholder-val="{{ false }}">
+            <div style="margin:2px 0 6px 26px;border-left:1px solid rgba(255,255,255,.12);padding-left:10px;display:flex;flex-direction:column;gap:1px">
+              <sc-for list="{{ n.children }}" as="c" hint-placeholder-count="2">
+                <div onClick="{{ c.onClick }}" style="{{ c.style }}" style-hover="color:#ffffff">{{ c.name }}</div>
+              </sc-for>
+            </div>
+          </sc-if>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+  <div style="flex:1;min-width:0;display:flex;flex-direction:column">
+    <div style="height:56px;flex:none;background:#ffffff;border-bottom:1px solid #dfe6ee;display:flex;align-items:center;gap:14px;padding:0 20px">
+      <div onClick="{{ toggleNav }}" title="{{ navTip }}" style="width:30px;height:30px;border-radius:7px;border:1px solid #dfe6ee;display:grid;place-items:center;cursor:pointer;color:#5d6b7d;font-size:13px;flex:none" style-hover="background:#f2f6fa;color:#1668c9">&#9776;</div>
+      <div style="flex:1;max-width:420px;position:relative">
+        <div style="position:absolute;left:11px;top:50%;transform:translateY(-50%);color:#9aa7b6;font-size:12px">&#9906;</div>
+        <input placeholder="Search products, invoices, contacts&hellip;" style="width:100%;height:34px;border:1px solid #dfe6ee;border-radius:8px;background:#f7fafc;padding:0 10px 0 30px;font-family:'Public Sans',sans-serif;font-size:13px;outline:none" style-focus="background:#ffffff;border-color:#1668c9" />
+      </div>
+      <div style="margin-left:auto;display:flex;align-items:center;gap:8px">
+        <div onClick="{{ goPos }}" style="height:32px;padding:0 12px;border-radius:8px;background:#1668c9;color:#ffffff;display:flex;align-items:center;font-size:12.5px;font-weight:600;cursor:pointer" style-hover="background:#1257ab">Open POS</div>
+        <div style="height:32px;padding:0 11px;border-radius:8px;border:1px solid #dfe6ee;display:flex;align-items:center;font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:#4a5866">29/09/2026</div>
+        <div style="width:32px;height:32px;border-radius:8px;border:1px solid #dfe6ee;display:grid;place-items:center;position:relative;color:#5d6b7d">&#9737;<div style="position:absolute;top:6px;right:6px;width:6px;height:6px;border-radius:50%;background:#d93a3a;border:1.5px solid #ffffff"></div></div>
+        <div style="display:flex;align-items:center;gap:8px;padding:3px 9px 3px 3px;border-radius:8px;border:1px solid #dfe6ee">
+          <div style="width:25px;height:25px;border-radius:6px;background:#0a3a52;color:#ffffff;display:grid;place-items:center;font-size:11px;font-weight:600">AM</div>
+          <div style="font-size:12.5px;font-weight:500">Aminul</div>
+        </div>
+      </div>
+    </div>
+    <div style="flex:1;min-height:0;display:flex">
+      <div style="flex:1;min-width:0;overflow-y:auto">
+        <div style="padding:18px 24px 0;background:#ffffff;border-bottom:1px solid #dfe6ee">
+          <div style="display:flex;align-items:center;gap:7px;font-size:11.5px;color:#7d8b9c;margin-bottom:8px"><span>Manufacturing</span><span style="color:#c2cedb">/</span><span style="color:#0f1c2b;font-weight:500">{{ mf_crumb }}</span></div>
+          <div style="display:flex;align-items:flex-start;gap:20px;flex-wrap:wrap">
+            <div>
+              <h2 style="margin:0 0 3px;font-size:22px;font-weight:700;letter-spacing:-0.018em">Manufacturing</h2>
+              <div style="font-size:12.5px;color:#5d6b7d">Turn raw materials into finished stock</div>
+            </div>
+            <div style="margin-left:auto;display:flex;gap:8px"><div onClick="{{ mf_newMo }}" style="height:34px;padding:0 15px;border-radius:8px;background:#1668c9;color:#ffffff;display:flex;align-items:center;font-size:12.5px;font-weight:600;cursor:pointer" style-hover="background:#1257ab">+ New production order</div></div>
+          </div>
+          <div style="display:flex;gap:2px;margin-top:14px">
+            <sc-for list="{{ mf_tabs }}" as="t" hint-placeholder-count="2"><div onClick="{{ t.onClick }}" style="{{ t.style }}">{{ t.name }}<span style="{{ t.countStyle }}">{{ t.count }}</span></div></sc-for>
+          </div>
+        </div>
+        <div style="padding:16px 24px 32px;display:grid;gap:14px">
+          <sc-if value="{{ mf_isOrders }}" hint-placeholder-val="{{ true }}">
+            <div style="display:grid;gap:14px">
+              <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px">
+                <sc-for list="{{ mf_kpis }}" as="k" hint-placeholder-count="4">
+                  <div style="background:#ffffff;border:1px solid #dfe6ee;border-radius:12px;padding:13px 16px"><div style="font-size:11.5px;color:#7d8b9c">{{ k.k }}</div><div style="font-family:'IBM Plex Mono',monospace;font-size:21px;font-weight:600;margin-top:2px">{{ k.v }}</div><div style="font-size:11.5px;color:#8b98a8;margin-top:1px">{{ k.n }}</div></div>
+                </sc-for>
+              </div>
+              <div style="display:flex;gap:3px;background:#e4eaf1;padding:3px;border-radius:9px;align-self:start;justify-self:start">
+                <sc-for list="{{ mf_stTabs }}" as="t" hint-placeholder-count="4"><div onClick="{{ t.onClick }}" style="{{ t.style }}">{{ t.name }}</div></sc-for>
+              </div>
+              <div style="background:#ffffff;border:1px solid #dfe6ee;border-radius:12px;overflow:hidden">
+                <div style="display:grid;grid-template-columns:0.8fr 1.7fr 0.9fr 0.9fr 0.9fr 0.8fr 1fr;gap:12px;padding:10px 16px;background:#f6f9fc;border-bottom:1px solid #dfe6ee;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.07em;text-transform:uppercase;color:#5d6b7d"><div>Order</div><div>Product</div><div style="text-align:right">Planned</div><div style="text-align:right">Output</div><div style="text-align:right">Cost</div><div style="text-align:right">Yield</div><div>Status</div></div>
+                <sc-for list="{{ mf_rows }}" as="r" hint-placeholder-count="6">
+                  <div onClick="{{ r.open }}" style="{{ r.style }}" style-hover="background:#f6faff">
+                    <div><div style="font-family:'IBM Plex Mono',monospace;font-size:12.5px;font-weight:600;color:#1668c9">{{ r.ref }}</div><div style="font-size:10.5px;color:#9aa7b6">{{ r.date }}</div></div>
+                    <div style="min-width:0"><div style="font-size:13px;font-weight:500">{{ r.product }}</div><div style="font-size:11px;color:#8b98a8">{{ r.loc }}</div></div>
+                    <div style="font-family:'IBM Plex Mono',monospace;font-size:12.5px;text-align:right">{{ r.planned }}</div>
+                    <div style="font-family:'IBM Plex Mono',monospace;font-size:12.5px;text-align:right">{{ r.output }}</div>
+                    <div style="font-family:'IBM Plex Mono',monospace;font-size:12.5px;text-align:right">{{ r.cost }}</div>
+                    <div style="{{ r.yStyle }}">{{ r.yield }}</div>
+                    <div><span style="{{ r.badge }}">{{ r.status }}</span></div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </sc-if>
+          <sc-if value="{{ mf_isRecipes }}" hint-placeholder-val="{{ false }}">
+            <div style="display:grid;grid-template-columns:260px minmax(0,1fr);gap:14px;align-items:start">
+              <div style="background:#ffffff;border:1px solid #dfe6ee;border-radius:12px;overflow:hidden">
+                <sc-for list="{{ mf_recipes }}" as="r" hint-placeholder-count="5">
+                  <div onClick="{{ r.onClick }}" style="{{ r.style }}" style-hover="background:#f6faff">
+                    <div style="font-size:13px;font-weight:600">{{ r.name }}</div>
+                    <div style="font-size:11px;color:#8b98a8;margin-top:1px">{{ r.meta }}</div>
+                  </div>
+                </sc-for>
+              </div>
+              <div style="background:#ffffff;border:1px solid #dfe6ee;border-radius:12px;overflow:hidden">
+                <div style="padding:14px 18px;display:flex;align-items:flex-start;gap:14px;border-bottom:1px solid #eaeff5">
+                  <div style="flex:1"><div style="font-size:15px;font-weight:700">{{ mf_rc.name }}</div><div style="font-size:12px;color:#7d8b9c;margin-top:2px">{{ mf_rc.sub }}</div></div>
+                  <div style="text-align:right"><div style="font-size:11px;color:#7d8b9c">Cost per {{ mf_rc.unit }}</div><div style="font-family:'IBM Plex Mono',monospace;font-size:20px;font-weight:600">{{ mf_rc.unitCost }}</div><div style="{{ mf_rc.marginStyle }}">{{ mf_rc.margin }}</div></div>
+                </div>
+                <div style="display:grid;grid-template-columns:minmax(0,2fr) 1fr 0.9fr 1fr 1fr 30px;gap:10px;padding:9px 18px;background:#f6f9fc;border-bottom:1px solid #dfe6ee;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.07em;text-transform:uppercase;color:#5d6b7d"><div>Material</div><div style="text-align:right">Per batch</div><div>Unit</div><div style="text-align:right">Unit cost</div><div style="text-align:right">Line cost</div><div></div></div>
+                <sc-for list="{{ mf_rc.lines }}" as="l" hint-placeholder-count="4">
+                  <div style="display:grid;grid-template-columns:minmax(0,2fr) 1fr 0.9fr 1fr 1fr 30px;gap:10px;padding:8px 18px;border-bottom:1px solid #f0f4f8;align-items:center">
+                    <div style="font-size:13px;font-weight:500">{{ l.name }}</div>
+                    <input value="{{ l.qty }}" onChange="{{ l.onQty }}" style="width:100%;height:30px;border:1px solid #dfe6ee;border-radius:7px;padding:0 8px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;text-align:right;outline:none" />
+                    <div style="font-size:12px;color:#7d8b9c">{{ l.unit }}</div>
+                    <div style="font-family:'IBM Plex Mono',monospace;font-size:12.5px;text-align:right;color:#4a5866">{{ l.cost }}</div>
+                    <div style="font-family:'IBM Plex Mono',monospace;font-size:12.5px;text-align:right">{{ l.total }}</div>
+                    <div onClick="{{ l.remove }}" style="width:26px;height:26px;border-radius:6px;display:grid;place-items:center;color:#b3c0cf;cursor:pointer;font-size:14px" style-hover="background:#fdeaea;color:#b02020">&times;</div>
+                  </div>
+                </sc-for>
+                <div style="display:flex;align-items:center;gap:10px;padding:10px 18px;background:#fbfcfe;flex-wrap:wrap">
+                  <select value="" onChange="{{ mf_addMat }}" style="height:32px;border:1px solid #dfe6ee;border-radius:7px;padding:0 8px;font-family:'Public Sans',sans-serif;font-size:12.5px;background:#ffffff;cursor:pointer">
+                    <option value="">+ Add material</option>
+                    <sc-for list="{{ mf_matOpts }}" as="o" hint-placeholder-count="6"><option value="{{ o.id }}">{{ o.name }}</option></sc-for>
+                  </select>
+                  <div style="margin-left:auto;display:flex;gap:16px;font-size:12.5px;align-items:center">
+                    <div style="display:flex;align-items:center;gap:6px;color:#5d6b7d">Yields <input value="{{ mf_rc.out }}" onChange="{{ mf_onOut }}" style="width:64px;height:30px;border:1px solid #dfe6ee;border-radius:7px;padding:0 8px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;text-align:right;outline:none" /> {{ mf_rc.unit }}</div>
+                    <div style="color:#5d6b7d">Batch cost <b style="font-family:'IBM Plex Mono',monospace;color:#0f1c2b">{{ mf_rc.batchCost }}</b></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+
+      <sc-if value="{{ mf_hasSel }}" hint-placeholder-val="{{ false }}">
+        <div style="width:420px;flex:none;background:#ffffff;border-left:1px solid #dfe6ee;display:flex;flex-direction:column;min-height:0">
+          <div style="padding:16px 20px;border-bottom:1px solid #eaeff5">
+            <div style="display:flex;align-items:center;gap:9px">
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:18px;font-weight:700">{{ mf_d.ref }}</div><span style="{{ mf_d.badge }}">{{ mf_d.status }}</span>
+              <div onClick="{{ mf_closeSel }}" style="margin-left:auto;width:30px;height:30px;border-radius:8px;border:1px solid #dfe6ee;display:grid;place-items:center;cursor:pointer;color:#5d6b7d" style-hover="background:#f2f6fa">&times;</div>
+            </div>
+            <div style="font-size:13.5px;font-weight:600;margin-top:7px">{{ mf_d.product }}</div>
+            <div style="font-size:12px;color:#7d8b9c">{{ mf_d.sub }}</div>
+          </div>
+          <div style="flex:1;overflow-y:auto;padding:16px 20px;display:grid;gap:16px;align-content:start">
+            <div style="display:grid;grid-template-columns:1fr 34px 1fr;gap:6px;align-items:stretch">
+              <div style="background:#fdf4f4;border-radius:10px;padding:10px 12px">
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.07em;text-transform:uppercase;color:#5d6b7d;color:#b02020;margin-bottom:6px">{{ mf_d.inLabel }}</div>
+                <sc-for list="{{ mf_d.ins }}" as="i" hint-placeholder-count="3"><div style="display:flex;font-size:12px;padding:2px 0"><div style="flex:1">{{ i.name }}</div><div style="{{ i.qStyle }}">{{ i.q }}</div></div></sc-for>
+              </div>
+              <div style="display:grid;place-items:center;color:#9aa7b6;font-size:18px">&rarr;</div>
+              <div style="background:#e7f6ee;border-radius:10px;padding:10px 12px">
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.07em;text-transform:uppercase;color:#5d6b7d;color:#0f6b43;margin-bottom:6px">{{ mf_d.outLabel }}</div>
+                <div style="font-size:13px;font-weight:600">{{ mf_d.product }}</div>
+                <div style="font-family:'IBM Plex Mono',monospace;font-size:18px;font-weight:600;color:#0f6b43;margin-top:3px">+{{ mf_d.outQty }}</div>
+                <div style="font-size:11px;color:#4f9a74;margin-top:2px">{{ mf_d.unitCost }}</div>
+              </div>
+            </div>
+            <sc-if value="{{ mf_d.short }}" hint-placeholder-val="{{ false }}"><div style="background:#fdeaea;color:#b02020;border-radius:9px;padding:9px 12px;font-size:12.5px;font-weight:600">{{ mf_d.shortText }}</div></sc-if>
+            <sc-if value="{{ mf_d.canFinish }}" hint-placeholder-val="{{ false }}">
+              <div style="background:#f6f9fc;border-radius:10px;padding:12px 14px;display:grid;gap:8px">
+                <label style="display:block;font-size:12px;font-weight:600;margin-bottom:5px;margin:0">Actual output ({{ mf_d.unit }})</label>
+                <input value="{{ mf_actual }}" onChange="{{ mf_onActual }}" style="width:100%;height:36px;border:1px solid #dfe6ee;border-radius:8px;padding:0 11px;font-family:'Public Sans',sans-serif;font-size:13px;outline:none;background:#ffffff;font-family:'IBM Plex Mono',monospace;font-size:15px;font-weight:600;text-align:right" style-focus="border-color:#1668c9" />
+                <div style="{{ mf_yieldStyle }}">{{ mf_yieldText }}</div>
+              </div>
+            </sc-if>
+            <div style="display:grid;gap:6px;font-size:12.5px">
+              <sc-for list="{{ mf_d.costs }}" as="c" hint-placeholder-count="3"><div style="{{ c.style }}"><div style="flex:1">{{ c.k }}</div><div style="font-family:'IBM Plex Mono',monospace">{{ c.v }}</div></div></sc-for>
+            </div>
+            <div>
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.07em;text-transform:uppercase;color:#5d6b7d;margin-bottom:8px">Activity</div>
+              <sc-for list="{{ mf_d.log }}" as="a" hint-placeholder-count="2"><div style="display:flex;gap:10px;margin-bottom:8px"><div style="{{ a.dot }}"></div><div style="font-size:12.5px;flex:1">{{ a.what }}</div><div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#9aa7b6">{{ a.when }}</div></div></sc-for>
+            </div>
+          </div>
+          <div style="padding:12px 20px;border-top:1px solid #eaeff5;display:flex;gap:7px">
+            <sc-for list="{{ mf_d.actions }}" as="a" hint-placeholder-count="2"><div onClick="{{ a.onClick }}" style="{{ a.style }}">{{ a.label }}</div></sc-for>
+          </div>
+        </div>
+      </sc-if>
+    </div>
+  </div>
+
+  <sc-if value="{{ mf_formOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ mf_closeAll }}" style="position:absolute;inset:0;background:rgba(9,22,35,.42);z-index:30"></div>
+    <div style="position:absolute;top:0;right:0;bottom:0;width:480px;background:#ffffff;z-index:31;display:flex;flex-direction:column;box-shadow:-20px 0 50px -24px rgba(9,22,35,.6)">
+      <div style="padding:16px 22px;border-bottom:1px solid #eaeff5;display:flex;align-items:center"><div><div style="font-size:16px;font-weight:700">New production order</div><div style="font-size:12px;color:#5d6b7d;margin-top:2px">Materials are reserved now and used when the order finishes</div></div><div onClick="{{ mf_closeAll }}" style="margin-left:auto;width:32px;height:32px;border-radius:8px;border:1px solid #dfe6ee;display:grid;place-items:center;cursor:pointer;color:#5d6b7d">&times;</div></div>
+      <div style="flex:1;overflow-y:auto;padding:18px 22px;display:grid;gap:14px;align-content:start">
+        <div><label style="display:block;font-size:12px;font-weight:600;margin-bottom:5px">Recipe</label><select value="{{ mf_fRecipe }}" onChange="{{ mf_onRecipe }}" style="width:100%;height:36px;border:1px solid #dfe6ee;border-radius:8px;padding:0 11px;font-family:'Public Sans',sans-serif;font-size:13px;outline:none;background:#ffffff;cursor:pointer;padding:0 8px"><sc-for list="{{ mf_recipeOpts }}" as="o" hint-placeholder-count="5"><option value="{{ o.id }}">{{ o.name }}</option></sc-for></select></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px">
+          <div><label style="display:block;font-size:12px;font-weight:600;margin-bottom:5px">Batches</label><div style="display:flex;align-items:center;height:36px;border:1px solid #dfe6ee;border-radius:8px;overflow:hidden"><div onClick="{{ mf_bDown }}" style="width:34px;height:100%;display:grid;place-items:center;cursor:pointer;border-right:1px solid #dfe6ee">&minus;</div><div style="flex:1;text-align:center;font-family:'IBM Plex Mono',monospace;font-weight:600">{{ mf_fBatches }}</div><div onClick="{{ mf_bUp }}" style="width:34px;height:100%;display:grid;place-items:center;cursor:pointer;border-left:1px solid #dfe6ee">+</div></div></div>
+          <div><label style="display:block;font-size:12px;font-weight:600;margin-bottom:5px">Location</label><select value="{{ mf_fLoc }}" onChange="{{ mf_onLoc }}" style="width:100%;height:36px;border:1px solid #dfe6ee;border-radius:8px;padding:0 11px;font-family:'Public Sans',sans-serif;font-size:13px;outline:none;background:#ffffff;cursor:pointer;padding:0 8px"><option value="Cold store">Cold store</option><option value="Main branch">Main branch</option></select></div>
+          <div><label style="display:block;font-size:12px;font-weight:600;margin-bottom:5px">Date</label><div style="height:36px;border:1px solid #dfe6ee;border-radius:8px;display:flex;align-items:center;padding:0 10px;font-family:'IBM Plex Mono',monospace;font-size:12.5px">29/09/2026</div></div>
+        </div>
+        <div style="background:#ffffff;border:1px solid #dfe6ee;border-radius:12px;overflow:hidden">
+          <div style="display:grid;grid-template-columns:minmax(0,1.8fr) 1fr 1fr 1fr;gap:10px;padding:8px 14px;background:#f6f9fc;border-bottom:1px solid #dfe6ee;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.07em;text-transform:uppercase;color:#5d6b7d"><div>Material</div><div style="text-align:right">Needed</div><div style="text-align:right">In stock</div><div style="text-align:right">After</div></div>
+          <sc-for list="{{ mf_fLines }}" as="l" hint-placeholder-count="4"><div style="display:grid;grid-template-columns:minmax(0,1.8fr) 1fr 1fr 1fr;gap:10px;padding:8px 14px;border-bottom:1px solid #f0f4f8;font-size:12.5px"><div style="font-weight:500">{{ l.name }}</div><div style="font-family:'IBM Plex Mono',monospace;text-align:right">{{ l.need }}</div><div style="font-family:'IBM Plex Mono',monospace;text-align:right;color:#5d6b7d">{{ l.have }}</div><div style="{{ l.afterStyle }}">{{ l.after }}</div></div></sc-for>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          <div style="background:#f6f9fc;border-radius:10px;padding:11px 13px"><div style="font-size:11px;color:#7d8b9c">Expected output</div><div style="font-family:'IBM Plex Mono',monospace;font-size:18px;font-weight:600">{{ mf_fOut }}</div></div>
+          <div style="background:#f6f9fc;border-radius:10px;padding:11px 13px"><div style="font-size:11px;color:#7d8b9c">Material cost</div><div style="font-family:'IBM Plex Mono',monospace;font-size:18px;font-weight:600">{{ mf_fCost }}</div></div>
+        </div>
+        <sc-if value="{{ mf_fShort }}" hint-placeholder-val="{{ false }}"><div style="background:#fdeaea;color:#b02020;border-radius:9px;padding:9px 12px;font-size:12.5px;font-weight:600">{{ mf_fShortText }}</div></sc-if>
+      </div>
+      <div style="padding:14px 22px;border-top:1px solid #eaeff5;display:flex;gap:8px;justify-content:flex-end">
+        <div onClick="{{ mf_closeAll }}" style="height:34px;padding:0 13px;border-radius:8px;border:1px solid #dfe6ee;display:flex;align-items:center;font-size:12.5px;font-weight:500;color:#4a5866;cursor:pointer;background:#ffffff">Cancel</div>
+        <div onClick="{{ mf_savePlan }}" style="height:34px;padding:0 13px;border-radius:8px;border:1px solid #dfe6ee;display:flex;align-items:center;font-size:12.5px;font-weight:500;color:#4a5866;cursor:pointer;background:#ffffff;font-weight:600;color:#14549e">Save as planned</div>
+        <div onClick="{{ mf_saveStart }}" style="{{ mf_startStyle }}">Start production</div>
+      </div>
+    </div>
+  </sc-if>
+
+  <div style="position:absolute;left:50%;bottom:20px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:6px;z-index:50;pointer-events:none">
+    <sc-for list="{{ mf_toasts }}" as="t" hint-placeholder-count="0"><div style="background:#0f1c2b;color:#ffffff;border-radius:10px;padding:10px 15px;font-size:13px;display:flex;align-items:center;gap:10px;box-shadow:0 14px 30px -12px rgba(9,22,35,.6);white-space:nowrap"><div style="{{ t.dot }}"></div>{{ t.msg }}</div></sc-for>
+  </div>
+</div>
+</div>
+    </div>
+  </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1560,&quot;height&quot;:1040}}"></script>
+<script src="js/base.js"></script>
+<script src="js/modules/mfg.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
